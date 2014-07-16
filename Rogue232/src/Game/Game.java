@@ -1,14 +1,11 @@
 package Game;
 
-import java.awt.Container;
-import java.util.Set;
-
 public class Game {
 	
 	private boolean running = false;
 	
 	private static final GraphicEngine ge = new GraphicEngine();
-	private Wold wold;
+	private World world;
 	private String command;
 	private char[] Collidable = {'|',' ','-'};
 	private Character hero;
@@ -19,7 +16,7 @@ public class Game {
 		// afficher l'information relative au jeu
 		running = true;
 
-		wold = new Wold();
+		world = new World("maps/world.txt");
 		hero = new Character( new Coord(2, 2), '@');
 		
 		// game loop
@@ -66,7 +63,7 @@ public class Game {
 	
 	private boolean isCollidable(Coord coord){
 		boolean isCollidable = false;
-		char toCompare = wold.getChar(coord);
+		char toCompare = world.getChar(coord);
 		//char[][] dataWold = wold.getWold();
 		//char toCompare = dataWold[coord.getX()][coord.getY()];
 		for(int i=0; i < Collidable.length; ++i){
@@ -80,7 +77,7 @@ public class Game {
 	}
 	
 	private void updateDisplay(){
-		ge.updateDisplay(wold, hero);
+		ge.updateDisplay(world, hero);
 	}
 	
 	

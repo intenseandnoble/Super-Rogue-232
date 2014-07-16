@@ -1,47 +1,39 @@
 package Game;
 
 public class GraphicEngine{
-	private String woldString;
+	private String worldString;
 	
-	public void updateDisplay(Wold wold, Character hero){
-		toStringWold(wold, hero);
-		ClearDisplay();
-		System.out.println(woldString);
+	public void updateDisplay(World world, Character hero){
+		toStringWorld(world, hero);
+		clearConsole();
+		System.out.println(worldString);
 	}
 	
-	private void toStringWold(Wold wold, Character hero){
-		char[][] currentWold = wold.getWold();
-		Coord posHero = hero.getPosition();
-		
-		char posHeroChar = currentWold[posHero.getY()][posHero.getX()];
-		currentWold[posHero.getY()][posHero.getX()] = hero.getSymbol();
-		
-		woldString = "";
-		for(char[] str : currentWold){
-			woldString += new String(str) + System.getProperty("line.separator");
-		}
-		currentWold[posHero.getY()][posHero.getX()] = posHeroChar;
-	}
-	
-	private void ClearDisplay()
-	{
+	private void clearConsole(){
 		try
-	    {
-	        final String os = System.getProperty("os.name");
-
-	        if (os.contains("Windows"))
-	        {
-	            Runtime.getRuntime().exec("cls");
-	        }
-	        else
-	        {
-	            Runtime.getRuntime().exec("clear");
-	        }
-	    }
-	    catch (final Exception e)
-	    {
-	        //  Handle any exceptions.
-	    }
-
+		{
+			final String os = System.getProperty("os.name");
+			if (os.contains("Windows")){
+				Runtime.getRuntime().exec("cls");
+			} else {
+				Runtime.getRuntime().exec("clear");
+			}
+		}
+		catch (final Exception e){
+			;
+		}
+	}
+	
+	private void toStringWorld(World world, Character hero){
+		
+		char posHeroChar = world.getChar(hero.getPosition());
+		world.setChar(hero.getPosition(), hero.getSymbol());
+		
+		worldString = "";
+		for(char[] str : world){
+			worldString += new String(str) + System.getProperty("line.separator");
+		}
+		
+		world.setChar(hero.getPosition(), posHeroChar);
 	}
 }
