@@ -16,7 +16,7 @@ public class Game {
 		// afficher l'information relative au jeu
 		running = true;
 
-		world = new World("/Users/Jon/Documents/workspace/Rogue/maps/world.txt"/*"maps/world.txt"*/);
+		world = new World("maps/world.txt");
 		hero = new Character( new Coord(2, 2), '@');
 		
 		// game loop
