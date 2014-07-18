@@ -7,7 +7,7 @@ public class Game {
 	private static final GraphicEngine ge = new GraphicEngine();
 	private World world;
 	private String command;
-	private char[] Collidable = {'|',' ','-'};
+	private char[] Collidable = {'|',' ','-','+'};
 	private Character hero;
 	
 	public Game()
@@ -16,7 +16,7 @@ public class Game {
 		// afficher l'information relative au jeu
 		running = true;
 
-		world = new World("maps/world.txt");
+		world = new World("maps/smallWorld.txt");
 		hero = new Character( new Coord(2, 2), '@');
 		
 		// game loop
