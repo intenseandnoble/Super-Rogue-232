@@ -1,0 +1,9 @@
+@ = hero
+| = murs gauche/droite
+- = murs haut/bas
+. = plancher
+  = vide
++ = porte fermée
+/ = porte ouverte
+a-z = monstre
+# = tunnel
