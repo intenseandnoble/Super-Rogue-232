@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.Semaphore;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -15,6 +16,7 @@ public class View extends JFrame{
 	protected JPanel jPanel;
 	protected JTextField textField;
 	protected JTextArea textArea;
+	private Semaphore semaphore = new Semaphore(0);
 	
 	public View(int width, int height){
 		setVisible(true);
@@ -31,7 +33,20 @@ public class View extends JFrame{
 	}
 	
 	public String getCommand(){
-		return textField.getText();
+		textField.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent event){
+            	semaphore.release();
+            }
+        });
+		try {
+			semaphore.acquire();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		String command = textField.getText();
+		textField.setText("");
+		return command;
 	}
 	
 	

@@ -9,7 +9,7 @@ import java.util.Iterator;
 
 public class World implements Iterable<char[]> {
 	ArrayList<char[]> data = new ArrayList<char[]>();
-	
+
 	public World(String file)
 	{
 		try(BufferedReader br = new BufferedReader(new FileReader(file))) {
@@ -21,6 +21,10 @@ public class World implements Iterable<char[]> {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public ArrayList<char[]> getData() {
+		return data;
 	}
 	
 	public char getChar(Coord coord){

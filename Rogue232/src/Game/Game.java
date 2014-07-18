@@ -28,6 +28,20 @@ public class Game {
 		
 	}
 	
+	public Game(String file)
+	{
+		// afficher l'information relative au jeu
+		running = true;
+
+		world = new World(file);
+		hero = new Character( new Coord(2, 2), '@');
+		
+		view = new View(world.getWidth(), world.getHeight());
+		ge = new GraphicEngine(view);
+		im = new InputManager(view);
+		
+	}
+	
 	public void mainLoop () {
 		
 		// game loop
@@ -78,17 +92,19 @@ public class Game {
 		}
 	}
 	
-	private void move(Character character,Coord coord){
+	public void move(Character character,Coord coord){
+		//TODO: changer test pour mettre private
 		Coord newPosCharacter = character.getPosition().add(coord);
 		if(!isCollidable(newPosCharacter)){
 			character.setPosition(newPosCharacter);
 		}
 	}
 	
-	private void open(Character character, Coord coord){
+	public void open(Character character, Coord coord){
+		//TODO: changer test pour mettre private
 		//ouvre seulement les portes
 		Coord newPos = character.getPosition().add(coord);
-		if(!isCollidable(newPos)){
+		if(isOpenable(newPos)){
 			world.setChar(newPos, '/');
 		}
 	}
@@ -127,5 +143,20 @@ public class Game {
 		ge.updateDisplay(world, hero);
 	}
 	
+	public World getWorld(){
+		return world;
+	}
+	
+	public GraphicEngine getGe(){
+		return ge;
+	}
+	
+	public InputManager getIm() {
+		return im;
+	}
+	
+	public Character getHero() {
+		return hero;
+	}
 	
 }

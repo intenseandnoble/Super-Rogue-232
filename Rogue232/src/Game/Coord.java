@@ -45,4 +45,8 @@ public class Coord {
 	public String toString(){
 		return "(" + Integer.toString(x) + "," + Integer.toString(y) + ")";
 	}
+	
+	public Boolean equals(Coord coord){
+		return coord.getX() == x && coord.getY() == y;
+	}
 }
