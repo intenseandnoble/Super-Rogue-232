@@ -3,32 +3,44 @@ package Game;
 public class Game {
 	
 	private boolean running = false;
-	
-	private static final GraphicEngine ge = new GraphicEngine();
+	private View view;
+	private GraphicEngine ge;
+	private InputManager im;
 	private World world;
 	private String command;
 	private char[] Collidable = {'|',' ','-','+'};
+	private char[] openable = {'+'};
 	private Character hero;
 	
 	public Game()
 	{
-		InputManager im = new InputManager();
+		
+		
 		// afficher l'information relative au jeu
 		running = true;
 
-		world = new World("maps/smallWorld.txt");
+		world = new World("maps/bigWorld.txt");
 		hero = new Character( new Coord(2, 2), '@');
+		
+		view = new View(world.getWidth(), world.getHeight());
+		ge = new GraphicEngine(view);
+		im = new InputManager(view);
+		
+	}
+	
+	public void mainLoop () {
 		
 		// game loop
 		while (running){
 			
 			updateDisplay();
-			command= im.getImput();
-			ExecuteCommand();
+			command= im.getInput();
+			executeCommand();
 		}
+		
 	}
 	
-	private void ExecuteCommand()
+	private void executeCommand()
 	{
 		switch (command.toLowerCase()) {
 		case "up":
@@ -42,6 +54,18 @@ public class Game {
 			break;
 		case "right":
 			move(hero,new Coord(1, 0));
+			break;
+		case "open up":
+			open(hero,new Coord(1, 0));
+			break;
+		case "open right":
+			open(hero,new Coord(1, 0));
+			break;
+		case "open left":
+			open(hero,new Coord(1, 0));
+			break;
+		case "open down":
+			open(hero,new Coord(1, 0));
 			break;
 		case "exit":
 			System.exit(0);
@@ -61,6 +85,14 @@ public class Game {
 		}
 	}
 	
+	private void open(Character character, Coord coord){
+		//ouvre seulement les portes
+		Coord newPos = character.getPosition().add(coord);
+		if(!isCollidable(newPos)){
+			world.setChar(newPos, '/');
+		}
+	}
+	
 	private boolean isCollidable(Coord coord){
 		boolean isCollidable = false;
 		char toCompare = world.getChar(coord);
@@ -74,6 +106,21 @@ public class Game {
 		}
 		
 		return isCollidable;
+	}
+	
+	private boolean isOpenable(Coord coord){
+		boolean isOpenable = false;
+		char toCompare = world.getChar(coord);
+		//char[][] dataWold = wold.getWold();
+		//char toCompare = dataWold[coord.getX()][coord.getY()];
+		for(int i=0; i < openable.length; ++i){
+			if(toCompare == openable[i])
+				{
+					isOpenable = true;
+				}
+		}
+		
+		return isOpenable;
 	}
 	
 	private void updateDisplay(){

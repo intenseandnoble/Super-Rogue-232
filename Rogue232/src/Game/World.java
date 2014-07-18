@@ -42,5 +42,20 @@ public class World implements Iterable<char[]> {
 		return iWorld;
 	}
 	
+	public int getWidth() {
+		int WSize=0;
+		
+		for (char[] c: data) {
+			++WSize;
+		}
+		
+		return WSize;
+		
+	}
+	
+	public int getHeight() {
+		return data.size();
+	}
+	
 	
 }

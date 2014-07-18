@@ -2,15 +2,15 @@ package Game;
 
 public class GraphicEngine{
 	
-	public void updateDisplay(World world, Character hero){
-		String s = toStringWorld(world, hero);
-		clearConsole();
-		System.out.println(s);
+	private View view;
+	
+	public GraphicEngine(View view){
+		this.view = view;
 	}
 	
-	private void clearConsole(){
-		//note: c'est la seule facon portable de le faire en java
-		for (int i = 0; i < 50; ++i) System.out.println();
+	public void updateDisplay(World world, Character hero){
+		String s = toStringWorld(world, hero);
+		view.updateTextArea(s);
 	}
 	
 	private String toStringWorld(World world, Character hero){
