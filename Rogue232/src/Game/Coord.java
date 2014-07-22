@@ -29,7 +29,8 @@ public class Coord {
 	}
 	
 	public Coord add(Coord coord){
-		return new Coord(this.x + coord.x, this.y + coord.y);
+		Coord newCoord = new Coord(this.x + coord.x, this.y + coord.y);
+		return newCoord;
 	}
 	
 	public Coord subtract(Coord coord){
@@ -39,6 +40,24 @@ public class Coord {
 		this.x += coord.x;
 		this.y += coord.y;
 		return this;
+	}
+	
+	@Override
+	public boolean equals(Object o){
+		if(o == null) return false;
+	    if(!(o instanceof Coord)) return false;
+	    Coord other = (Coord) o;
+	    if(this.x != other.x)      return false;
+	    if(this.y != other.y)      return false;
+	    return true;
+	}
+	
+	@Override
+	public int hashCode(){
+		int hash = 7;
+		hash = 71 * hash + this.x;
+		hash = 71 * hash + this.y;
+		return hash;
 	}
 	
 	@Override

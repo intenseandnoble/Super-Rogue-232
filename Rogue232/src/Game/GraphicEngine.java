@@ -1,29 +1,43 @@
 package Game;
 
-public class GraphicEngine{
-	
+import java.util.HashMap;
+import java.util.Map.Entry;
+
+public class GraphicEngine {
+
 	private View view;
-	
-	public GraphicEngine(View view){
+
+	public GraphicEngine(View view) {
 		this.view = view;
 	}
-	
-	public void updateDisplay(World world, Character hero){
-		String s = toStringWorld(world, hero);
+
+	public void updateDisplay(World world, HashMap<Coord,Character> monsters) {
+		String s = toStringWorld(world, monsters);
 		view.updateTextArea(s);
 	}
-	
-	private String toStringWorld(World world, Character hero){
+
+	private String toStringWorld(World world, HashMap<Coord,Character> monsters){
 		
-		char posHeroChar = world.getChar(hero.getPosition());
-		world.setChar(hero.getPosition(), hero.getSymbol());
+		String posMonsterChar = new String();
+		
+		for (Entry<Coord, Character> entry: monsters.entrySet()){
+			posMonsterChar += world.getChar(entry.getKey());	
+		}
+		
+		for (Entry<Coord, Character> entry: monsters.entrySet()){
+			world.setChar(entry.getKey(), entry.getValue().getSymbol());
+		}
 		
 		String worldString = "";
 		for(char[] str : world){
 			worldString += new String(str) + System.getProperty("line.separator");
 		}
 		
-		world.setChar(hero.getPosition(), posHeroChar);
+		for (Entry<Coord, Character> entry: monsters.entrySet()){
+			for(int i=0; i < posMonsterChar.length(); i++)
+				world.setChar(entry.getKey(), posMonsterChar.charAt(i));	
+		}
+		
 		return worldString;
 	}
 }
