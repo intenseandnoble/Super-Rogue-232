@@ -20,7 +20,7 @@ public class Game {
 		running = true;
 
 		world = new World("maps/bigWorld.txt");
-		hero = new Character( new Coord(2, 2), '@');
+		hero = new Character( new Coord(2, 2), '@', 5);
 		
 		view = new View(world.getWidth(), world.getHeight());
 		ge = new GraphicEngine(view);
@@ -34,7 +34,7 @@ public class Game {
 		running = true;
 
 		world = new World(file);
-		hero = new Character( new Coord(2, 2), '@');
+		hero = new Character( new Coord(2, 2), '@', 5);
 		
 		view = new View(world.getWidth(), world.getHeight());
 		ge = new GraphicEngine(view);
@@ -70,15 +70,15 @@ public class Game {
 			move(hero,new Coord(1, 0));
 			break;
 		case "open up":
-			open(hero,new Coord(1, 0));
-			break;
-		case "open right":
-			open(hero,new Coord(1, 0));
-			break;
-		case "open left":
-			open(hero,new Coord(1, 0));
+			open(hero,new Coord(0, -1));
 			break;
 		case "open down":
+			open(hero,new Coord(0, 1));
+			break;
+		case "open left":
+			open(hero,new Coord(-1, 0));
+			break;
+		case "open right":
 			open(hero,new Coord(1, 0));
 			break;
 		case "exit":
@@ -100,6 +100,7 @@ public class Game {
 		}
 	}
 	
+	
 	public void open(Character character, Coord coord){
 		//TODO: changer test pour mettre private
 		//ouvre seulement les portes
@@ -114,8 +115,8 @@ public class Game {
 		char toCompare = world.getChar(coord);
 		//char[][] dataWold = wold.getWold();
 		//char toCompare = dataWold[coord.getX()][coord.getY()];
-		for(int i=0; i < Collidable.length; ++i){
-			if(toCompare == Collidable[i])
+		for(char c : Collidable){
+			if(toCompare == c)
 				{
 					isCollidable = true;
 				}
@@ -129,8 +130,8 @@ public class Game {
 		char toCompare = world.getChar(coord);
 		//char[][] dataWold = wold.getWold();
 		//char toCompare = dataWold[coord.getX()][coord.getY()];
-		for(int i=0; i < openable.length; ++i){
-			if(toCompare == openable[i])
+		for(char c : openable){
+			if(toCompare == c)
 				{
 					isOpenable = true;
 				}
