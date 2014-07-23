@@ -44,16 +44,18 @@ public class TestGame extends TestCase {
 	public void testHp() {
 		Game myGame = new Game("maps/smallWorld.txt");
 		myGame.move(myGame.getHero().getPosition(), new Coord(0, -1));
+		assertEquals(100, myGame.getHero().getHp());
+		myGame.move(myGame.getHero().getPosition(), new Coord(0, -1));
 		assertEquals(95, myGame.getHero().getHp());
 	}
 
 	public void testFight() {
-		//vérifier lorsque le personnage meurt si on sort du jeu = arrêt jeu
+		//vï¿½rifier lorsque le personnage meurt si on sort du jeu = arrï¿½t jeu
 		Game myGame = new Game("maps/smallWorld.txt");
-		Character hero = new Character(new Coord(3,3), '@', 100, 20, 0);
-		Character monster1 = new Character(new Coord(2,3), 'a', 40, 40, 0);
-		Character monster2 = new Character(new Coord(3,2), 'a', 40, 40, 0);
-		Character monster3 = new Character(new Coord(3,4), 'a', 40, 20, 0);
+		Personnage hero = new Personnage(new Coord(3,3), '@', 100, 20, 0);
+		Personnage monster1 = new Personnage(new Coord(2,3), 'a', 40, 40, 0);
+		Personnage monster2 = new Personnage(new Coord(3,2), 'a', 40, 40, 0);
+		Personnage monster3 = new Personnage(new Coord(3,4), 'a', 40, 20, 0);
 		myGame.fight(hero, monster1);
 		assertTrue(!(hero.isDead())); //isalive
 		myGame.fight(hero, monster2);

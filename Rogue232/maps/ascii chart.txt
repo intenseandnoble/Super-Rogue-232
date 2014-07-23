@@ -5,5 +5,7 @@
   = vide
 + = porte fermée
 / = porte ouverte
+] = coffre fermée
+[ = coffre ouvert
 a-z = monstre
 # = tunnel

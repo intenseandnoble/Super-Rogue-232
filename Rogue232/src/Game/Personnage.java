@@ -1,10 +1,8 @@
 package Game;
 
-import java.util.ArrayList;
-
 // Cette classe fait les Heros et les monstres
 
-public class Character {
+public class Personnage {
 	/* Map variables */
 	private Coord position;
 	private char Symbol;
@@ -17,24 +15,31 @@ public class Character {
 	/*Item*/
 	private Equipement equipement;
 	
-	public Character() {
-		position = new Coord(0,0);
+	public Personnage(Coord coord) {
+		position = coord;
 		Symbol = '@';
+		hp = 100;
+		attack = 5;
+		defense = 0;
+		equipement = new Equipement();
 	}
-	public Character(Coord pos, char symbol, int lifepts, int atk, int def){
+	
+	public Personnage(Coord pos, char symbol, int lifepts, int atk, int def){
 		position = pos;
 		Symbol = symbol;
 		hp = lifepts;
 		attack = atk;
 		defense = def;
+		equipement = new Equipement(1);
 	}
 	
 	public boolean isDead(){
 		return hp<=0;
 	}
 	
-	public void attackChar (Character monster){
-		monster.takeDamage(attack);
+	public void attackChar (Personnage monster){
+		int damage = attack+equipement.getArme().getAttaque();
+		monster.takeDamage(damage);
 	}
 	
 	public char getSymbol(){
@@ -55,7 +60,11 @@ public class Character {
 	
 	public void takeDamage(int enemyAtk){
 		//TODO:Gerer hp bouclier, il faut pouvoir acceder au bag
-		hp -= (enemyAtk-defense);
+		int carryOver = equipement.getShield().takeDamage(enemyAtk);
+		int def = equipement.getArmure().getDefense();
+		if (carryOver > 0){
+			hp -= (carryOver-def);
+		}
 	}
 	
 	public int getAtk() {

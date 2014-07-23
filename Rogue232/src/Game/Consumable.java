@@ -2,8 +2,11 @@ package Game;
 
 public class Consumable extends Item{
 
-	public Consumable() {
-		int nbUtil;
+	int nbUtil;
+	
+	public Consumable(String nom, int nbUtil) {
+		super(nom);
+		this.nbUtil = nbUtil;
 	}
 
 }

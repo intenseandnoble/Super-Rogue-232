@@ -11,20 +11,20 @@ public class GraphicEngine {
 		this.view = view;
 	}
 
-	public void updateDisplay(World world, HashMap<Coord,Character> monsters) {
+	public void updateDisplay(World world, HashMap<Coord,Personnage> monsters) {
 		String s = toStringWorld(world, monsters);
 		view.updateTextArea(s);
 	}
 
-	private String toStringWorld(World world, HashMap<Coord,Character> monsters){
+	private String toStringWorld(World world, HashMap<Coord,Personnage> monsters){
 		
 		String posMonsterChar = new String();
 		
-		for (Entry<Coord, Character> entry: monsters.entrySet()){
+		for (Entry<Coord, Personnage> entry: monsters.entrySet()){
 			posMonsterChar += world.getChar(entry.getKey());	
 		}
 		
-		for (Entry<Coord, Character> entry: monsters.entrySet()){
+		for (Entry<Coord, Personnage> entry: monsters.entrySet()){
 			world.setChar(entry.getKey(), entry.getValue().getSymbol());
 		}
 		
@@ -33,7 +33,7 @@ public class GraphicEngine {
 			worldString += new String(str) + System.getProperty("line.separator");
 		}
 		
-		for (Entry<Coord, Character> entry: monsters.entrySet()){
+		for (Entry<Coord, Personnage> entry: monsters.entrySet()){
 			for(int i=0; i < posMonsterChar.length(); i++)
 				world.setChar(entry.getKey(), posMonsterChar.charAt(i));	
 		}

@@ -1,5 +1,6 @@
 package Game;
 
+import java.awt.Container;
 import java.util.HashMap;
 
 public class Game {
@@ -10,29 +11,31 @@ public class Game {
 	private InputManager im;
 	private World world;
 	private String command;
-	private char[] Collidable = { '|', ' ', '-', '+' };
-	private char[] openable = { '+' };
+	private char[] Collidable = { '|', ' ', '-', '+', '[', ']' };
+	private char[] openable = { '+', ']' };
+	private HashMap<Character,Character> openTo;
 
-	private Character hero;
-	private HashMap<Coord, Character> monsters;
+	private Personnage hero;
+	private HashMap<Coord, Personnage> monsters;
 
 	public Game() {
 
 		// afficher l'information relative au jeu
 		running = true;
-
-		world = new World("maps/bigWorld.txt");
-		hero = CharacterFactory.createHero(new Coord(2, 2));
 		
-		monsters = new HashMap<Coord, Character> ();
+		world = new World("maps/bigWorld.txt");
+		hero = PersonnageFactory.createHero(new Coord(2, 2));
+		monsters = new HashMap<Coord, Personnage> ();
 		monsters.put(hero.getPosition(), hero);
 		Coord monsterCoord = new Coord(2,1);
 		monsters.put(monsterCoord,
-				CharacterFactory.createMonster(monsterCoord));
-
+				PersonnageFactory.createMonster(monsterCoord));
 		view = new View(world.getWidth(), world.getHeight());
 		ge = new GraphicEngine(view);
 		im = new InputManager(view);
+		openTo = new HashMap<Character, Character>();
+		openTo.put(new Character(']'),new Character('['));
+		openTo.put(new Character('+'),new Character('/'));
 
 	}
 
@@ -41,11 +44,11 @@ public class Game {
 		running = true;
 
 		world = new World(file);
-		hero = CharacterFactory.createHero(new Coord(2, 2));
-		monsters = new HashMap<Coord, Character> ();
+		hero = PersonnageFactory.createHero(new Coord(2, 2));
+		monsters = new HashMap<Coord, Personnage> ();
 		monsters.put(hero.getPosition(), hero);
 		monsters.put(new Coord(2, 1),
-				CharacterFactory.createMonster(new Coord(2, 1)));
+				PersonnageFactory.createMonster(new Coord(2, 1)));
 		
 		view = new View(world.getWidth(), world.getHeight());
 		ge = new GraphicEngine(view);
@@ -102,22 +105,22 @@ public class Game {
 		}
 	}
 
-	public void move(Coord posCharacter, Coord coord) {
+	public void move(Coord posPersonnage, Coord coord) {
 		// TODO: changer test pour mettre private
-		Coord newPosCharacter = posCharacter.add(coord);
-		if (isMonster(newPosCharacter)) {
-			fight(monsters.get(posCharacter), monsters.get(newPosCharacter));
+		Coord newPosPersonnage = posPersonnage.add(coord);
+		if (isMonster(newPosPersonnage)) {
+			fight(monsters.get(posPersonnage), monsters.get(newPosPersonnage));
 
-		} else if (!isCollidable(newPosCharacter)) {
-			monsters.get(posCharacter).setPosition(newPosCharacter);
-			Character tmpCharacter = monsters.get(posCharacter);
-			monsters.remove(posCharacter);
-			monsters.put(newPosCharacter, tmpCharacter);
+		} else if (!isCollidable(newPosPersonnage)) {
+			monsters.get(posPersonnage).setPosition(newPosPersonnage);
+			Personnage tmpPersonnage = monsters.get(posPersonnage);
+			monsters.remove(posPersonnage);
+			monsters.put(newPosPersonnage, tmpPersonnage);
 		}
 
 	}
 
-	public void fight(Character hero, Character monster) {
+	public void fight(Personnage hero, Personnage monster) {
 		// 0 : personne mort, juste d�g�ts;
 		// -1: hero mort, game over;
 		// 1 : monster mort;
@@ -143,7 +146,7 @@ public class Game {
 		// fonctionne seulement pour les portes
 		Coord newPos = posCharacter.add(coord);
 		if (isOpenable(newPos)) {
-			world.setChar(newPos, '/');
+			world.setChar(newPos, openTo.get(world.getChar(posCharacter)).charValue());
 		}
 	}
 
@@ -190,7 +193,7 @@ public class Game {
 		return im;
 	}
 
-	public Character getHero() {
+	public Personnage getHero() {
 		return hero;
 	}
 
