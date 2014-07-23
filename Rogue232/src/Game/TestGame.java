@@ -14,7 +14,7 @@ public class TestGame extends TestCase {
 		char[] array = { '|', '-', '-', '-', '|' };
 		char[] array2 = { '|', '.', '.', '.', '|' };
 		char[] array3 = { '|', '.', '.', '+', '|' };
-		char[] array4 = { '|', '.', '.', '.', '|' };
+		char[] array4 = { '|', '.', ']', '.', '|' };
 		char[] array5 = { '|', '-', '-', '-', '|' };
 		char[][] a = { array, array2, array3, array4, array5 };
 		for (char[] c : a) {
