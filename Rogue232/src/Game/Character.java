@@ -15,7 +15,7 @@ public class Character {
 	private int defense;
 	
 	/*Item*/
-	private ArrayList<Item> bag;
+	private Equipement equipement;
 	
 	public Character() {
 		position = new Coord(0,0);
