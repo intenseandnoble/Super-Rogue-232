@@ -18,12 +18,10 @@ public class Game {
 	private Personnage hero;
 	private HashMap<Coord, Personnage> monsters;
 
-	public Game() {
-
+	public Game(String file) {
 		// afficher l'information relative au jeu
 		running = true;
-		
-		world = new World("maps/bigWorld.txt");
+		world = new World(file);
 		hero = PersonnageFactory.createHero(new Coord(2, 2));
 		monsters = new HashMap<Coord, Personnage> ();
 		monsters.put(hero.getPosition(), hero);
@@ -36,24 +34,6 @@ public class Game {
 		openTo = new HashMap<Character, Character>();
 		openTo.put(new Character(']'),new Character('['));
 		openTo.put(new Character('+'),new Character('/'));
-
-	}
-
-	public Game(String file) {
-		// afficher l'information relative au jeu
-		running = true;
-
-		world = new World(file);
-		hero = PersonnageFactory.createHero(new Coord(2, 2));
-		monsters = new HashMap<Coord, Personnage> ();
-		monsters.put(hero.getPosition(), hero);
-		monsters.put(new Coord(2, 1),
-				PersonnageFactory.createMonster(new Coord(2, 1)));
-		
-		view = new View(world.getWidth(), world.getHeight());
-		ge = new GraphicEngine(view);
-		im = new InputManager(view);
-
 	}
 
 	public void mainLoop() {
@@ -146,7 +126,8 @@ public class Game {
 		// fonctionne seulement pour les portes
 		Coord newPos = posCharacter.add(coord);
 		if (isOpenable(newPos)) {
-			world.setChar(newPos, openTo.get(world.getChar(posCharacter)).charValue());
+			System.out.println(world.getChar(posCharacter));
+			world.setChar(newPos, openTo.get(world.getChar(newPos)).charValue());
 		}
 	}
 
