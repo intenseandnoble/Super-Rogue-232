@@ -124,9 +124,9 @@ public class Game {
 		hero.attackChar(monster);
 		monster.attackChar(hero);
 		if (hero.isDead())
-			gameOver(); // � impl�menter
+			gameOver();
 		else if (monster.isDead())
-			removeMonster(monster.getPosition()); // � impl�menter
+			removeMonster(monster.getPosition());
 	}
 
 	private void removeMonster(Coord coord) {
@@ -135,8 +135,8 @@ public class Game {
 	}
 
 	private void gameOver() {
-		// TODO Auto-generated method stub
-
+		running = false;
+		System.out.println("Game over");
 	}
 
 	public void open(Coord posCharacter, Coord coord) {

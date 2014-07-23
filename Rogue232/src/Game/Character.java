@@ -1,5 +1,9 @@
 package Game;
 
+import java.util.ArrayList;
+
+// Cette classe fait les Heros et les monstres
+
 public class Character {
 	/* Map variables */
 	private Coord position;
@@ -9,6 +13,9 @@ public class Character {
 	private int hp;
 	private int attack;
 	private int defense;
+	
+	/*Item*/
+	private ArrayList<Item> bag;
 	
 	public Character() {
 		position = new Coord(0,0);
@@ -47,6 +54,7 @@ public class Character {
 	}
 	
 	public void takeDamage(int enemyAtk){
+		//TODO:Gerer hp bouclier, il faut pouvoir acceder au bag
 		hp -= (enemyAtk-defense);
 	}
 	
