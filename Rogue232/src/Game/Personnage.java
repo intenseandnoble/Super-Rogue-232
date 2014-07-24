@@ -1,5 +1,6 @@
 package Game;
 
+
 // Cette classe fait les Heros et les monstres
 
 public class Personnage {
@@ -22,6 +23,8 @@ public class Personnage {
 		attack = 5;
 		defense = 0;
 		equipement = new Equipement();
+		
+//		observers = new ArrayList<ConcreteObserver>();
 	}
 	
 	public Personnage(Coord pos, char symbol, int lifepts, int atk, int def){
@@ -31,6 +34,8 @@ public class Personnage {
 		attack = atk;
 		defense = def;
 		equipement = new Equipement(1);
+		
+//		observers = new ArrayList<ConcreteObserver>();
 	}
 	
 	public boolean isDead(){
@@ -38,6 +43,7 @@ public class Personnage {
 	}
 	
 	public void attackChar (Personnage monster){
+		Notify.notifyChange("Monster attacks Hero");
 		int damage = attack+equipement.getArme().getAttaque();
 		monster.takeDamage(damage);
 	}
@@ -80,6 +86,14 @@ public class Personnage {
 		return a;
 	}
 	
+	public Shield getShield(){
+		return equipement.getShield();
+	}
+	
+	public Armure getArmure(){
+		return equipement.getArmure();
+	}
+	
 	public int afficheDef() {
 		int d;
 		//defense différente si le bouclier n'a plus de points de vie
@@ -91,7 +105,5 @@ public class Personnage {
 		}
 		return d;
 	}
-	
-
 	
 }

@@ -11,6 +11,8 @@ public class Game {
 	private InputManager im;
 	private World world;
 	private String command;
+	private Chest coffre = new Chest(Shield("Dacamole épique de l'Enfer", 40, 10));
+	
 	private char[] Collidable = { '|', ' ', '-', '+', '[', ']' };
 	private char[] openable = { '+', ']' };
 	private HashMap<Character,Character> openTo;
@@ -36,6 +38,11 @@ public class Game {
 		openTo.put(new Character('+'),new Character('/'));
 	}
 
+	private Item Shield(String string, int i, int j) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	public void mainLoop() {
 
 		// game loop
@@ -45,7 +52,7 @@ public class Game {
 			command = im.getInput();
 			executeCommand();
 		}
-
+		System.exit(0);//ferme fenêtre
 	}
 
 	private void executeCommand() {
@@ -106,10 +113,14 @@ public class Game {
 		// 1 : monster mort;
 		hero.attackChar(monster);
 		monster.attackChar(hero);
-		if (hero.isDead())
+		if (hero.isDead()){
+			Notify.notifyChange("Hero dead");
 			gameOver();
-		else if (monster.isDead())
+		}
+		else if (monster.isDead()){
+			Notify.notifyChange("Monster dead");
 			removeMonster(monster.getPosition());
+		}
 	}
 
 	private void removeMonster(Coord coord) {
@@ -128,6 +139,7 @@ public class Game {
 		if (isOpenable(newPos)) {
 			System.out.println(world.getChar(posCharacter));
 			world.setChar(newPos, openTo.get(world.getChar(newPos)).charValue());
+			Notify.notifyChange("It's opened");
 		}
 	}
 
@@ -178,4 +190,7 @@ public class Game {
 		return hero;
 	}
 
+	public View getView() {
+		return view;
+	}
 }

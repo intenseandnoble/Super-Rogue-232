@@ -9,6 +9,7 @@ import java.util.Iterator;
 
 public class World implements Iterable<char[]> {
 	ArrayList<char[]> data = new ArrayList<char[]>();
+	private char oldChar;
 
 	public World(String file)
 	{
@@ -32,6 +33,7 @@ public class World implements Iterable<char[]> {
 	}
 	
 	public void setChar(Coord coord, char c){
+		oldChar = data.get(coord.getY())[coord.getX()];
 		data.get(coord.getY())[coord.getX()] = c;
 	}
 	

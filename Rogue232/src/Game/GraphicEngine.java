@@ -6,7 +6,9 @@ import java.util.Map.Entry;
 public class GraphicEngine {
 
 	private View view;
-
+	private ConcreteObserver co;
+	
+	
 	public GraphicEngine(View view) {
 		this.view = view;
 	}
@@ -16,9 +18,11 @@ public class GraphicEngine {
 		int vie = hero.getHp();
 		int defense = hero.afficheDef();
 		int attaque = hero.afficheAtk();
+		int vieB = hero.getShield().hp;
+		int defB = hero.getShield().defense;
 		
 		view.updateTextArea(s);
-		view.updateTextDescription(vie, defense, attaque);
+		view.updateTextDescription(vie, defense, attaque, vieB, defB);
 	}
 
 	// Il y a les monstres et le hero dans le HashMap<Coord,Personnage> monsters
