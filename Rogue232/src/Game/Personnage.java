@@ -1,5 +1,9 @@
 package Game;
 
+import Game.Items.Armure;
+import Game.Items.Shield;
+import Game.Observer.ConcreteObserver;
+
 
 // Cette classe fait les Heros et les monstres
 
@@ -12,6 +16,8 @@ public class Personnage {
 	private int hp;
 	private int attack;
 	private int defense;
+	
+	static ConcreteObserver observer = new ConcreteObserver();
 	
 	/*Item*/
 	private Equipement equipement;
@@ -43,7 +49,7 @@ public class Personnage {
 	}
 	
 	public void attackChar (Personnage monster){
-		Notify.notifyChange("Monster attacks Hero");
+		notifyChange("Monster attacks Hero");
 		int damage = attack+equipement.getArme().getAttaque();
 		monster.takeDamage(damage);
 	}
@@ -104,6 +110,11 @@ public class Personnage {
 			d = defense + equipement.getArmure().getDefense() + equipement.getShield().getDefense();
 		}
 		return d;
+	}
+	
+	public static void notifyChange(String action) 
+	{
+		observer.update(action);
 	}
 	
 }

@@ -1,4 +1,4 @@
-package Game;
+package Game.Observer;
 
 public interface Observer {
 	

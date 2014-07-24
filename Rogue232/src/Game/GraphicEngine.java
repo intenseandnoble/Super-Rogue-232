@@ -3,6 +3,8 @@ package Game;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+import Game.Observer.ConcreteObserver;
+
 public class GraphicEngine {
 
 	private View view;
@@ -18,8 +20,8 @@ public class GraphicEngine {
 		int vie = hero.getHp();
 		int defense = hero.afficheDef();
 		int attaque = hero.afficheAtk();
-		int vieB = hero.getShield().hp;
-		int defB = hero.getShield().defense;
+		int vieB = hero.getShield().getHp();
+		int defB = hero.getShield().getDefense();
 		
 		view.updateTextArea(s);
 		view.updateTextDescription(vie, defense, attaque, vieB, defB);

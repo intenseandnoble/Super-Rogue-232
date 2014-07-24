@@ -1,4 +1,4 @@
-package Game;
+package Game.Items;
 
 public class Shield extends Item{
 	int hp;

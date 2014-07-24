@@ -3,6 +3,9 @@ package Game;
 import java.awt.Container;
 import java.util.HashMap;
 
+import Game.Items.Chest;
+import Game.Items.Item;
+
 public class Game {
 
 	private boolean running = false;
@@ -114,11 +117,11 @@ public class Game {
 		hero.attackChar(monster);
 		monster.attackChar(hero);
 		if (hero.isDead()){
-			Notify.notifyChange("Hero dead");
+			Personnage.notifyChange("Hero dead");
 			gameOver();
 		}
 		else if (monster.isDead()){
-			Notify.notifyChange("Monster dead");
+			Personnage.notifyChange("Monster dead");
 			removeMonster(monster.getPosition());
 		}
 	}
@@ -139,7 +142,7 @@ public class Game {
 		if (isOpenable(newPos)) {
 			System.out.println(world.getChar(posCharacter));
 			world.setChar(newPos, openTo.get(world.getChar(newPos)).charValue());
-			Notify.notifyChange("It's opened");
+			Personnage.notifyChange("It's opened");
 		}
 	}
 

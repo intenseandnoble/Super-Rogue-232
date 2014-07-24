@@ -1,5 +1,10 @@
 package Game;
 
+import Game.Items.Arme;
+import Game.Items.Armure;
+import Game.Items.ItemFactory;
+import Game.Items.Shield;
+
 public class Equipement {
 	Arme arme;
 	Armure armure;

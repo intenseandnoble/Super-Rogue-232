@@ -1,4 +1,6 @@
-package Game;
+package Game.Observer;
+
+import Game.View;
 
 public class ConcreteObserver implements Observer{
 	

@@ -3,6 +3,8 @@ package Game;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import Game.Items.Item;
+
 public class Inventaire implements Iterable<Item> {
 	private ArrayList<Item> bag;
 
