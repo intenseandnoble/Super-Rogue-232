@@ -28,7 +28,7 @@ public class World implements Iterable<char[]> {
 		//TODO: instantiation de la map avec des objects
 		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 			for (String line; (line = br.readLine()) != null && line != "%";) {
-				ArrayList<Symbol> temp = new ArrayList<Symbol>();
+				ArrayList<Symbol> symbols = new ArrayList<Symbol>();
 				for (char c : line.toCharArray()){
 					switch (c) {
 					case '-': temp.add(new Wall('-')); break;
@@ -37,7 +37,7 @@ public class World implements Iterable<char[]> {
 					case '/': temp.add(new Door(true)); break;
 					case ',': temp.add(new Floor()); break;
 					}
-				oWorld.add(temp);
+				oWorld.add(symbols);
 				}
 			}
 			for (String line; (line = br.readLine()) != null;){

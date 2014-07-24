@@ -2,12 +2,11 @@ package Game.Observer;
 
 import Game.View;
 
-public class ConcreteObserver implements Observer{
+public class AppendTextObserver implements Observer{
 	
 	
 	
-	public ConcreteObserver() {
-
+	public AppendTextObserver() {
 	}
 
 	@Override

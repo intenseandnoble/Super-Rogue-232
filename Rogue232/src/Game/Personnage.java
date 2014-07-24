@@ -2,7 +2,7 @@ package Game;
 
 import Game.Items.Armure;
 import Game.Items.Shield;
-import Game.Observer.ConcreteObserver;
+import Game.Observer.AppendTextObserver;
 
 // Cette classe fait les Heros et les monstres
 
@@ -17,7 +17,7 @@ public class Personnage {
 	private int defense;
 	private int gold;
 
-	static ConcreteObserver observer = new ConcreteObserver();
+	static AppendTextObserver observer = new AppendTextObserver();
 
 	/* Item */
 	private Equipement equipement;
