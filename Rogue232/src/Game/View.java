@@ -8,12 +8,18 @@ import java.util.concurrent.Semaphore;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
 
 public class View extends JFrame {
 
-	protected JPanel jPanel, jPanelHaut, jPanelBas;
+	protected JPanel jPanel, jPanelHaut, jPanelBas, jPanelMilieu;
+
+	JScrollPane jScroll;
 	
 	protected JTextField textField;
 	protected JTextArea textArea, textDescription;
@@ -22,25 +28,34 @@ public class View extends JFrame {
 
 	public View(int width, int height) {
 		setVisible(true);
+		textArea = new JTextArea(height, width);
+		textArea.setFont(new Font("monospaced", Font.PLAIN, 12));
+		textArea.setEditable(false);
 		jPanel = new JPanel(new BorderLayout());
+		jPanelMilieu = new JPanel(new BorderLayout());
 		jPanelBas = new JPanel(new BorderLayout());
 		jPanelHaut = new JPanel(new BorderLayout());
 		textField = new JTextField(width);
 		textDescription = new JTextArea(2, width);
-		textAction = new JTextArea(2, width);
-		textArea = new JTextArea(height, width);
-		textArea.setFont(new Font("monospaced", Font.PLAIN, 12));
+		textAction = new JTextArea(10, width);
+		textAction.setEditable(false);
+
+		
 		// Le premier chiffre du textArea défini la hauteur et peut être
 		// augmenté au besoin.
+		
+		jPanelBas.setBorder(new TitledBorder ( new EtchedBorder (), "Actions" ));
 		jPanelBas.add(textAction, BorderLayout.NORTH);
 		jPanelBas.add(textField, BorderLayout.SOUTH);
-		
+	
+
 		jPanelHaut.add(textDescription, BorderLayout.NORTH);
 		jPanelHaut.add(textArea, BorderLayout.SOUTH);
+		jPanelHaut.setBorder(new TitledBorder ( new EtchedBorder (), "Main" ));
 
-		jPanel.add(jPanelBas, BorderLayout.SOUTH);
+		jPanel.add(jPanelBas, BorderLayout.CENTER);
 		jPanel.add(jPanelHaut, BorderLayout.NORTH);
-
+		
 
 
 		// Lorsque ASWD sera implémenté, on pourra utiliser le SOUTH pour
@@ -88,5 +103,6 @@ public class View extends JFrame {
 	
 	public static void updateTextAction(String s) {
 		textAction.setText(s);
+		
 	}
 }
