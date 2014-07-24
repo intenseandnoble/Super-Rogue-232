@@ -159,7 +159,7 @@ public class Game {
 	}
 
 	private void updateDisplay() {
-		ge.updateDisplay(world, monsters);
+		ge.updateDisplay(world, monsters, hero);
 	}
 
 	public World getWorld() {

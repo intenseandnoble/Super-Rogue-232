@@ -8,6 +8,7 @@ public class ItemFactory {
 	}
 	
 	static public Shield createShieldNoob(){
+		//Nom de l'item, durabilité de l'arme, niveau de défense;
 		return new Shield("NoobyShield", 10, 5);
 	}
 	

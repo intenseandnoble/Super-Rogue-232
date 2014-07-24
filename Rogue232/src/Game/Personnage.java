@@ -74,4 +74,24 @@ public class Personnage {
 	public int getDef() {
 		return defense;
 	}
+	
+	public int afficheAtk() {
+		int a = attack + equipement.getArme().getAttaque();
+		return a;
+	}
+	
+	public int afficheDef() {
+		int d;
+		//defense différente si le bouclier n'a plus de points de vie
+		if(equipement.getShield().getHp()==0){
+			d = defense + equipement.getArmure().getDefense();
+		}
+		else{
+			d = defense + equipement.getArmure().getDefense() + equipement.getShield().getDefense();
+		}
+		return d;
+	}
+	
+
+	
 }
