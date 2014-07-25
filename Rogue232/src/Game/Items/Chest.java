@@ -2,6 +2,7 @@ package Game.Items;
 
 public class Chest extends Item {
 	private Item bonus;
+	private char symbole = '[';
 
 	public Chest(Item b) {
 		super("Chest");
@@ -11,6 +12,10 @@ public class Chest extends Item {
 	
 	public Item getBonus(){
 		return bonus;
+	}
+	
+	public char getSymbole(){
+		return symbole;
 	}
 
 }

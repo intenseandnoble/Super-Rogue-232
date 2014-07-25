@@ -16,7 +16,7 @@ public class Game {
 	private String command;
 	private Chest coffre = new Chest(Shield("Dacamole épique de l'Enfer", 40, 10));
 	
-	private char[] Collidable = { '|', ' ', '-', '+', '[', ']' };
+	private char[] Collidable = { '|', ' ', '-', '+', coffre.getSymbole() , ']' };
 	private char[] openable = { '+', ']' };
 	private HashMap<Character,Character> openTo;
 
@@ -37,7 +37,7 @@ public class Game {
 		ge = new GraphicEngine(view);
 		im = new InputManager(view);
 		openTo = new HashMap<Character, Character>();
-		openTo.put(new Character(']'),new Character('['));
+		openTo.put(new Character(']'),new Character(coffre.getSymbole()));
 		openTo.put(new Character('+'),new Character('/'));
 	}
 

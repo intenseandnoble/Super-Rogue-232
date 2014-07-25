@@ -37,7 +37,7 @@ public class View extends JFrame {
 		jPanelHaut = new JPanel(new BorderLayout());
 		textField = new JTextField(width);
 		textDescription = new JTextArea(2, width);
-		textAction = new JTextArea(10, width);
+		textAction = new JTextArea(2, width);
 		textAction.setEditable(false);
 
 		
@@ -103,6 +103,5 @@ public class View extends JFrame {
 	
 	public static void updateTextAction(String s) {
 		textAction.setText(s);
-		
 	}
 }
