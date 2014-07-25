@@ -12,7 +12,7 @@ public class ConcreteObserver implements Observer{
 
 	@Override
 	public void update(String action) {
-		View.updateTextAction(action);
+		View.appendTextAction(action);
 	}
 
 }

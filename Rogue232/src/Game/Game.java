@@ -3,8 +3,8 @@ package Game;
 import java.awt.Container;
 import java.util.HashMap;
 
-import Game.Items.Chest;
-import Game.Items.Item;
+import Game.Items.*;
+
 
 public class Game {
 
@@ -14,7 +14,7 @@ public class Game {
 	private InputManager im;
 	private World world;
 	private String command;
-	private Chest coffre = new Chest(Shield("Dacamole épique de l'Enfer", 40, 10));
+	private Chest coffre = new Chest( new Shield("Dacamole épique de l'Enfer", 40, 10));
 	
 	private char[] Collidable = { '|', ' ', '-', '+', coffre.getSymbole() , ']' };
 	private char[] openable = { '+', ']' };
@@ -39,11 +39,6 @@ public class Game {
 		openTo = new HashMap<Character, Character>();
 		openTo.put(new Character(']'),new Character(coffre.getSymbole()));
 		openTo.put(new Character('+'),new Character('/'));
-	}
-
-	private Item Shield(String string, int i, int j) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	public void mainLoop() {
@@ -114,6 +109,7 @@ public class Game {
 		// 0 : personne mort, juste d�g�ts;
 		// -1: hero mort, game over;
 		// 1 : monster mort;
+		Personnage.notifyChange("The hero and " + monster.getSymbol() + " fight!");
 		hero.attackChar(monster);
 		monster.attackChar(hero);
 		if (hero.isDead()){
@@ -143,6 +139,14 @@ public class Game {
 			System.out.println(world.getChar(posCharacter));
 			world.setChar(newPos, openTo.get(world.getChar(newPos)).charValue());
 			Personnage.notifyChange("It's opened");
+			
+			if (world.getChar(newPos) == '[') {
+				Item anItem = coffre.getBonus();
+				String nameItem = anItem.getNom();
+				Personnage.notifyChange("You found " + nameItem);
+//				hero.receivesShield(anItem);
+			}
+			
 		}
 	}
 

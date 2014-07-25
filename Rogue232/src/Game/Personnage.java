@@ -15,6 +15,7 @@ public class Personnage {
 	private int hp;
 	private int attack;
 	private int defense;
+	private int gold;
 
 	static ConcreteObserver observer = new ConcreteObserver();
 
@@ -28,6 +29,7 @@ public class Personnage {
 		attack = 5;
 		defense = 0;
 		equipement = new Equipement();
+		gold = 9;
 
 		// observers = new ArrayList<ConcreteObserver>();
 	}
@@ -39,6 +41,7 @@ public class Personnage {
 		attack = atk;
 		defense = def;
 		equipement = new Equipement(1);
+		gold = 9;	
 
 		// observers = new ArrayList<ConcreteObserver>();
 	}
@@ -48,7 +51,7 @@ public class Personnage {
 	}
 
 	public void attackChar(Personnage monster) {
-		notifyChange("Monster attacks Hero");
+//		notifyChange(monster.getSymbol() + " attacks " + this.getSymbol()) ;
 		int damage = attack + equipement.getArme().getAttaque();
 		monster.takeDamage(damage);
 	}
@@ -96,6 +99,12 @@ public class Personnage {
 	public Shield getShield() {
 		return equipement.getShield();
 	}
+	
+	
+	//TODO : implementer switch case selon le cas d'objet recu
+	public void receivesShield() {
+		
+	}
 
 	public Armure getArmure() {
 		return equipement.getArmure();
@@ -117,4 +126,13 @@ public class Personnage {
 		observer.update(action);
 	}
 
+	public int getGold() {
+		return gold;
+	}
+
+	public void setGold(int gold) {
+		this.gold = gold;
+	}
+
+	
 }

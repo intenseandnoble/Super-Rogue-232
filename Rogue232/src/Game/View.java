@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.concurrent.Semaphore;
 
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -31,31 +32,42 @@ public class View extends JFrame {
 		textArea = new JTextArea(height, width);
 		textArea.setFont(new Font("monospaced", Font.PLAIN, 12));
 		textArea.setEditable(false);
-		jPanel = new JPanel(new BorderLayout());
+
 		jPanelMilieu = new JPanel(new BorderLayout());
 		jPanelBas = new JPanel(new BorderLayout());
 		jPanelHaut = new JPanel(new BorderLayout());
-		textField = new JTextField(width);
+		textField = new JTextField( width);
 		textDescription = new JTextArea(2, width);
-		textAction = new JTextArea(2, width);
+		textAction = new JTextArea(2, 9);
 		textAction.setEditable(false);
-
+		JScrollPane jScrollPane = new JScrollPane(textAction);
+		
+		jPanel = new JPanel();
+		jPanel.setLayout(new BoxLayout(jPanel, BoxLayout.Y_AXIS));
+		
+		
+		jPanel.add(textDescription);
+		jPanel.add(textArea);
+		jPanel.add(jScrollPane);
+		jPanel.add(textField);
 		
 		// Le premier chiffre du textArea défini la hauteur et peut être
 		// augmenté au besoin.
 		
-		jPanelBas.setBorder(new TitledBorder ( new EtchedBorder (), "Actions" ));
-		jPanelBas.add(textAction, BorderLayout.NORTH);
-		jPanelBas.add(textField, BorderLayout.SOUTH);
-	
 
-		jPanelHaut.add(textDescription, BorderLayout.NORTH);
-		jPanelHaut.add(textArea, BorderLayout.SOUTH);
-		jPanelHaut.setBorder(new TitledBorder ( new EtchedBorder (), "Main" ));
-
-		jPanel.add(jPanelBas, BorderLayout.CENTER);
-		jPanel.add(jPanelHaut, BorderLayout.NORTH);
 		
+//		jPanelBas.setBorder(new TitledBorder ( new EtchedBorder (), "Actions" ));
+//		jPanelBas.add(jScrollPane, BorderLayout.NORTH);
+//		jPanelBas.add(textField, BorderLayout.SOUTH);
+//
+//
+//		jPanelHaut.add(textDescription, BorderLayout.NORTH);
+//		jPanelHaut.add(textArea, BorderLayout.SOUTH);
+//		jPanelHaut.setBorder(new TitledBorder ( new EtchedBorder (), "Main" ));
+//
+//		jPanel.add(jPanelBas, BorderLayout.CENTER);
+//		jPanel.add(jPanelHaut, BorderLayout.NORTH);
+//		
 
 
 		// Lorsque ASWD sera implémenté, on pourra utiliser le SOUTH pour
@@ -103,5 +115,9 @@ public class View extends JFrame {
 	
 	public static void updateTextAction(String s) {
 		textAction.setText(s);
+	}
+	
+	public static void appendTextAction(String s) {
+		textAction.append(s +"\n");
 	}
 }

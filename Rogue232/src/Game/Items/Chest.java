@@ -10,6 +10,10 @@ public class Chest extends Item {
 		// TODO Auto-generated constructor stub
 	}
 	
+	public Chest getChest() {
+		return this;
+	}
+	
 	public Item getBonus(){
 		return bonus;
 	}
