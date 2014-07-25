@@ -1,6 +1,6 @@
 package Symbol;
 
-import Game.Personnage;
+import Game.Personnages.Personnage;
 
 public class Door extends Symbol {
 	private boolean isOpen;

@@ -3,12 +3,13 @@ package Game;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-import Game.Observer.ConcreteObserver;
+import Game.Observer.AppendTextObserver;
+import Game.Personnages.Personnage;
 
 public class GraphicEngine {
 
 	private View view;
-	private ConcreteObserver co;
+	private AppendTextObserver co;
 	
 	
 	public GraphicEngine(View view) {

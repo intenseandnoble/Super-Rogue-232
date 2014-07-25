@@ -1,7 +1,7 @@
 package Symbol;
 
-import Game.Personnage;
 import Game.Items.Item;
+import Game.Personnages.Personnage;
 
 public class Floor extends Symbol {
 	private Personnage personnage;

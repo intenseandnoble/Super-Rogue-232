@@ -1,7 +1,6 @@
 package Game;
 
 import java.io.BufferedReader;
-
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,6 +10,7 @@ import java.util.Iterator;
 
 import Game.Items.Chest;
 import Game.Items.Shield;
+import Game.Personnages.Personnage;
 import Symbol.Symbol;
 import Symbol.Wall;
 import Symbol.Floor;
@@ -23,6 +23,9 @@ public class World implements Iterable<char[]> {
 	private HashMap<Character,Character> openTo;
 	private ArrayList<ArrayList<Symbol>> oWorld;
 
+	private HashMap<Coord, Personnage> personnages;
+	private HashMap<Coord, Chest> coffres;
+	
 	public World(String file) {
 		/*
 		//TODO: instantiation de la map avec des objects
@@ -125,6 +128,30 @@ public class World implements Iterable<char[]> {
 
 	public int getHeight() {
 		return data.size();
+	}
+	
+	public Personnage getPersonnage(Coord coord) {
+		return personnages.get(coord);
+	}
+
+	public void addPersonnage(Coord coord,  Personnage perso) {
+		this.personnages.put(coord, perso);
+	}
+	
+	public void setPersonnages(HashMap<Coord, Personnage> personnages) {
+		this.personnages= personnages;
+	}
+	
+	public void deletePersonnage(Coord coord) {
+		this.personnages.remove(coord);
+	}
+
+	public HashMap<Coord, Chest> getCoffres() {
+		return coffres;
+	}
+
+	public void setCoffres(HashMap<Coord, Chest> coffres) {
+		this.coffres = coffres;
 	}
 
 }

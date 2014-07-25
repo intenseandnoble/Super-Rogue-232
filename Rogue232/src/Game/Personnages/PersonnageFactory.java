@@ -1,4 +1,6 @@
-package Game;
+package Game.Personnages;
+
+import Game.Coord;
 
 public class PersonnageFactory {
 

@@ -1,21 +1,25 @@
-package Game;
+package Game.Personnages;
 
+import Game.Coord;
+import Game.Equipement;
+import Game.World;
 import Game.Items.Armure;
+import Game.Items.Element;
 import Game.Items.Shield;
 import Game.Observer.AppendTextObserver;
 
 // Cette classe fait les Heros et les monstres
 
-public class Personnage {
+public class Personnage extends Element {
 	/* Map variables */
-	private Coord position;
-	private char Symbol;
+//	private Coord position;
+//	private char Symbol;
 
 	/* Stats variables */
 	private int hp;
 	private int attack;
 	private int defense;
-	private int gold;
+	
 
 	static AppendTextObserver observer = new AppendTextObserver();
 
@@ -24,26 +28,28 @@ public class Personnage {
 
 	public Personnage(Coord coord) {
 		position = coord;
-		Symbol = '@';
+		symbol = '@';
 		hp = 100;
 		attack = 5;
 		defense = 0;
 		equipement = new Equipement();
-		gold = 9;
 
 		// observers = new ArrayList<ConcreteObserver>();
 	}
 
 	public Personnage(Coord pos, char symbol, int lifepts, int atk, int def) {
 		position = pos;
-		Symbol = symbol;
+		this.symbol = symbol;
 		hp = lifepts;
 		attack = atk;
 		defense = def;
-		equipement = new Equipement(1);
-		gold = 9;	
+		equipement = new Equipement(1);	
 
 		// observers = new ArrayList<ConcreteObserver>();
+	}
+	
+	public void move(World world, Coord coord) {
+		
 	}
 
 	public boolean isDead() {
@@ -54,18 +60,6 @@ public class Personnage {
 //		notifyChange(monster.getSymbol() + " attacks " + this.getSymbol()) ;
 		int damage = attack + equipement.getArme().getAttaque();
 		monster.takeDamage(damage);
-	}
-
-	public char getSymbol() {
-		return Symbol;
-	}
-
-	public Coord getPosition() {
-		return position;
-	}
-
-	public void setPosition(Coord coord) {
-		position = coord;
 	}
 
 	public int getHp() {
@@ -100,11 +94,6 @@ public class Personnage {
 		return equipement.getShield();
 	}
 	
-	
-	//TODO : implementer switch case selon le cas d'objet recu
-	public void receivesShield() {
-		
-	}
 
 	public Armure getArmure() {
 		return equipement.getArmure();
@@ -126,13 +115,7 @@ public class Personnage {
 		observer.update(action);
 	}
 
-	public int getGold() {
-		return gold;
-	}
 
-	public void setGold(int gold) {
-		this.gold = gold;
-	}
 
 	
 }

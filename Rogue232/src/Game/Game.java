@@ -4,6 +4,9 @@ import java.awt.Container;
 import java.util.HashMap;
 
 import Game.Items.*;
+import Game.Personnages.Hero;
+import Game.Personnages.Personnage;
+import Game.Personnages.PersonnageFactory;
 
 
 public class Game {
@@ -16,18 +19,18 @@ public class Game {
 	private String command;
 	private HashMap<Character,Character> openTo;
 	private Personnage hero;
-	private HashMap<Coord, Personnage> monsters;
-	private HashMap<Coord, Chest> coffres;
+
 
 	public Game(String file) {
 		// afficher l'information relative au jeu
 		running = true;
 		world = new World(file);
-		hero = PersonnageFactory.createHero(new Coord(2, 2));
-		monsters = new HashMap<Coord, Personnage> ();
-		monsters.put(hero.getPosition(), hero);
+//		hero = PersonnageFactory.createHero(new Coord(2, 2));
+		hero = new Hero(new Coord(2, 2));
+		world.setPersonnages(new HashMap<Coord, Personnage>());
+		world.addPersonnage(hero.getPosition(), hero);
 		Coord monsterCoord = new Coord(2,1);
-		monsters.put(monsterCoord,
+		world.addPersonnage(monsterCoord,
 				PersonnageFactory.createMonster(monsterCoord));
 		view = new View(world.getWidth(), world.getHeight());
 		ge = new GraphicEngine(view);
@@ -51,16 +54,17 @@ public class Game {
 	private void executeCommand() {
 		switch (command.toLowerCase()) {
 		case "up":
-			move(hero.getPosition(), new Coord(0, -1));
+//			move(hero.getPosition(), new Coord(0, -1));
+			hero.move(world ,new Coord(0, -1));
 			break;
 		case "down":
-			move(hero.getPosition(), new Coord(0, 1));
+//			move(hero.getPosition(), new Coord(0, 1));
 			break;
 		case "left":
-			move(hero.getPosition(), new Coord(-1, 0));
+//			move(hero.getPosition(), new Coord(-1, 0));
 			break;
 		case "right":
-			move(hero.getPosition(), new Coord(1, 0));
+//			move(hero.getPosition(), new Coord(1, 0));
 			break;
 		case "open up":
 			open(hero.getPosition(), new Coord(0, -1));
@@ -85,42 +89,39 @@ public class Game {
 		}
 	}
 
-	public void move(Coord posPersonnage, Coord coord) {
-		// TODO: changer test pour mettre private
-		Coord newPosPersonnage = posPersonnage.add(coord);
-		if (isMonster(newPosPersonnage)) {
-			fight(monsters.get(posPersonnage), monsters.get(newPosPersonnage));
+//	public void move(Coord posPersonnage, Coord coord) {
+//		// TODO: changer test pour mettre private
+//		Coord newPosPersonnage = posPersonnage.add(coord);
+//		if (isMonster(newPosPersonnage)) {
+//			fight(monsters.get(posPersonnage), monsters.get(newPosPersonnage));
+//
+//		} else if (!world.isCollidable(newPosPersonnage)) {
+//			monsters.get(posPersonnage).setPosition(newPosPersonnage);
+//			Personnage tmpPersonnage = monsters.get(posPersonnage);
+//			monsters.remove(posPersonnage);
+//			monsters.put(newPosPersonnage, tmpPersonnage);
+//		}
+//
+//	}
 
-		} else if (!world.isCollidable(newPosPersonnage)) {
-			monsters.get(posPersonnage).setPosition(newPosPersonnage);
-			Personnage tmpPersonnage = monsters.get(posPersonnage);
-			monsters.remove(posPersonnage);
-			monsters.put(newPosPersonnage, tmpPersonnage);
-		}
+//	public void fight(Personnage hero, Personnage monster) {
+//		// 0 : personne mort, juste d�g�ts;
+//		// -1: hero mort, game over;
+//		// 1 : monster mort;
+//		Personnage.notifyChange("The hero and " + monster.getSymbol() + " fight!");
+//		hero.attackChar(monster);
+//		monster.attackChar(hero);
+//		if (hero.isDead()){
+//			Personnage.notifyChange("Hero dead");
+//			gameOver();
+//		}
+//		else if (monster.isDead()){
+//			Personnage.notifyChange("Monster dead");
+//			removeMonster(monster.getPosition());
+//		}
+//	}
 
-	}
 
-	public void fight(Personnage hero, Personnage monster) {
-		// 0 : personne mort, juste d�g�ts;
-		// -1: hero mort, game over;
-		// 1 : monster mort;
-		Personnage.notifyChange("The hero and " + monster.getSymbol() + " fight!");
-		hero.attackChar(monster);
-		monster.attackChar(hero);
-		if (hero.isDead()){
-			Personnage.notifyChange("Hero dead");
-			gameOver();
-		}
-		else if (monster.isDead()){
-			Personnage.notifyChange("Monster dead");
-			removeMonster(monster.getPosition());
-		}
-	}
-
-	private void removeMonster(Coord coord) {
-		monsters.remove(coord);
-
-	}
 
 	private void gameOver() {
 		running = false;
@@ -136,7 +137,7 @@ public class Game {
 			Personnage.notifyChange("It's opened");
 			
 			if (world.getChar(newPos) == '[') {
-				Item anItem = coffres.get(newPos).getBonus();
+				Item anItem = world.coffres.get(newPos).getBonus();
 				String nameItem = anItem.getNom();
 				Personnage.notifyChange("You found " + nameItem);
 //				hero.receivesShield(anItem);
@@ -152,7 +153,7 @@ public class Game {
 	}
 
 	private void updateDisplay() {
-		ge.updateDisplay(world, monsters, hero);
+		ge.updateDisplay(world, world., hero);
 	}
 
 	public World getWorld() {

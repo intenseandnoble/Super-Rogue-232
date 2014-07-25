@@ -3,6 +3,7 @@ package Game;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import Game.Personnages.Personnage;
 import junit.framework.TestCase;
 
 public class TestGame extends TestCase {

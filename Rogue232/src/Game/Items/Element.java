@@ -4,16 +4,16 @@ import Game.Coord;
 
 public class Element {
 	// Variables
-	protected Coord Position;
-	protected char Symbol;
+	protected Coord position;
+	protected char symbol;
 	// Get and Set
 	public Coord getPosition(){
-		return Position;
+		return position;
 	}
 	public void setPosition(Coord aPosition){
-		Position = aPosition;
+		position = aPosition;
 	}
 	public char getSymbol(){
-		return Symbol;
+		return symbol;
 	}
 }
