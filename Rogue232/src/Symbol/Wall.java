@@ -3,7 +3,7 @@ package Symbol;
 public class Wall extends Symbol {
 	private char symbol;
 
-	protected Wall(char symb) {
+	public Wall(char symb) {
 		symbol = symb;
 		// TODO Auto-generated constructor stub
 	}

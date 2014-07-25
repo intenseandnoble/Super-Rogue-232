@@ -14,14 +14,10 @@ public class Game {
 	private InputManager im;
 	private World world;
 	private String command;
-	private Chest coffre = new Chest( new Shield("Dacamole épique de l'Enfer", 40, 10));
-	
-	private char[] Collidable = { '|', ' ', '-', '+', coffre.getSymbole() , ']' };
-	private char[] openable = { '+', ']' };
 	private HashMap<Character,Character> openTo;
-
 	private Personnage hero;
 	private HashMap<Coord, Personnage> monsters;
+	private HashMap<Coord, Chest> coffres;
 
 	public Game(String file) {
 		// afficher l'information relative au jeu
@@ -36,9 +32,8 @@ public class Game {
 		view = new View(world.getWidth(), world.getHeight());
 		ge = new GraphicEngine(view);
 		im = new InputManager(view);
-		openTo = new HashMap<Character, Character>();
-		openTo.put(new Character(']'),new Character(coffre.getSymbole()));
-		openTo.put(new Character('+'),new Character('/'));
+		//private Chest coffre = new Chest( new Shield("Dacamole épique de l'Enfer", 40, 10));
+		
 	}
 
 	public void mainLoop() {
@@ -96,7 +91,7 @@ public class Game {
 		if (isMonster(newPosPersonnage)) {
 			fight(monsters.get(posPersonnage), monsters.get(newPosPersonnage));
 
-		} else if (!isCollidable(newPosPersonnage)) {
+		} else if (!world.isCollidable(newPosPersonnage)) {
 			monsters.get(posPersonnage).setPosition(newPosPersonnage);
 			Personnage tmpPersonnage = monsters.get(posPersonnage);
 			monsters.remove(posPersonnage);
@@ -135,13 +130,13 @@ public class Game {
 	public void open(Coord posCharacter, Coord coord) {
 		// fonctionne seulement pour les portes
 		Coord newPos = posCharacter.add(coord);
-		if (isOpenable(newPos)) {
+		if (world.isOpenable(newPos)) {
 			System.out.println(world.getChar(posCharacter));
 			world.setChar(newPos, openTo.get(world.getChar(newPos)).charValue());
 			Personnage.notifyChange("It's opened");
 			
 			if (world.getChar(newPos) == '[') {
-				Item anItem = coffre.getBonus();
+				Item anItem = coffres.get(newPos).getBonus();
 				String nameItem = anItem.getNom();
 				Personnage.notifyChange("You found " + nameItem);
 //				hero.receivesShield(anItem);
@@ -150,31 +145,10 @@ public class Game {
 		}
 	}
 
-	private boolean isCollidable(Coord coord) {
-		boolean isCollidable = false;
-		char toCompare = world.getChar(coord);
-		
-		for (char c : Collidable) {
-			if (toCompare == c)
-				isCollidable = true;
-		}
-		return isCollidable;
-	}
-
 	private boolean isMonster(Coord coord) {
 		boolean isMonster = monsters.containsKey(coord);
 		return isMonster;
 
-	}
-
-	private boolean isOpenable(Coord coord) {
-		boolean isOpenable = false;
-		char toCompare = world.getChar(coord);
-		for (char c : openable) {
-			if (toCompare == c)
-				isOpenable = true;
-			}
-		return isOpenable;
 	}
 
 	private void updateDisplay() {

@@ -31,10 +31,10 @@ public class GraphicEngine {
 	private String toStringWorld(World world,
 			HashMap<Coord, Personnage> monsters) {
 
-		String posMonsterChar = new String();
-
+		HashMap<Coord, Character> tmp = new HashMap<Coord, Character>();
+		
 		for (Entry<Coord, Personnage> entry : monsters.entrySet()) {
-			posMonsterChar += world.getChar(entry.getKey());
+			tmp.put(entry.getKey(), world.getChar(entry.getKey()));
 		}
 
 		for (Entry<Coord, Personnage> entry : monsters.entrySet()) {
@@ -47,11 +47,10 @@ public class GraphicEngine {
 					+ System.getProperty("line.separator");
 		}
 
-		for (Entry<Coord, Personnage> entry : monsters.entrySet()) {
-			for (int i = 0; i < posMonsterChar.length(); i++)
-				world.setChar(entry.getKey(), posMonsterChar.charAt(i));
+		for (Entry<Coord, Character> entry : tmp.entrySet()){
+			world.setChar(entry.getKey(), entry.getValue());
 		}
-
+		
 		return worldString;
 	}
 }
