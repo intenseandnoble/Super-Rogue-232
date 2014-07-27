@@ -1,5 +1,7 @@
 package Game.Items;
 
+import java.util.Random;
+
 import Game.Coord;
 import Game.Personnages.Element;
 
@@ -41,9 +43,20 @@ public class Chest extends Element {
 		return isOpen;
 	}
 	
-	public Item getRandomItem(){
-		return Item.getRandomItem();
-	}
 	
-
+	public Item getRandomItem() {
+		Random randomGenerator = new Random();
+		int randomInt = randomGenerator.nextInt(100);
+		if (randomInt < 20)
+			return ArmorFactory.getRandomArmor();
+		else if (randomInt < 40)
+			return ConsumableFactory.getRandomConsumable();
+		else if (randomInt < 60)
+			return ShieldFactory.getRandomShield();
+		else if (randomInt < 80)
+			return WeaponFactory.getRandomWeapon();
+		else
+			// TODO: changer cas si 'null';
+			return null;
+	}
 }

@@ -25,6 +25,7 @@ public class Game {
 		running = true;
 		world = new World(file);
 //		hero = PersonnageFactory.createHero(new Coord(2, 2));
+		
 		hero = new Hero(new Coord(2, 2));
 		world.setPersonnages(new HashMap<Coord, Personnage>());
 		world.addPersonnage(hero.getPosition(), hero);

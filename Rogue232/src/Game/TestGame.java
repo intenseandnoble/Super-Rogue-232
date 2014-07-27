@@ -3,6 +3,8 @@ package Game;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import Game.Items.Chest;
+import Game.Items.Item;
 import Game.Personnages.Personnage;
 import junit.framework.TestCase;
 
@@ -65,4 +67,14 @@ public class TestGame extends TestCase {
 		assertTrue(hero.isDead()); //isDead systemOut GameOver
 	}
 
+	public void testRandomItem() {
+		Chest myChest = new Chest(new Coord(0, 0));
+		for (int i = 0; i < 100; i++) {
+			Item myItem = myChest.getRandomItem();
+			if(myItem!=null)
+			System.out.println(myItem.getName());
+			else System.out.println("YOLO");
+			
+		}
+	}
 }

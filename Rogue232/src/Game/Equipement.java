@@ -4,6 +4,7 @@ import Game.Items.Armor;
 import Game.Items.ItemFactory;
 import Game.Items.Shield;
 import Game.Items.Weapon;
+import Game.Items.WeaponFactory;
 
 public class Equipement {
 	Weapon arme;
@@ -11,7 +12,7 @@ public class Equipement {
 	Shield shield;
 	
 	public Equipement(){
-		arme = ItemFactory.createArmeNoob();
+		arme = WeaponFactory.createNoobyWeapon();
 		armure = ItemFactory.createArmureNoob();
 		shield = ItemFactory.createShieldNoob();
 	}
