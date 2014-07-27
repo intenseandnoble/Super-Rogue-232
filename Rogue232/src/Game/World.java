@@ -9,19 +9,15 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import Game.Items.Chest;
-import Game.Items.Shield;
+import Game.MapElements.MapElement;
 import Game.Personnages.Personnage;
-import Symbol.Symbol;
-import Symbol.Wall;
-import Symbol.Floor;
-import Symbol.Door;
 
 public class World implements Iterable<char[]> {
 	ArrayList<char[]> data = new ArrayList<char[]>();
 	private char[] collidable = { '|', ' ', '-', '+', '[' , ']' };
 	private char[] openable = { '+', ']' };
 	private HashMap<Character,Character> openTo;
-	private ArrayList<ArrayList<Symbol>> oWorld;
+	private ArrayList<ArrayList<MapElement>> oWorld;
 
 	private HashMap<Coord, Personnage> personnages;
 	private HashMap<Coord, Chest> coffres;

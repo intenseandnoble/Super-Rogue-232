@@ -3,8 +3,7 @@ package Game.Personnages;
 import Game.Coord;
 import Game.Equipement;
 import Game.World;
-import Game.Items.Armure;
-import Game.Items.Element;
+import Game.Items.Armor;
 import Game.Items.Shield;
 import Game.Observer.AppendTextObserver;
 
@@ -95,7 +94,7 @@ public class Personnage extends Element {
 	}
 	
 
-	public Armure getArmure() {
+	public Armor getArmure() {
 		return equipement.getArmure();
 	}
 

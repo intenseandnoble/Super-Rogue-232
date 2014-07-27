@@ -12,20 +12,20 @@ public class ItemFactory {
 		return new Shield("NoobyShield", 10, 5);
 	}
 	
-	static public Armure createDummyArmure(){
-		return new Armure("dummyArmure", 0);
+	static public Armor createDummyArmure(){
+		return new Armor("dummyArmure", 0);
 	}
 	
-	static public Armure createArmureNoob(){
-		return new Armure("NoobyArmure", 10);
+	static public Armor createArmureNoob(){
+		return new Armor("NoobyArmure", 10);
 	}
 	
-	static public Arme createDummyArme(){
-		return new Arme("dummyArme", 0);
+	static public Weapon createDummyArme(){
+		return new Weapon("dummyArme", 0);
 	}
 	
-	static public Arme createArmeNoob(){
-		return new Arme("NoobyArme", 20);
+	static public Weapon createArmeNoob(){
+		return new Weapon("NoobyArme", 20);
 	}
 	
 	

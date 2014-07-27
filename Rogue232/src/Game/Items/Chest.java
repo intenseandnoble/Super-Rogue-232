@@ -1,17 +1,27 @@
 package Game.Items;
+
 import Game.Coord;
+import Game.Personnages.Element;
 
-public class Chest extends Item {
+public class Chest extends Element {
 	private Item bonus;
-	private char symbole = '[';
-	private Coord position;
+	private boolean isOpen;
 
-	public Chest(Item b) {
-		super("Chest");
-		bonus = b;
-		// TODO Auto-generated constructor stub
+
+	public Chest(Coord pos) {
+		setPosition(pos);
+		isOpen = false;
 	}
 	
+	public Chest(Item item) {
+		putItem(item);
+		isOpen = false;
+	}
+
+	public void putItem(Item item){
+		bonus = item;
+	}
+
 	public Chest getChest() {
 		return this;
 	}
@@ -20,16 +30,20 @@ public class Chest extends Item {
 		return bonus;
 	}
 	
-	public char getSymbole(){
-		return symbole;
+	public char getSymbol(){
+		if (!isOpen()) {
+			return ']';
+		}
+		return '[';
 	}
 	
-	public Coord getPosition() {
-		return position;
+	public boolean isOpen(){
+		return isOpen;
 	}
-
-	public void setPosition(Coord position) {
-		this.position = position;
+	
+	public Item getRandomItem(){
+		return Item.getRandomItem();
 	}
+	
 
 }

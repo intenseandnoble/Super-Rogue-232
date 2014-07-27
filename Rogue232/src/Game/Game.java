@@ -1,9 +1,8 @@
 package Game;
 
-import java.awt.Container;
 import java.util.HashMap;
 
-import Game.Items.*;
+import Game.Items.Item;
 import Game.Personnages.Hero;
 import Game.Personnages.Personnage;
 import Game.Personnages.PersonnageFactory;

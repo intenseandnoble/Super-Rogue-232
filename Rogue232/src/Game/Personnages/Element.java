@@ -1,4 +1,4 @@
-package Game.Items;
+package Game.Personnages;
 
 import Game.Coord;
 

@@ -1,6 +1,8 @@
-package Symbol;
+package Game.MapElements;
 
-public class Wall extends Symbol {
+import Game.Personnages.Element;
+
+public class Wall extends MapElement {
 	private char symbol;
 
 	public Wall(char symb) {
@@ -16,5 +18,10 @@ public class Wall extends Symbol {
 	@Override
 	public boolean isCollidable() {
 		return true;
+	}
+
+	@Override
+	public boolean putElement(Element e) {
+		return false;
 	}
 }

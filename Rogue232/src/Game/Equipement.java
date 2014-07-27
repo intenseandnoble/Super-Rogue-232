@@ -1,13 +1,13 @@
 package Game;
 
-import Game.Items.Arme;
-import Game.Items.Armure;
+import Game.Items.Armor;
 import Game.Items.ItemFactory;
 import Game.Items.Shield;
+import Game.Items.Weapon;
 
 public class Equipement {
-	Arme arme;
-	Armure armure;
+	Weapon arme;
+	Armor armure;
 	Shield shield;
 	
 	public Equipement(){
@@ -22,19 +22,19 @@ public class Equipement {
 		shield = ItemFactory.createDummyShield();
 	}
 	
-	public Arme getArme() {
+	public Weapon getArme() {
 		return arme;
 	}
 
-	public void setArme(Arme arme) {
+	public void setArme(Weapon arme) {
 		this.arme = arme;
 	}
 
-	public Armure getArmure() {
+	public Armor getArmure() {
 		return armure;
 	}
 
-	public void setArmure(Armure armure) {
+	public void setArmure(Armor armure) {
 		this.armure = armure;
 	}
 

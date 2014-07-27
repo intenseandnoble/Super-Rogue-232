@@ -10,6 +10,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
@@ -18,10 +19,10 @@ import javax.swing.border.TitledBorder;
 
 public class View extends JFrame {
 
-	protected JPanel jPanel, jPanelHaut, jPanelBas, jPanelMilieu;
-
+	protected JPanel jPanel, jPanelGauche, jPanelDroite, jPanelBas, jPanelMilieu;
+	protected JSplitPane splitV; 
 	JScrollPane jScroll;
-	
+
 	protected JTextField textField;
 	protected JTextArea textArea, textDescription;
 	protected static JTextArea textAction;
@@ -32,30 +33,43 @@ public class View extends JFrame {
 		textArea = new JTextArea(height, width);
 		textArea.setFont(new Font("monospaced", Font.PLAIN, 12));
 		textArea.setEditable(false);
+		
+		splitV = new JSplitPane( JSplitPane.HORIZONTAL_SPLIT );
 
-		jPanelMilieu = new JPanel(new BorderLayout());
-		jPanelBas = new JPanel(new BorderLayout());
-		jPanelHaut = new JPanel(new BorderLayout());
 		textField = new JTextField( width);
 		textDescription = new JTextArea(2, width);
-		textAction = new JTextArea(2, 9);
+		textAction = new JTextArea(20, width*3/4);
 		textAction.setEditable(false);
 		JScrollPane jScrollPane = new JScrollPane(textAction);
-		
+
 		jPanel = new JPanel();
-		jPanel.setLayout(new BoxLayout(jPanel, BoxLayout.Y_AXIS));
 		
-		
-		jPanel.add(textDescription);
-		jPanel.add(textArea);
-		jPanel.add(jScrollPane);
-		jPanel.add(textField);
-		
-		// Le premier chiffre du textArea défini la hauteur et peut être
-		// augmenté au besoin.
-		
+		jPanelGauche = new JPanel();
+		jPanelGauche.setLayout(new BorderLayout());
+		jPanelGauche.setBorder(new TitledBorder ( new EtchedBorder (), "Jeu" ));
+		jPanelGauche.add(textDescription, BorderLayout.NORTH);
+		jPanelGauche.add(textArea, BorderLayout.CENTER);
+		jPanelGauche.add(textField, BorderLayout.SOUTH);
+
+		jPanelDroite = new JPanel(new BorderLayout());
+		jPanelDroite.setBorder(new TitledBorder ( new EtchedBorder (), "Actions" ));
+		jPanelDroite.add(jScrollPane, BorderLayout.CENTER);
 
 		
+
+
+		
+		splitV.setLeftComponent(jPanelGauche);
+		splitV.setRightComponent(jPanelDroite);
+		
+		jPanel.add(splitV, BorderLayout.CENTER);
+		
+
+		// Le premier chiffre du textArea défini la hauteur et peut être
+		// augmenté au besoin.
+
+
+
 //		jPanelBas.setBorder(new TitledBorder ( new EtchedBorder (), "Actions" ));
 //		jPanelBas.add(jScrollPane, BorderLayout.NORTH);
 //		jPanelBas.add(textField, BorderLayout.SOUTH);
@@ -102,9 +116,9 @@ public class View extends JFrame {
 
 	public void updateTextDescription(int vie, int defense, int attaque,
 			int vieB, int defB) {
-		String s = "Points de vie: " + String.valueOf(vie)
-				+ "     Points de defense: " + String.valueOf(defense)
-				+ "     Points d'attaque: " + String.valueOf(attaque);
+		String s = "Life points : " + String.valueOf(vie)
+				+ "     Defense points : " + String.valueOf(defense)
+				+ "     Attack points : " + String.valueOf(attaque);
 		
 		if (vieB > 0) {
 			s += "\nBouclier: " + String.valueOf(vieB) + " pts, "

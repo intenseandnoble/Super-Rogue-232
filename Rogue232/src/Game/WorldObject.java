@@ -1,24 +1,24 @@
 package Game;
 
 import java.io.BufferedReader;
-
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 
 import Game.Items.Chest;
 import Game.Items.Shield;
-import Symbol.Symbol;
-import Symbol.Wall;
-import Symbol.Floor;
-import Symbol.Door;
+import Game.MapElements.Door;
+import Game.MapElements.Floor;
+import Game.MapElements.MapElement;
+import Game.MapElements.Wall;
+import Game.Personnages.Element;
+import Game.Personnages.PersonnageFactory;
 
 //renomer world plus tard
 public class WorldObject implements Iterable<ArrayList<MapElement>> {
-	private ArrayList<ArrayList<Symbol>> data;
+	private ArrayList<ArrayList<MapElement>> data;
 	//changer nom plus tard et decoupler en sa propre classe(similaire a l'ancient world)
 	private ArrayList<char[]> sdata ;
 
@@ -41,7 +41,7 @@ public class WorldObject implements Iterable<ArrayList<MapElement>> {
 			//ajout des Elements
 			for (String line; (line = br.readLine()) != null;){
 				String[] tokens = line.split(";");
-				Element monElement;//TODO: faire classe Element
+				Element monElement = null;//TODO: Faire de quoi pour éviter des NullException
 				Coord pos = new Coord(Integer.parseInt(tokens[0]), Integer.parseInt(tokens[1]));
 				switch(tokens[2]){
 					//a remplacer par calls Ã  ElementFactory quand elle existera
@@ -61,7 +61,7 @@ public class WorldObject implements Iterable<ArrayList<MapElement>> {
 		for (ArrayList<MapElement> row : this){
 			String temp = "";
 			for (MapElement mEle : row){
-				temp += mEle.getMapElement();
+				temp += mEle.getSymbol();
 			}
 		sdata.add(temp.toCharArray());
 		}
@@ -71,13 +71,13 @@ public class WorldObject implements Iterable<ArrayList<MapElement>> {
 		return data.get(coord.getY()).get(coord.getX());
 	}
 
-	public void put(Coord coord, Symbol symbol) {
+	public void put(Coord coord, MapElement symbol) {
 		data.get(coord.getY()).set(coord.getX(), symbol);
 	}
 
 	public int getWidth() {
 		int WSize = 0;
-		for (ArrayList<Symbol> c : data) {
+		for (ArrayList<MapElement> c : data) {
 			WSize = Math.max(c.size(), WSize);
 		}
 		return WSize;
@@ -89,7 +89,7 @@ public class WorldObject implements Iterable<ArrayList<MapElement>> {
 	}
 
 	@Override
-	public Iterator<ArrayList<Symbol>> iterator() {
+	public Iterator<ArrayList<MapElement>> iterator() {
 		return data.iterator();
 	}
 
