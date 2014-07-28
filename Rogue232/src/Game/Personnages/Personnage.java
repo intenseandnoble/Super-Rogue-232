@@ -2,6 +2,7 @@ package Game.Personnages;
 
 import Game.Coord;
 import Game.Equipement;
+import Game.InputManager;
 import Game.World;
 import Game.Items.Armor;
 import Game.Items.Shield;
@@ -23,7 +24,7 @@ public class Personnage extends Element {
 	static AppendTextObserver observer = new AppendTextObserver();
 
 	/* Item */
-	private Equipement equipement;
+	protected Equipement equipement;
 
 	public Personnage(Coord coord) {
 		position = coord;
@@ -51,7 +52,7 @@ public class Personnage extends Element {
 		
 	}
 	
-	public void open(World world, Coord coord) {
+	public void open(World world, Coord coord, InputManager im) {
 		
 	}
 

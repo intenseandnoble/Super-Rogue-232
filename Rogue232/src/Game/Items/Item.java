@@ -2,10 +2,6 @@ package Game.Items;
 
 
 public abstract class Item {
-	
-	
-	
-	//ArrayList<Item> allItemLists = new ArrayList<Item>();
 
 	String nom;
 

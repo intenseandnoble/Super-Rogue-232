@@ -9,10 +9,11 @@ public class Chest extends Element {
 	private Item bonus;
 	private boolean isOpen;
 
-
+	
 	public Chest(Coord pos) {
 		setPosition(pos);
 		isOpen = false;
+		this.symbol = ']';
 	}
 	
 	public Chest(Item item) {
@@ -43,8 +44,13 @@ public class Chest extends Element {
 		return isOpen;
 	}
 	
+	public Item Open(){
+		Item item = getRandomItem();
+		this.symbol = '[';
+		return item;
+	}
 	
-	public Item getRandomItem() {
+	private Item getRandomItem() {
 		Random randomGenerator = new Random();
 		int randomInt = randomGenerator.nextInt(100);
 		if (randomInt < 20)

@@ -1,8 +1,14 @@
 package Game.Personnages;
 
 import Game.Coord;
+import Game.Equipement;
+import Game.InputManager;
 import Game.World;
+import Game.Items.Armor;
+import Game.Items.Chest;
 import Game.Items.Item;
+import Game.Items.Shield;
+import Game.Items.Weapon;
 
 public class Hero extends Personnage {
 
@@ -41,18 +47,51 @@ public class Hero extends Personnage {
 		Personnage.notifyChange("Monster dead");
 		world.removePersonnage(monster.getPosition());
 		}
-	}	
+	}
 	
 	@Override
-	public void open(World world, Coord coord) {
+	public void open(World world, Coord coord, InputManager im) {
 		// fonctionne seulement pour les portes
-		Coord newPos = position.add(coord);
-		
-		if (world.isOpenable(newPos)) {
-//			System.out.println(world.getChar(position));
-			world.setChar(newPos, world.getOpenTo().get(world.getChar(newPos)).charValue());
-			Personnage.notifyChange("It's opened");
-			
+		Coord newPosition = position.add(coord);
+		if (world.isOpenable(newPosition)) {
+			// Door
+			if (world.getCharacter(newPosition) == '+'){
+				//world.setChar(newPos, world.getOpenTo().get(world.getChar(newPos)).charValue());
+				Personnage.notifyChange("The door is open");
+			}
+			// Chest
+			else if(world.getCharacter(newPosition) == ']'){
+				Chest chest = (Chest)world.getElement(newPosition);
+				world.removeElement(chest);
+				Item item = chest.Open();
+				Personnage.notifyChange("You find " + item.getName());
+				Personnage.notifyChange("Do you want to equip this item ; yes or no");
+				String answer = im.getInput();
+				if( answer.toLowerCase().equals("yes"))
+				{
+					if(item instanceof Weapon){
+						equipement.setArme((Weapon)item);
+					}
+					else if(item instanceof Armor){
+						equipement.setArmure((Armor)item);
+					}
+					else if(item instanceof Shield){
+						equipement.setShield((Shield)item);
+					}
+				}
+				world.setElement(chest);
+				Personnage.notifyChange("The chest is open");
+			}
+		else{
+			// Door
+			if (world.getCharacter(newPosition) == '/'){
+				Personnage.notifyChange("The door is already open");
+			}
+			// Chest
+			else if(world.getCharacter(newPosition) == '['){
+				Personnage.notifyChange("The chest is already open");
+			}
+		}
 //			if (world.getChar(newPos) == '[') {
 //				Item anItem = world.coffres.get(newPos).getBonus();
 //				String nameItem = anItem.getNom();

@@ -10,6 +10,7 @@ import java.util.Iterator;
 
 import Game.Items.Chest;
 import Game.MapElements.MapElement;
+import Game.Personnages.Element;
 import Game.Personnages.Personnage;
 
 public class World implements Iterable<char[]> {
@@ -21,9 +22,11 @@ public class World implements Iterable<char[]> {
 	private ArrayList<ArrayList<MapElement>> oWorld;
 
 	private HashMap<Coord, Personnage> personnages;
-	private HashMap<Coord, Chest> coffres;
+	private HashMap<Coord, Element> elements;
 	
 	public World(String file) {
+		elements = new HashMap<Coord, Element>();
+		personnages = new HashMap<Coord, Personnage>();
 		/*
 		//TODO: instantiation de la map avec des objects
 		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
@@ -69,7 +72,7 @@ public class World implements Iterable<char[]> {
 	
 	public boolean isCollidable(Coord coord) {
 		boolean isCollidable = false;
-		char toCompare = getChar(coord);
+		char toCompare = getCharacter(coord);
 		
 		for (char c : collidable) {
 			if (toCompare == c)
@@ -80,7 +83,7 @@ public class World implements Iterable<char[]> {
 	
 	public boolean isOpenable(Coord coord) {
 		boolean isOpenable = false;
-		char toCompare = getChar(coord);
+		char toCompare = getCharacter(coord);
 		for (char c : openable) {
 			if (toCompare == c)
 				isOpenable = true;
@@ -91,12 +94,15 @@ public class World implements Iterable<char[]> {
 	public ArrayList<char[]> getData() {
 		return data;
 	}
+	/*
+	 * Character
+	 */
 
-	public char getChar(Coord coord) {
+	public char getCharacter(Coord coord) {
 		return data.get(coord.getY())[coord.getX()];
 	}
 
-	public void setChar(Coord coord, char c) {
+	public void setCharacter(Coord coord, char c) {
 		data.get(coord.getY())[coord.getX()] = c;
 	}
 
@@ -127,12 +133,11 @@ public class World implements Iterable<char[]> {
 		return data.size();
 	}
 	
+	/*  
+	 * Personnage
+	 */
 	public Personnage getPersonnage(Coord coord) {
 		return personnages.get(coord);
-	}
-	
-	public HashMap<Coord, Personnage> getAllPersonnages() {
-		return personnages;
 	}
 
 	public void addPersonnage(Coord coord,  Personnage perso) {
@@ -146,23 +151,43 @@ public class World implements Iterable<char[]> {
 	public void removePersonnage(Coord coord) {
 		this.personnages.remove(coord);
 	}
-
-	public HashMap<Coord, Chest> getCoffres() {
-		return coffres;
+	
+	public HashMap<Coord, Personnage> getAllPersonnages() {
+		return personnages;
 	}
-
-	public void setCoffres(HashMap<Coord, Chest> coffres) {
-		this.coffres = coffres;
+	
+	/* 
+	 * Elements 
+	 */
+	
+	public Element getElement(Coord coord){
+		return elements.get(coord);
 	}
+	
+	public void setElement(Element element){
+		elements.put(element.getPosition(), element);
+	}
+	
+	public void removeElement(Element element){
+		elements.remove(element.getPosition());
+	}
+	
+	public void addChest(Chest chest){
+		elements.put(chest.getPosition(), chest);
+	}
+	
+	public HashMap<Coord, Element> getAllElements(){
+		return elements;
+	}
+	
+	/*
+	 * Monster
+	 */
 	
 	public boolean isMonster(Coord coord) {
 		boolean isMonster = personnages.containsKey(coord);
 		return isMonster;
 
-	}
-	
-	public HashMap<Character, Character> getOpenTo() {
-		return openTo;
 	}
 
 }

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 
 import Game.Observer.AppendTextObserver;
+import Game.Personnages.Element;
 import Game.Personnages.Personnage;
 
 public class GraphicEngine {
@@ -17,7 +18,7 @@ public class GraphicEngine {
 	}
 
 	public void updateDisplay(World world, Personnage hero) {
-		String s = toStringWorld(world, world.getAllPersonnages());
+		String s = toStringWorld(world, world.getAllPersonnages(), world.getAllElements());
 		int vie = hero.getHp();
 		int defense = hero.afficheDef();
 		int attaque = hero.afficheAtk();
@@ -30,27 +31,35 @@ public class GraphicEngine {
 
 	// Il y a les monstres et le hero dans le HashMap<Coord,Personnage> monsters
 	private String toStringWorld(World world,
-			HashMap<Coord, Personnage> monsters) {
+			HashMap<Coord, Personnage> personnages, HashMap<Coord, Element> elements) {
 
 		HashMap<Coord, Character> tmp = new HashMap<Coord, Character>();
 		
-		for (Entry<Coord, Personnage> entry : monsters.entrySet()) {
-			tmp.put(entry.getKey(), world.getChar(entry.getKey()));
+		for (Entry<Coord, Personnage> entry : personnages.entrySet()) {
+			tmp.put(entry.getKey(), world.getCharacter(entry.getKey()));
 		}
 
-		for (Entry<Coord, Personnage> entry : monsters.entrySet()) {
-			world.setChar(entry.getKey(), entry.getValue().getSymbol());
+		for (Entry<Coord, Personnage> entry : personnages.entrySet()) {
+			world.setCharacter(entry.getKey(), entry.getValue().getSymbol());
+		}
+		for(Entry<Coord, Element> entry : elements.entrySet()){
+			world.setCharacter(entry.getKey(), entry.getValue().getSymbol());
 		}
 
+		// Create world
 		String worldString = "";
 		for (char[] str : world) {
 			worldString += new String(str)
 					+ System.getProperty("line.separator");
 		}
-
+		
+		// Add Character in the world
 		for (Entry<Coord, Character> entry : tmp.entrySet()){
-			world.setChar(entry.getKey(), entry.getValue());
+			world.setCharacter(entry.getKey(), entry.getValue());
 		}
+		
+		// Add Item in the world
+		
 		
 		return worldString;
 	}

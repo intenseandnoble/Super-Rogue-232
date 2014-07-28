@@ -41,7 +41,7 @@ public class TestGame extends TestCase {
 	public void testOpen() {
 		Game myGame = new Game("maps/smallWorld.txt");
 		myGame.open(myGame.getHero().getPosition(), new Coord(1, 0));
-		assertTrue((myGame.getWorld().getChar(new Coord(3, 2))) == '/');
+		assertTrue((myGame.getWorld().getCharacter(new Coord(3, 2))) == '/');
 	}
 
 	public void testHp() {
