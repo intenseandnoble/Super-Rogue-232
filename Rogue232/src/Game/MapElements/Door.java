@@ -1,50 +1,53 @@
 package Game.MapElements;
 
-import Game.Personnages.Element;
+import Game.Items.*;
+import Game.Personnages.*;
 
-public class Door extends MapElement {
-	private boolean isOpen;
-	private Element element;
+public abstract class Door extends MapElement {
+	
 	private boolean occupied;
-
-	public Door(boolean openClose) {
-		isOpen = openClose;
-		element = null;
-		occupied = false;
-
+	protected Element	element;
+	protected Key 	key;
+	private static Door door;
+	
+	protected Door(Element item, int key){
+		this.element = item;
+		if(item != null)
+			occupied = true;
+		else occupied = false;
+		this.key = new Key("cle", key);  //si key=0 (clé bidon), alors la porte n'a pas besoin de clé
 	}
-
-	@Override
-	public char getSymbol() {
-		if (contient() != null) {
-			return (contient()).getSymbol();
-		} else if (!isOpen) {
-			return '+';
-		}
-		return '/';
+	
+	public static Door createDoor(Element e, int k){
+		return door = new DoorClose(e, k);
 	}
-
-	@Override
-	public boolean isCollidable() {
-		if (occupied) {
-			return true;
-		}
-		return false;
+	
+	public boolean getOccupied(){
+		return occupied;
 	}
-
-	protected Element contient() {
-		if (element != null)
-			return element;
-		else
-			return null;
+	
+	protected void setOccupied(){
+		occupied = !(occupied);
 	}
-
-	public boolean putElement(Element elemnt) {
+	
+	public boolean putElement(Element e){
 		if (!occupied) {
-			element = elemnt;
+			element = e;
 			occupied = true;
 			return true; // SUCCESS!!
 		}
 		return false; // FAIL D:
-	}	
+	}
+	
+	public boolean openDoor(){
+		if(key.getNoKey() == this.key.getNoKey()){
+			door = new DoorOpen(element,this.key.getNoKey());
+			return true; //is the great key, door open
+		}
+		return false; //is not key for this door
+	}
+	
+	public abstract char getSymbol();
+	public abstract boolean isCollidable();
+	public abstract Element contient();
 }

@@ -7,46 +7,61 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import Game.Items.Chest;
-import Game.Items.Shield;
-import Game.MapElements.Door;
-import Game.MapElements.Floor;
-import Game.MapElements.MapElement;
-import Game.MapElements.Wall;
-import Game.Personnages.Element;
-import Game.Personnages.PersonnageFactory;
+import Game.Items.*;
+import Game.MapElements.*;
+import Game.Personnages.*;
 
 //renomer world plus tard
 public class WorldObject implements Iterable<ArrayList<MapElement>> {
 	private ArrayList<ArrayList<MapElement>> data;
-	//changer nom plus tard et decoupler en sa propre classe(similaire a l'ancient world)
-	private ArrayList<char[]> sdata ;
+	// changer nom plus tard et decoupler en sa propre classe(similaire a
+	// l'ancient world)
+	private ArrayList<char[]> sdata;
 
 	public WorldObject(String file) {
-		//instanciation de la matrice de mapElement
+		// instanciation de la matrice de mapElement
 		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 			for (String line; (line = br.readLine()) != null && line != "%";) {
 				ArrayList<MapElement> temp = new ArrayList<MapElement>();
-				for (char c : line.toCharArray()){
+				for (char c : line.toCharArray()) {
 					switch (c) {
-					case '-': temp.add(new Wall('-')); break;
-					case '|': temp.add(new Wall('|')); break;
-					case '+': temp.add(new Door(false)); break;
-					case '/': temp.add(new Door(true)); break;
-					case ',': temp.add(new Floor()); break;
+					case '-':
+						temp.add(new WallHorizontal());
+						break;
+					case '|':
+						temp.add(new WallVertical());
+						break;
+					case '+':
+						temp.add(Door.createDoor(null, 0));
+						break;
+					case '/':
+						Door door = Door.createDoor(null, 0);
+						door.openDoor();
+						temp.add(door);
+						break;
+					case ',':
+						temp.add(new Floor());
+						break;
 					}
-				data.add(temp);
+					data.add(temp);
 				}
 			}
-			//ajout des Elements
-			for (String line; (line = br.readLine()) != null;){
+			// ajout des Elements
+			for (String line; (line = br.readLine()) != null;) {
 				String[] tokens = line.split(";");
-				Element monElement = null;//TODO: Faire de quoi pour �viter des NullException
-				Coord pos = new Coord(Integer.parseInt(tokens[0]), Integer.parseInt(tokens[1]));
-				switch(tokens[2]){
-					//a remplacer par calls à ElementFactory quand elle existera
-					case "a": monElement = PersonnageFactory.createMonster(pos); break;
-					case "1": monElement = new Chest( new Shield("Dacamole épique de l'Enfer", 40, 10)); break;
+				Element monElement = null;// TODO: Faire de quoi pour �viter des
+											// NullException
+				Coord pos = new Coord(Integer.parseInt(tokens[0]),
+						Integer.parseInt(tokens[1]));
+				switch (tokens[2]) {
+				// a remplacer par calls à ElementFactory quand elle existera
+				case "a":
+					monElement = PersonnageFactory.createMonster(pos);
+					break;
+				case "1":
+					monElement = new Chest(new Shield(
+							"Dacamole épique de l'Enfer", 40, 10));
+					break;
 				}
 				monElement.setPosition(pos);
 				this.get(pos).putElement(monElement);
@@ -56,14 +71,14 @@ public class WorldObject implements Iterable<ArrayList<MapElement>> {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		//Creation de la matrice de char
+		// Creation de la matrice de char
 		sdata = new ArrayList<char[]>();
-		for (ArrayList<MapElement> row : this){
+		for (ArrayList<MapElement> row : this) {
 			String temp = "";
-			for (MapElement mEle : row){
+			for (MapElement mEle : row) {
 				temp += mEle.getSymbol();
 			}
-		sdata.add(temp.toCharArray());
+			sdata.add(temp.toCharArray());
 		}
 	}
 

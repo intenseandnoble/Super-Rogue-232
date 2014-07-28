@@ -2,18 +2,13 @@ package Game.MapElements;
 
 import Game.Personnages.Element;
 
-public class Wall extends MapElement {
-	private char symbol;
-
-	public Wall(char symb) {
-		symbol = symb;
-		// TODO Auto-generated constructor stub
+public abstract class Wall extends MapElement {
+	public Wall() {
+		//polymorphisme, choisi si mur vertical ou horizontal
 	}
 
 	@Override
-	public char getSymbol() {
-		return symbol;
-	}
+	public abstract char getSymbol();
 
 	@Override
 	public boolean isCollidable() {

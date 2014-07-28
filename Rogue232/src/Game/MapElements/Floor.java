@@ -5,6 +5,7 @@ import Game.Personnages.Element;
 public class Floor extends MapElement {
 	private Element element;
 	private boolean occupied;
+	private char symbol = '.';
 
 	public Floor() {
 		element = null;
@@ -15,7 +16,7 @@ public class Floor extends MapElement {
 		if (contient() != null) {
 			return (contient()).getSymbol();
 		} else
-			return '.';
+			return symbol;
 	}
 
 	@Override
