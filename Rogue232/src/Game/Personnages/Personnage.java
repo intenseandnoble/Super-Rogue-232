@@ -50,12 +50,16 @@ public class Personnage extends Element {
 	public void move(World world, Coord coord) {
 		
 	}
+	
+	public void open(World world, Coord coord) {
+		
+	}
 
 	public boolean isDead() {
 		return hp <= 0;
 	}
 
-	public void attackChar(Personnage monster) {
+	public void attackCharacter(Personnage monster) {
 //		notifyChange(monster.getSymbol() + " attacks " + this.getSymbol()) ;
 		int damage = attack + equipement.getArme().getAttaque();
 		monster.takeDamage(damage);
@@ -114,6 +118,15 @@ public class Personnage extends Element {
 		observer.update(action);
 	}
 
+	@Override
+	public Personnage clone() {
+		try {
+			return (Personnage) super.clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 
 	

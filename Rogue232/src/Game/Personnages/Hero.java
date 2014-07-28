@@ -2,6 +2,7 @@ package Game.Personnages;
 
 import Game.Coord;
 import Game.World;
+import Game.Items.Item;
 
 public class Hero extends Personnage {
 
@@ -9,21 +10,57 @@ public class Hero extends Personnage {
 	
 	public Hero(Coord coord) {
 		super(coord);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void move(World world, Coord coord) {
-		// TODO: changer test pour mettre private
 		Coord newPosPersonnage = position.add(coord);
-
-		if (!world.isCollidable(newPosPersonnage)) {
-			this.setPosition(newPosPersonnage);
-			Personnage tmpPersonnage = world.getPersonnage(position);
-			world.deletePersonnage(position);
-			world.addPersonnage(newPosPersonnage, tmpPersonnage);
+		
+		if (world.isMonster(newPosPersonnage)) {
+			fight(world.getPersonnage(newPosPersonnage), world);
 		}
-
+		else if (!world.isCollidable(newPosPersonnage)) {
+			
+			world.removePersonnage(position);
+			this.setPosition(newPosPersonnage);
+			world.addPersonnage(newPosPersonnage, this);
+		}
+	}
+	
+	public void fight(Personnage monster, World world) {
+	// 0 : personne mort, juste d�g�ts;
+	// -1: hero mort, game over;
+	// 1 : monster mort;
+	Personnage.notifyChange("The hero and " + monster.getSymbol() + " fight!");
+	this.attackCharacter(monster);
+	monster.attackCharacter(this);
+	if (this.isDead()){
+		Personnage.notifyChange("Hero dead");
+		}
+	else if (monster.isDead()){
+		Personnage.notifyChange("Monster dead");
+		world.removePersonnage(monster.getPosition());
+		}
+	}	
+	
+	@Override
+	public void open(World world, Coord coord) {
+		// fonctionne seulement pour les portes
+		Coord newPos = position.add(coord);
+		
+		if (world.isOpenable(newPos)) {
+//			System.out.println(world.getChar(position));
+			world.setChar(newPos, world.getOpenTo().get(world.getChar(newPos)).charValue());
+			Personnage.notifyChange("It's opened");
+			
+//			if (world.getChar(newPos) == '[') {
+//				Item anItem = world.coffres.get(newPos).getBonus();
+//				String nameItem = anItem.getNom();
+//				Personnage.notifyChange("You found " + nameItem);
+//				hero.receivesShield(anItem);
+//			}
+			
+		}
 	}
 	
 	//TODO : implementer switch case selon le cas d'objet recu

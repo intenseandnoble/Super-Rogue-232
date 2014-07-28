@@ -16,8 +16,8 @@ public class GraphicEngine {
 		this.view = view;
 	}
 
-	public void updateDisplay(World world, HashMap<Coord, Personnage> monsters, Personnage hero) {
-		String s = toStringWorld(world, monsters);
+	public void updateDisplay(World world, Personnage hero) {
+		String s = toStringWorld(world, world.getAllPersonnages());
 		int vie = hero.getHp();
 		int defense = hero.afficheDef();
 		int attaque = hero.afficheAtk();

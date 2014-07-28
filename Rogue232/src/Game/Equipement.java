@@ -1,8 +1,9 @@
 package Game;
 
 import Game.Items.Armor;
-import Game.Items.ItemFactory;
+import Game.Items.ArmorFactory;
 import Game.Items.Shield;
+import Game.Items.ShieldFactory;
 import Game.Items.Weapon;
 import Game.Items.WeaponFactory;
 
@@ -13,14 +14,14 @@ public class Equipement {
 	
 	public Equipement(){
 		arme = WeaponFactory.createNoobyWeapon();
-		armure = ItemFactory.createArmureNoob();
-		shield = ItemFactory.createShieldNoob();
+		armure = ArmorFactory.createNoobyArmor();
+		shield = ShieldFactory.createNoobyShield();
 	}
 	
 	public Equipement(int i){
-		arme = ItemFactory.createDummyArme();
-		armure = ItemFactory.createDummyArmure();
-		shield = ItemFactory.createDummyShield();
+		arme = WeaponFactory.createDummyWeapon();
+		armure = ArmorFactory.createDummyArmor();
+		shield = ShieldFactory.createDummyShield();
 	}
 	
 	public Weapon getArme() {

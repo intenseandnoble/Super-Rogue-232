@@ -17,6 +17,7 @@ public class World implements Iterable<char[]> {
 	private char[] collidable = { '|', ' ', '-', '+', '[' , ']' };
 	private char[] openable = { '+', ']' };
 	private HashMap<Character,Character> openTo;
+
 	private ArrayList<ArrayList<MapElement>> oWorld;
 
 	private HashMap<Coord, Personnage> personnages;
@@ -129,6 +130,10 @@ public class World implements Iterable<char[]> {
 	public Personnage getPersonnage(Coord coord) {
 		return personnages.get(coord);
 	}
+	
+	public HashMap<Coord, Personnage> getAllPersonnages() {
+		return personnages;
+	}
 
 	public void addPersonnage(Coord coord,  Personnage perso) {
 		this.personnages.put(coord, perso);
@@ -138,7 +143,7 @@ public class World implements Iterable<char[]> {
 		this.personnages= personnages;
 	}
 	
-	public void deletePersonnage(Coord coord) {
+	public void removePersonnage(Coord coord) {
 		this.personnages.remove(coord);
 	}
 
@@ -148,6 +153,16 @@ public class World implements Iterable<char[]> {
 
 	public void setCoffres(HashMap<Coord, Chest> coffres) {
 		this.coffres = coffres;
+	}
+	
+	public boolean isMonster(Coord coord) {
+		boolean isMonster = personnages.containsKey(coord);
+		return isMonster;
+
+	}
+	
+	public HashMap<Character, Character> getOpenTo() {
+		return openTo;
 	}
 
 }

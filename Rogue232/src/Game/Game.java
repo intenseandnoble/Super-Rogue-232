@@ -16,7 +16,7 @@ public class Game {
 	private InputManager im;
 	private World world;
 	private String command;
-	private HashMap<Character,Character> openTo;
+//	private HashMap<Character,Character> openTo;
 	private Personnage hero;
 
 
@@ -38,6 +38,7 @@ public class Game {
 		//private Chest coffre = new Chest( new Shield("Dacamole épique de l'Enfer", 40, 10));
 		
 	}
+	
 
 	public void mainLoop() {
 
@@ -54,29 +55,32 @@ public class Game {
 	private void executeCommand() {
 		switch (command.toLowerCase()) {
 		case "up":
-//			move(hero.getPosition(), new Coord(0, -1));
 			hero.move(world ,new Coord(0, -1));
+			if (hero.isDead()) running = false;
 			break;
 		case "down":
-//			move(hero.getPosition(), new Coord(0, 1));
+			hero.move(world ,new Coord(0, 1));
+			if (hero.isDead()) running = false;
 			break;
 		case "left":
-//			move(hero.getPosition(), new Coord(-1, 0));
+			hero.move(world ,new Coord(-1, 0));
+			if (hero.isDead()) running = false;
 			break;
 		case "right":
-//			move(hero.getPosition(), new Coord(1, 0));
+			hero.move(world ,new Coord(1, 0));
+			if (hero.isDead()) running = false;
 			break;
 		case "open up":
-			open(hero.getPosition(), new Coord(0, -1));
+			hero.open(world ,new Coord(0, -1));
 			break;
 		case "open right":
-			open(hero.getPosition(), new Coord(1, 0));
+			hero.open(world ,new Coord(1, 0));
 			break;
 		case "open left":
-			open(hero.getPosition(), new Coord(-1, 0));
+			hero.open(world ,new Coord(-1, 0));
 			break;
 		case "open down":
-			open(hero.getPosition(), new Coord(0, 1));
+			hero.open(world ,new Coord(0, 1));
 			break;
 		case "exit":
 			System.exit(0);
@@ -128,32 +132,26 @@ public class Game {
 		System.out.println("Game over");
 	}
 
-	public void open(Coord posCharacter, Coord coord) {
-		// fonctionne seulement pour les portes
-		Coord newPos = posCharacter.add(coord);
-		if (world.isOpenable(newPos)) {
-			System.out.println(world.getChar(posCharacter));
-			world.setChar(newPos, openTo.get(world.getChar(newPos)).charValue());
-			Personnage.notifyChange("It's opened");
-			
-			if (world.getChar(newPos) == '[') {
-				Item anItem = world.coffres.get(newPos).getBonus();
-				String nameItem = anItem.getNom();
-				Personnage.notifyChange("You found " + nameItem);
-//				hero.receivesShield(anItem);
-			}
-			
-		}
-	}
-
-	private boolean isMonster(Coord coord) {
-		boolean isMonster = monsters.containsKey(coord);
-		return isMonster;
-
-	}
+//	public void open(Coord posCharacter, Coord coord) {
+//		// fonctionne seulement pour les portes
+//		Coord newPos = posCharacter.add(coord);
+//		if (world.isOpenable(newPos)) {
+//			System.out.println(world.getChar(posCharacter));
+//			world.setChar(newPos, openTo.get(world.getChar(newPos)).charValue());
+//			Personnage.notifyChange("It's opened");
+//			
+//			if (world.getChar(newPos) == '[') {
+//				Item anItem = world.coffres.get(newPos).getBonus();
+//				String nameItem = anItem.getNom();
+//				Personnage.notifyChange("You found " + nameItem);
+////				hero.receivesShield(anItem);
+//			}
+//			
+//		}
+//	}
 
 	private void updateDisplay() {
-		ge.updateDisplay(world, world., hero);
+		ge.updateDisplay(world, hero);
 	}
 
 	public World getWorld() {
