@@ -47,7 +47,7 @@ public class Hero extends Personnage {
 		this.attackCharacter(monster);
 		monster.attackCharacter(this);
 		if (this.isDead()) {
-			Personnage.notifyChange("Hero dead");
+			Personnage.notifyChange("Hero dead - Game Over");
 		} else if (monster.isDead()) {
 			Personnage.notifyChange("Monster dead");
 			world.removePersonnage(monster.getPosition());

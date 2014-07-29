@@ -2,6 +2,7 @@ package Game.Personnages;
 
 import Game.Coord;
 import Game.Equipement;
+import Game.Game;
 import Game.InputManager;
 import Game.World;
 import Game.Items.Armor;
@@ -12,14 +13,13 @@ import Game.Observer.AppendTextObserver;
 
 public class Personnage extends Element {
 	/* Map variables */
-//	private Coord position;
-//	private char Symbol;
+	// private Coord position;
+	// private char Symbol;
 
 	/* Stats variables */
 	private int hp;
 	private int attack;
 	private int defense;
-	
 
 	static AppendTextObserver observer = new AppendTextObserver();
 
@@ -37,23 +37,25 @@ public class Personnage extends Element {
 		// observers = new ArrayList<ConcreteObserver>();
 	}
 
-	public Personnage(Coord pos, char symbol, int lifepts, int atk, int def) {
-		position = pos;
-		this.symbol = symbol;
-		hp = lifepts;
-		attack = atk;
-		defense = def;
-		equipement = new Equipement(1);	
+	// TODO; polymorphisme nécessaire?
+	 public Personnage(Coord pos, char symbol, int lifepts, int atk, int def)
+	 {
+	 position = pos;
+	 this.symbol = symbol;
+	 hp = lifepts;
+	 attack = atk;
+	 defense = def;
+	 equipement = new Equipement(1);
 
-		// observers = new ArrayList<ConcreteObserver>();
-	}
-	
+	// observers = new ArrayList<ConcreteObserver>();
+	 }
+
 	public void move(World world, Coord coord) {
-		
+
 	}
-	
+
 	public void open(World world, Coord coord, InputManager im) {
-		
+
 	}
 
 	public boolean isDead() {
@@ -61,9 +63,15 @@ public class Personnage extends Element {
 	}
 
 	public void attackCharacter(Personnage monster) {
-//		notifyChange(monster.getSymbol() + " attacks " + this.getSymbol()) ;
+		// notifyChange(monster.getSymbol() + " attacks " + this.getSymbol()) ;
 		int damage = attack + equipement.getArme().getAttaque();
 		monster.takeDamage(damage);
+	}
+
+	public void attackHero() {
+		// notifyChange(monster.getSymbol() + " attacks " + this.getSymbol()) ;
+
+		// Hero.takeDamage(afficheAtk());
 	}
 
 	public int getHp() {
@@ -79,6 +87,7 @@ public class Personnage extends Element {
 		} else {
 			Personnage.notifyChange("Shield's broken");
 		}
+
 	}
 
 	public int getAtk() {
@@ -97,7 +106,6 @@ public class Personnage extends Element {
 	public Shield getShield() {
 		return equipement.getShield();
 	}
-	
 
 	public Armor getArmure() {
 		return equipement.getArmure();
@@ -129,6 +137,4 @@ public class Personnage extends Element {
 		}
 	}
 
-
-	
 }

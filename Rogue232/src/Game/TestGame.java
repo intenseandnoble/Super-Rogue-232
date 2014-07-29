@@ -59,11 +59,13 @@ public class TestGame extends TestCase {
 		Personnage monster1 = new Personnage(new Coord(2,3), 'a', 40, 40, 0);
 		Personnage monster2 = new Personnage(new Coord(3,2), 'a', 40, 40, 0);
 		Personnage monster3 = new Personnage(new Coord(3,4), 'a', 40, 20, 0);
-		myGame.fight(hero, monster1);
+		hero.attackCharacter(monster1);
+		//Le monstre doit aussi attaquer le hero.
+		//hero.;
 		assertTrue(!(hero.isDead())); //isalive
-		myGame.fight(hero, monster2);
+		hero.attackCharacter(monster2);
 		assertTrue(!(hero.isDead())); //isAlwaysAlive
-		myGame.fight(hero, monster3);
+		hero.attackCharacter(monster3);
 		assertTrue(hero.isDead()); //isDead systemOut GameOver
 	}
 
