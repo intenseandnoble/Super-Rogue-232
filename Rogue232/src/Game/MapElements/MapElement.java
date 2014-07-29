@@ -1,18 +1,21 @@
 package Game.MapElements;
 
-import Game.Personnages.Element;
+import Game.Coord;
 
-public abstract class MapElement {
+public class MapElement {
+	
+	protected Coord position;
+	protected char symbol;
 
-	protected MapElement() {
+	public char getSymbol(){
+		return symbol;
+	}
+	
+	public void setPostion(Coord aPosition){
+		position = aPosition;
 	}
 
-	public abstract char getSymbol();
-
-	public abstract boolean isCollidable();
-	
-	public abstract boolean putElement(Element e);
-	
-	
-
+	public boolean isCollidable(){
+		return false;
+	};
 }

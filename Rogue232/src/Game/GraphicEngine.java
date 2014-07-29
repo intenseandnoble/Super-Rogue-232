@@ -42,6 +42,8 @@ public class GraphicEngine {
 		for (Entry<Coord, Personnage> entry : personnages.entrySet()) {
 			world.setCharacter(entry.getKey(), entry.getValue().getSymbol());
 		}
+		
+		// need to check
 		for(Entry<Coord, Element> entry : elements.entrySet()){
 			world.setCharacter(entry.getKey(), entry.getValue().getSymbol());
 		}

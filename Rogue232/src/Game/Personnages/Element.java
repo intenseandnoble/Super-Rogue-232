@@ -1,7 +1,5 @@
 package Game.Personnages;
 
-import org.hamcrest.CoreMatchers;
-
 import Game.Coord;
 
 public class Element {

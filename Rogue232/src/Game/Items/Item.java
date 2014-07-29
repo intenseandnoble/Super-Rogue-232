@@ -3,18 +3,20 @@ package Game.Items;
 
 public abstract class Item {
 
-	String nom;
+	String name;
+	
+	public Item(){name = null;}
 
 	public Item(String nom) {
-		this.nom = nom;
+		this.name = nom;
 	}
 
 	public String getName() {
-		return nom;
+		return name;
 	}
 
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setName(String nom) {
+		this.name = nom;
 	}
 
 //	//TODO: Instancier liste des Items;

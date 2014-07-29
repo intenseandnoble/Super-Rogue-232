@@ -1,53 +1,64 @@
 package Game.MapElements;
 
+import Game.Coord;
 import Game.Items.*;
 import Game.Personnages.*;
 
-public abstract class Door extends MapElement {
+public class Door extends MapElement {
+
+	private Key key;
+	private String doorState;
 	
-	private boolean occupied;
-	protected Element	element;
-	protected Key 	key;
-	private static Door door;
-	
-	protected Door(Element item, int key){
-		this.element = item;
-		if(item != null)
-			occupied = true;
-		else occupied = false;
-		this.key = new Key("cle", key);  //si key=0 (clé bidon), alors la porte n'a pas besoin de clé
-	}
-	
-	public static Door createDoor(Element e, int k){
-		return door = new DoorClose(e, k);
-	}
-	
-	public boolean getOccupied(){
-		return occupied;
-	}
-	
-	protected void setOccupied(){
-		occupied = !(occupied);
-	}
-	
-	public boolean putElement(Element e){
-		if (!occupied) {
-			element = e;
-			occupied = true;
-			return true; // SUCCESS!!
+	public Door(boolean isOpen){
+		position = null;
+		key = KeyFactory.getKey("", 0);
+		if (isOpen) {
+			symbol = '/';
+			doorState = "open";
+		} else {
+			symbol = '+';
+			doorState = "close";
 		}
-		return false; // FAIL D:
 	}
-	
-	public boolean openDoor(){
-		if(key.getNoKey() == this.key.getNoKey()){
-			door = new DoorOpen(element,this.key.getNoKey());
-			return true; //is the great key, door open
+
+	public Door(Coord aPosition, Boolean isOpen, boolean hasKey) {
+		position = aPosition;
+		if (isOpen) {
+			symbol = '/';
+			doorState = "open";
+		} else {
+			symbol = '+';
+			doorState = "close";
 		}
-		return false; //is not key for this door
+		if (hasKey)
+			key = KeyFactory.getKey("key", KeyGenerator.getKeyNumber());
+		else {
+			key = KeyFactory.getKey("", 0);
+		}
 	}
 	
-	public abstract char getSymbol();
-	public abstract boolean isCollidable();
-	public abstract Element contient();
+	public Key getKey() {
+		return key;
+	}
+
+	public String getDoorState() {
+		return doorState;
+	}
+
+	public void Open(Key aKey) {
+		if (doorState.equals("close")) {
+			if (aKey.getNumber() == key.getNumber() || key.isNull()) {
+				symbol = '/';
+				doorState = "open";
+			}
+		}
+	}
+
+	public void Close() {
+		if (doorState.equals("open")) {
+			symbol = '+';
+			doorState = "close";
+		}
+	}
+
 }

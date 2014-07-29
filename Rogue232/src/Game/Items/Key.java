@@ -1,16 +1,25 @@
 package Game.Items;
 
-public class Key extends Item {
+public abstract class Key extends Item {
 	
-	private int noKey;
-
-	public Key(String nom, int no) {
+	protected int keyNumber;
+	boolean isNull;
+	
+	public Key(){
+		super();
+	}
+	
+	public Key(String nom) {
 		super(nom);
-		// TODO Auto-generated constructor stub
-		noKey = no; //identifiant de la clé associé à une porte, si 0=clé bidon
 	}
-
-	public int getNoKey(){
-		return noKey;
+	
+	public int getNumber(){
+		return keyNumber;
 	}
+	
+	public String getName(){
+		return getName();
+	}
+	
+	public abstract boolean isNull();
 }

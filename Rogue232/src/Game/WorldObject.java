@@ -22,28 +22,26 @@ public class WorldObject implements Iterable<ArrayList<MapElement>> {
 		// instanciation de la matrice de mapElement
 		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 			for (String line; (line = br.readLine()) != null && line != "%";) {
-				ArrayList<MapElement> temp = new ArrayList<MapElement>();
+				ArrayList<MapElement> arrayMapElement = new ArrayList<MapElement>();
 				for (char c : line.toCharArray()) {
 					switch (c) {
 					case '-':
-						temp.add(new WallHorizontal());
+						arrayMapElement.add(new Wall("horizontal"));
 						break;
 					case '|':
-						temp.add(new WallVertical());
+						arrayMapElement.add(new Wall("vertical"));
 						break;
 					case '+':
-						temp.add(Door.createDoor(null, 0));
+						arrayMapElement.add(new Door(false));
 						break;
 					case '/':
-						Door door = Door.createDoor(null, 0);
-						door.openDoor();
-						temp.add(door);
+						arrayMapElement.add(new Door(true));
 						break;
 					case ',':
-						temp.add(new Floor());
+						arrayMapElement.add(new Floor());
 						break;
 					}
-					data.add(temp);
+					data.add(arrayMapElement);
 				}
 			}
 			// ajout des Elements
@@ -64,7 +62,10 @@ public class WorldObject implements Iterable<ArrayList<MapElement>> {
 					break;
 				}
 				monElement.setPosition(pos);
-				this.get(pos).putElement(monElement);
+				if(this.get(pos) instanceof Floor){
+					((Floor)this.get(pos)).putElement(monElement);
+				}
+				
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

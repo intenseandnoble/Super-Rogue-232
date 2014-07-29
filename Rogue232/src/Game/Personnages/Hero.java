@@ -56,7 +56,6 @@ public class Hero extends Personnage {
 		if (world.isOpenable(newPosition)) {
 			// Door
 			if (world.getCharacter(newPosition) == '+'){
-				//world.setChar(newPos, world.getOpenTo().get(world.getChar(newPos)).charValue());
 				Personnage.notifyChange("The door is open");
 			}
 			// Chest
