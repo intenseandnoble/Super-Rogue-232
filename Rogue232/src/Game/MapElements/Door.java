@@ -60,5 +60,9 @@ public class Door extends MapElement {
 			doorState = "close";
 		}
 	}
+	
+	public Door getDoor(Coord coord){
+		return this;
+	}
 
 }

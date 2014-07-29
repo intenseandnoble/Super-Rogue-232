@@ -19,7 +19,13 @@ public class World implements Iterable<char[]> {
 	private char[] openable = { '+', ']' };
 	private HashMap<Character,Character> openTo;
 
-	private ArrayList<ArrayList<MapElement>> oWorld;
+//	private ArrayList<ArrayList<MapElement>> oWorld;
+	private HashMap<Coord, MapElement> oWorld;
+
+	public HashMap<Coord, MapElement> getoWorld() {
+		return oWorld;
+	}
+
 
 	private HashMap<Coord, Personnage> personnages;
 	private HashMap<Coord, Element> elements;
@@ -179,6 +185,7 @@ public class World implements Iterable<char[]> {
 	public HashMap<Coord, Element> getAllElements(){
 		return elements;
 	}
+
 	
 	/*
 	 * Monster

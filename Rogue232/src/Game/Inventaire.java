@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import Game.Items.Item;
+import Game.Personnages.Personnage;
 
 public class Inventaire implements Iterable<Item> {
 	private ArrayList<Item> bag;
@@ -22,10 +23,6 @@ public class Inventaire implements Iterable<Item> {
 
 	public void getItem(int x) {
 		bag.get(x);
-	}
-
-	public int getSize() {
-		return bag.size();
 	}
 
 	@Override
