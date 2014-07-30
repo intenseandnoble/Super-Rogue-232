@@ -11,17 +11,14 @@ import Game.Items.*;
 import Game.MapElements.*;
 import Game.Personnages.*;
 
-//renomer world plus tard
 public class World implements Iterable<ArrayList<MapElement>> {
 	private ArrayList<ArrayList<MapElement>> data;
-	// changer nom plus tard et decoupler en sa propre classe(similaire a
-	// l'ancient world)
-	private ArrayList<char[]> sdata;
 
 	public World(String file) {
+		data = new ArrayList<ArrayList<MapElement>>();
 		// instanciation de la matrice de mapElement
 		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-			for (String line; (line = br.readLine()) != null && line != "%";) {
+			for (String line; (line = br.readLine()) != null && !line.contains("%");) {
 				ArrayList<MapElement> arrayMapElement = new ArrayList<MapElement>();
 				for (char c : line.toCharArray()) {
 					arrayMapElement.add(MapElementFactory.createMapElement(c));
@@ -31,7 +28,7 @@ public class World implements Iterable<ArrayList<MapElement>> {
 			// ajout des Elements
 			for (String line; (line = br.readLine()) != null;) {
 				String[] tokens = line.split(";");
-				Element monElement = null;// TODO: Faire de quoi pour éviter des
+				Element monElement = null;// TODO: Faire de quoi pour ï¿½viter des
 											// NullException
 				Coord pos = new Coord(Integer.parseInt(tokens[0]),
 						Integer.parseInt(tokens[1]));
@@ -48,15 +45,6 @@ public class World implements Iterable<ArrayList<MapElement>> {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-		// Creation de la matrice de char
-		sdata = new ArrayList<char[]>();
-		for (ArrayList<MapElement> row : this) {
-			String temp = "";
-			for (MapElement mEle : row) {
-				temp += mEle.getSymbol();
-			}
-			sdata.add(temp.toCharArray());
 		}
 	}
 

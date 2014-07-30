@@ -1,8 +1,10 @@
 package Game;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+import Game.MapElements.MapElement;
 import Game.Observer.AppendTextObserver;
 import Game.Personnages.Element;
 import Game.Personnages.Personnage;
@@ -16,9 +18,8 @@ public class GraphicEngine {
 		this.view = view;
 	}
 
-	public void updateDisplay(OldWorld world, Personnage hero) {
-		String s = toStringWorld(world, world.getAllPersonnages(),
-				world.getAllElements());
+	public void updateDisplay(World world, Personnage hero) {
+		String s = toStringWorld(world);
 		int vie = hero.getHp();
 		int defense = hero.afficheDef();
 		int attaque = hero.afficheAtk();
@@ -29,40 +30,16 @@ public class GraphicEngine {
 		view.updateTextDescription(vie, defense, attaque, vieB, defB);
 	}
 
-	// Il y a les monstres et le hero dans le HashMap<Coord,Personnage> monsters
-	private String toStringWorld(OldWorld world,
-			HashMap<Coord, Personnage> personnages,
-			HashMap<Coord, Element> elements) {
-
-		HashMap<Coord, Character> tmp = new HashMap<Coord, Character>();
-
-		for (Entry<Coord, Personnage> entry : personnages.entrySet()) {
-			tmp.put(entry.getKey(), world.getCharacter(entry.getKey()));
-		}
-
-		for (Entry<Coord, Personnage> entry : personnages.entrySet()) {
-			world.setCharacter(entry.getKey(), entry.getValue().getSymbol());
-		}
-
-		// need to check
-		for (Entry<Coord, Element> entry : elements.entrySet()) {
-			world.setCharacter(entry.getKey(), entry.getValue().getSymbol());
-		}
-
-		// Create world
+	private String toStringWorld(World world){
 		String worldString = "";
-		for (char[] str : world) {
-			worldString += new String(str)
-					+ System.getProperty("line.separator");
+		for (ArrayList<MapElement> row: world){
+			String rowString = "";
+			for (MapElement me : row){
+				 rowString += me.getSymbol();
+			}
+			worldString += rowString + "\n";
 		}
-
-		// Add Character in the world
-		for (Entry<Coord, Character> entry : tmp.entrySet()) {
-			world.setCharacter(entry.getKey(), entry.getValue());
-		}
-
-		// Add Item in the world
-
 		return worldString;
+		
 	}
 }

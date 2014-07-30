@@ -12,7 +12,7 @@ public class TestGame extends TestCase {
 
 	public void testWorldConstructor() {
 		// TODO: transferer dans TestWorld quand il existera
-		OldWorld world = new OldWorld("maps/smallWorld.txt");
+		World world = new World("maps/smallWorld.txt");
 		ArrayList<char[]> data = new ArrayList<char[]>();
 		char[] array = { '|', '-', '-', '-', '|' };
 		char[] array2 = { '|', '.', '.', '.', '|' };

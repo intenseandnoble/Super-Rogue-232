@@ -12,9 +12,9 @@ public class ElementFactory {
 	public static Element create(String s, Coord postion) {
 		switch (s) {
 		case "@":
-			return new Hero(postion);
+			return PersonnageFactory.createHero(postion);
 		case "a":
-			return new Monsters(postion);
+			return PersonnageFactory.createMonster(postion);
 		case "]":
 			return new Chest(postion);
 		default:

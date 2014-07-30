@@ -14,7 +14,7 @@ public class MapElementFactory {
 			return new Door(false);
 		case '/':
 			return new Door(true);
-		case ',':
+		case '.':
 			return new Floor();
 		default:
 			throw new IllegalArgumentException("Char not valid");

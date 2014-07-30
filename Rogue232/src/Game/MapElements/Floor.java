@@ -70,4 +70,10 @@ public class Floor extends MapElement {
 		}
 		return false;
 	}
+	
+	public char getSymbol(){
+		if (element == null)
+			return '.';
+		return element.getSymbol();
+	}
 }
