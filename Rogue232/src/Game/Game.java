@@ -21,11 +21,11 @@ public class Game {
 		running = true;
 		world = new World(file);
 		hero = new Hero(new Coord(2, 2));
-		world.addPersonnage(hero.getPosition(), hero);
+//		world.addPersonnage(hero.getPosition(), hero);
 		Coord monsterCoord = new Coord(2, 1);
-		world.addPersonnage(monsterCoord,
-				PersonnageFactory.createMonster(monsterCoord));
-		world.addChest(new Chest(new Coord(2, 3)));
+//		world.addPersonnage(monsterCoord,
+//				PersonnageFactory.createMonster(monsterCoord));
+//		world.addChest(new Chest(new Coord(2, 3)));
 		view = new View(world.getWidth(), world.getHeight());
 		ge = new GraphicEngine(view);
 		im = new InputManager(view);

@@ -1,6 +1,9 @@
 package Game.Personnages;
 
 import Game.Coord;
+import Game.MapElements.Floor;
+import Game.MapElements.MapElement;
+import Game.MapElements.MapElementFactory;
 
 public class Element {
 	// Variables
@@ -16,5 +19,13 @@ public class Element {
 	}
 	public char getSymbol(){
 		return symbol;
+	}
+	
+	public boolean isMonster(){
+		return false;
+	}
+	
+	public boolean isOpenable(){
+		return false;
 	}
 }

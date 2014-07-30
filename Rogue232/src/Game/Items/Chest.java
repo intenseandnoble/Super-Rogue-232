@@ -65,4 +65,8 @@ public class Chest extends Element {
 			// TODO: changer cas si 'null';
 			return null;
 	}
+	
+	public boolean isOpenable(){
+		return symbol == ']';
+	}
 }

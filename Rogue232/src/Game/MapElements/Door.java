@@ -45,7 +45,7 @@ public class Door extends MapElement {
 		return doorState;
 	}
 
-	public void Open(Key aKey) {
+	public void open(Key aKey) {
 		if (doorState.equals("close")) {
 			if (aKey.getNumber() == key.getNumber() || key.isNull()) {
 				symbol = '/';
@@ -54,7 +54,7 @@ public class Door extends MapElement {
 		}
 	}
 
-	public void Close() {
+	public void close() {
 		if (doorState.equals("open")) {
 			symbol = '+';
 			doorState = "close";
@@ -64,5 +64,8 @@ public class Door extends MapElement {
 	public Door getDoor(Coord coord){
 		return this;
 	}
-
+	
+	public boolean isOpenable(){
+		return symbol == '+';
+	}
 }

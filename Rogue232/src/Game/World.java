@@ -5,132 +5,74 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 
-import Game.Items.Chest;
-import Game.MapElements.MapElement;
-import Game.Personnages.Element;
-import Game.Personnages.Personnage;
+import Game.Items.*;
+import Game.MapElements.*;
+import Game.Personnages.*;
 
-public class World implements Iterable<char[]> {
-	ArrayList<char[]> data = new ArrayList<char[]>();
-	private char[] collidable = { '|', ' ', '-', '+', '[' , ']' };
-	private char[] openable = { '+', ']' };
-	private HashMap<Character,Character> openTo;
+//renomer world plus tard
+public class World implements Iterable<ArrayList<MapElement>> {
+	private ArrayList<ArrayList<MapElement>> data;
+	// changer nom plus tard et decoupler en sa propre classe(similaire a
+	// l'ancient world)
+	private ArrayList<char[]> sdata;
 
-//	private ArrayList<ArrayList<MapElement>> oWorld;
-	private HashMap<Coord, MapElement> oWorld;
-
-	public HashMap<Coord, MapElement> getoWorld() {
-		return oWorld;
-	}
-
-
-	private HashMap<Coord, Personnage> personnages;
-	private HashMap<Coord, Element> elements;
-	
 	public World(String file) {
-		elements = new HashMap<Coord, Element>();
-		personnages = new HashMap<Coord, Personnage>();
-		/*
-		//TODO: instantiation de la map avec des objects
+		// instanciation de la matrice de mapElement
 		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 			for (String line; (line = br.readLine()) != null && line != "%";) {
-				ArrayList<Symbol> symbols = new ArrayList<Symbol>();
-				for (char c : line.toCharArray()){
-					switch (c) {
-					case '-': temp.add(new Wall('-')); break;
-					case '|': temp.add(new Wall('|')); break;
-					case '+': temp.add(new Door(false)); break;
-					case '/': temp.add(new Door(true)); break;
-					case ',': temp.add(new Floor()); break;
-					}
-				oWorld.add(symbols);
+				ArrayList<MapElement> arrayMapElement = new ArrayList<MapElement>();
+				for (char c : line.toCharArray()) {
+					arrayMapElement.add(MapElementFactory.createMapElement(c));
 				}
+				 data.add(arrayMapElement);
 			}
-			for (String line; (line = br.readLine()) != null;){
-				String[] tokens = line.split(';');
-				switch(tokens[2]){
-				//TODO
-				}
-				monElement.setPosition(new Coord(tokens[0], tokens[1]));
-			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		*/
-		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+			// ajout des Elements
 			for (String line; (line = br.readLine()) != null;) {
-				data.add(line.toCharArray());
+				String[] tokens = line.split(";");
+				Element monElement = null;// TODO: Faire de quoi pour éviter des
+											// NullException
+				Coord pos = new Coord(Integer.parseInt(tokens[0]),
+						Integer.parseInt(tokens[1]));
+				
+				monElement = ElementFactory.create(tokens[2],pos);
+	
+				monElement.setPosition(pos);
+				if(this.get(pos) instanceof Floor){
+					((Floor)this.get(pos)).putElement(monElement);
+				}
+				
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		openTo = new HashMap<Character, Character>();
-		openTo.put(new Character(']'),new Character('['));
-		openTo.put(new Character('+'),new Character('/'));
-	}
-	
-	public boolean isCollidable(Coord coord) {
-		boolean isCollidable = false;
-		char toCompare = getCharacter(coord);
-		
-		for (char c : collidable) {
-			if (toCompare == c)
-				isCollidable = true;
-		}
-		return isCollidable;
-	}
-	
-	public boolean isOpenable(Coord coord) {
-		boolean isOpenable = false;
-		char toCompare = getCharacter(coord);
-		for (char c : openable) {
-			if (toCompare == c)
-				isOpenable = true;
+		// Creation de la matrice de char
+		sdata = new ArrayList<char[]>();
+		for (ArrayList<MapElement> row : this) {
+			String temp = "";
+			for (MapElement mEle : row) {
+				temp += mEle.getSymbol();
 			}
-		return isOpenable;
+			sdata.add(temp.toCharArray());
+		}
 	}
 
-	public ArrayList<char[]> getData() {
-		return data;
-	}
-	/*
-	 * Character
-	 */
-
-	public char getCharacter(Coord coord) {
-		return data.get(coord.getY())[coord.getX()];
+	public MapElement get(Coord coord) {
+		return data.get(coord.getY()).get(coord.getX());
 	}
 
-	public void setCharacter(Coord coord, char c) {
-		data.get(coord.getY())[coord.getX()] = c;
-	}
-
-	public ArrayList<char[]> getWorld() {
-		return data;
-	}
-
-	@Override
-	public Iterator<char[]> iterator() {
-		Iterator<char[]> iWorld = data.iterator();
-		return iWorld;
+	public void put(Coord coord, MapElement symbol) {
+		data.get(coord.getY()).set(coord.getX(), symbol);
 	}
 
 	public int getWidth() {
 		int WSize = 0;
-
-		for (char[] c : data) {
-			if (c.length > WSize){
-				WSize = c.length;
-			}
+		for (ArrayList<MapElement> c : data) {
+			WSize = Math.max(c.size(), WSize);
 		}
-
 		return WSize;
 
 	}
@@ -138,63 +80,15 @@ public class World implements Iterable<char[]> {
 	public int getHeight() {
 		return data.size();
 	}
-	
-	/*  
-	 * Personnage
-	 */
-	public Personnage getPersonnage(Coord coord) {
-		return personnages.get(coord);
+
+	@Override
+	public Iterator<ArrayList<MapElement>> iterator() {
+		return data.iterator();
 	}
 
-	public void addPersonnage(Coord coord,  Personnage perso) {
-		this.personnages.put(coord, perso);
+	public static void swapMapElement(MapElement a, MapElement b){
+		MapElement tempA = a.clone();
+		a=b;
+		b=tempA;
 	}
-	
-	public void setPersonnages(HashMap<Coord, Personnage> personnages) {
-		this.personnages= personnages;
-	}
-	
-	public void removePersonnage(Coord coord) {
-		this.personnages.remove(coord);
-	}
-	
-	public HashMap<Coord, Personnage> getAllPersonnages() {
-		return personnages;
-	}
-	
-	/* 
-	 * Elements 
-	 */
-	
-	public Element getElement(Coord coord){
-		return elements.get(coord);
-	}
-	
-	public void setElement(Element element){
-		elements.put(element.getPosition(), element);
-	}
-	
-	public void removeElement(Element element){
-		elements.remove(element.getPosition());
-	}
-	
-	public void addChest(Chest chest){
-		elements.put(chest.getPosition(), chest);
-	}
-	
-	public HashMap<Coord, Element> getAllElements(){
-		return elements;
-	}
-
-	
-	/*
-	 * Monster
-	 */
-	
-	public boolean isMonster(Coord coord) {
-		boolean isMonster = personnages.containsKey(coord);
-		return isMonster;
-
-	}
-
 }

@@ -16,7 +16,7 @@ public class GraphicEngine {
 		this.view = view;
 	}
 
-	public void updateDisplay(World world, Personnage hero) {
+	public void updateDisplay(OldWorld world, Personnage hero) {
 		String s = toStringWorld(world, world.getAllPersonnages(),
 				world.getAllElements());
 		int vie = hero.getHp();
@@ -30,7 +30,7 @@ public class GraphicEngine {
 	}
 
 	// Il y a les monstres et le hero dans le HashMap<Coord,Personnage> monsters
-	private String toStringWorld(World world,
+	private String toStringWorld(OldWorld world,
 			HashMap<Coord, Personnage> personnages,
 			HashMap<Coord, Element> elements) {
 

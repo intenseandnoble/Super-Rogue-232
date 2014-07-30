@@ -1,6 +1,7 @@
 package Game.MapElements;
 
 import Game.Coord;
+import Game.Items.Chest;
 import Game.Personnages.Element;
 
 public class Floor extends MapElement {
@@ -37,7 +38,7 @@ public class Floor extends MapElement {
 		return false;
 	}
 
-	protected Element contient() {
+	public Element contient() {
 		if (element != null)
 			return element;
 		else
@@ -52,5 +53,21 @@ public class Floor extends MapElement {
 		}
 		return false; // FAIL D:
 	}
-
+	
+	public void removeElement(){
+		element = null;
+	}
+	
+	public boolean isMonster(){
+		return element.isMonster();
+	}
+	
+	public boolean isOpenable(){
+		if (!occupied) {
+			if(element.getSymbol() == ']'){
+				return ((Chest)element).isOpenable();
+			}
+		}
+		return false;
+	}
 }

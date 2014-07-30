@@ -4,7 +4,7 @@ import Game.Coord;
 import Game.Equipement;
 import Game.Game;
 import Game.InputManager;
-import Game.World;
+import Game.*;
 import Game.Items.Armor;
 import Game.Items.Shield;
 import Game.Observer.AppendTextObserver;
