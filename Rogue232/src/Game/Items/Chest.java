@@ -9,48 +9,47 @@ public class Chest extends Element {
 	private Item bonus;
 	private boolean isOpen;
 
-	
 	public Chest(Coord pos) {
 		setPosition(pos);
 		isOpen = false;
 		this.symbol = ']';
 	}
-	
+
 	public Chest(Item item) {
 		putItem(item);
 		isOpen = false;
 	}
 
-	public void putItem(Item item){
+	public void putItem(Item item) {
 		bonus = item;
 	}
 
 	public Chest getChest() {
 		return this;
 	}
-	
-	public Item getBonus(){
+
+	public Item getBonus() {
 		return bonus;
 	}
-	
-	public char getSymbol(){
+
+	public char getSymbol() {
 		if (!isOpen()) {
 			return ']';
 		}
 		return '[';
 	}
-	
-	public boolean isOpen(){
+
+	public boolean isOpen() {
 		return isOpen;
 	}
-	
-	public Item open(){
+
+	public Item open() {
 		Item item = getRandomItem();
 		this.symbol = '[';
 		isOpen = true;
 		return item;
 	}
-	
+
 	public Item getRandomItem() {
 		Random randomGenerator = new Random();
 		int randomInt = randomGenerator.nextInt(100);
@@ -66,8 +65,8 @@ public class Chest extends Element {
 			// TODO: changer cas si 'null';
 			return null;
 	}
-	
-	public boolean isOpenable(){
+
+	public boolean isOpenable() {
 		return symbol == ']';
 	}
 

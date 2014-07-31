@@ -4,23 +4,20 @@ import Game.Coord;
 import Game.Personnages.Element;
 
 public class Wall extends MapElement {
-	
-	public Wall(String wallDirection)
-	{
-		if(wallDirection.toLowerCase().equals("horizontal")){
+
+	public Wall(String wallDirection) {
+		if (wallDirection.toLowerCase().equals("horizontal")) {
 			symbol = '-';
-		}
-		else{
+		} else {
 			symbol = '|';
 		}
 		position = null;
 	}
-	
-	public Wall(String wallDirection , Coord aPosition) {
-		if(wallDirection.toLowerCase().equals("horizontal")){
+
+	public Wall(String wallDirection, Coord aPosition) {
+		if (wallDirection.toLowerCase().equals("horizontal")) {
 			symbol = '-';
-		}
-		else{
+		} else {
 			symbol = '|';
 		}
 		position = aPosition;
@@ -36,5 +33,16 @@ public class Wall extends MapElement {
 		return false;
 	}
 
-	
+	@Override
+	public void removeElement() {
+	}
+
+	@Override
+	public Element content() {
+		return null;
+	}
+
+	@Override
+	public void putElement(Element content) {
+	}
 }

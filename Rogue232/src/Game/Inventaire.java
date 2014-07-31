@@ -8,7 +8,7 @@ import Game.Items.Item;
 public class Inventaire implements Iterable<Item> {
 	private ArrayList<Item> bag;
 
-	public Inventaire(){
+	public Inventaire() {
 		bag = new ArrayList<Item>();
 	}
 

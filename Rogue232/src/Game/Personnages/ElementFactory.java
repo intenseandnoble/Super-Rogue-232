@@ -1,11 +1,10 @@
 package Game.Personnages;
 
-import Game.Items.*;
-import Game.Personnages.*;
 import Game.Coord;
+import Game.Items.Chest;
 
 public class ElementFactory {
-	
+
 	protected ElementFactory() {
 	}
 

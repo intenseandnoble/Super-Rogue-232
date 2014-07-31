@@ -5,9 +5,9 @@ import java.util.Random;
 public class ConsumableFactory {
 	private static final int SMALLHPPOTION = 0;
 	private static final int MEDIUMHPPOTION = 1;
-	
-	public ConsumableFactory(){
-		
+
+	public ConsumableFactory() {
+
 	}
 
 	public static Consumable createSmallHpPotion() {

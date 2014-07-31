@@ -1,14 +1,13 @@
 package Game.Items;
 
-
-public class Armor extends Item{
+public class Armor extends Item {
 	int defense;
 
-	public Armor(String nom, int defense){
+	public Armor(String nom, int defense) {
 		super(nom);
 		this.defense = defense;
 	}
-	
+
 	public int getDefense() {
 		return defense;
 	}
@@ -16,6 +15,5 @@ public class Armor extends Item{
 	public void setDefense(int defense) {
 		this.defense = defense;
 	}
-	
-	
+
 }

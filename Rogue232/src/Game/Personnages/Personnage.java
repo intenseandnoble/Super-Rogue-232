@@ -2,9 +2,8 @@ package Game.Personnages;
 
 import Game.Coord;
 import Game.Equipement;
-import Game.Game;
 import Game.InputManager;
-import Game.*;
+import Game.World;
 import Game.Items.Armor;
 import Game.Items.Shield;
 import Game.Observer.AppendTextObserver;
@@ -38,17 +37,16 @@ public abstract class Personnage extends Element {
 	}
 
 	// TODO; polymorphisme nécessaire?
-	 public Personnage(Coord pos, char symbol, int lifepts, int atk, int def)
-	 {
-	 position = pos;
-	 this.symbol = symbol;
-	 hp = lifepts;
-	 attack = atk;
-	 defense = def;
-	 equipement = new Equipement(1);
+	public Personnage(Coord pos, char symbol, int lifepts, int atk, int def) {
+		position = pos;
+		this.symbol = symbol;
+		hp = lifepts;
+		attack = atk;
+		defense = def;
+		equipement = new Equipement(1);
 
-	// observers = new ArrayList<ConcreteObserver>();
-	 }
+		// observers = new ArrayList<ConcreteObserver>();
+	}
 
 	public void move(World world, Coord coord) {
 

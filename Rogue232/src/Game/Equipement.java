@@ -22,11 +22,11 @@ public class Equipement {
 		shield = ShieldFactory.createNoobyShield();
 	}
 
-	 public Equipement(int i){
-	 arme = WeaponFactory.createDummyWeapon();
-	 armure = ArmorFactory.createDummyArmor();
-	 shield = ShieldFactory.createDummyShield();
-	 }
+	public Equipement(int i) {
+		arme = WeaponFactory.createDummyWeapon();
+		armure = ArmorFactory.createDummyArmor();
+		shield = ShieldFactory.createDummyShield();
+	}
 
 	public Weapon getArme() {
 		return arme;

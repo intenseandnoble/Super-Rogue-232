@@ -1,12 +1,9 @@
 package Game;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map.Entry;
 
 import Game.MapElements.MapElement;
 import Game.Observer.AppendTextObserver;
-import Game.Personnages.Element;
 import Game.Personnages.Personnage;
 
 public class GraphicEngine {
@@ -30,16 +27,16 @@ public class GraphicEngine {
 		view.updateTextDescription(vie, defense, attaque, vieB, defB);
 	}
 
-	private String toStringWorld(World world){
+	private String toStringWorld(World world) {
 		String worldString = "";
-		for (ArrayList<MapElement> row: world){
+		for (ArrayList<MapElement> row : world) {
 			String rowString = "";
-			for (MapElement me : row){
-				 rowString += me.getSymbol();
+			for (MapElement me : row) {
+				rowString += me.getSymbol();
 			}
 			worldString += rowString + "\n";
 		}
 		return worldString;
-		
+
 	}
 }

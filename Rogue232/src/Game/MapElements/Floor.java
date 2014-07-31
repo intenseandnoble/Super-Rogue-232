@@ -1,15 +1,13 @@
 package Game.MapElements;
 
 import Game.Coord;
-import Game.Items.Chest;
 import Game.Personnages.Element;
 
-public class Floor extends MapElement implements InteractiveMapElement{
+public class Floor extends MapElement {
 	private Element element;
 	private boolean occupied;
-	
-	public Floor()
-	{
+
+	public Floor() {
 		element = null;
 		symbol = '.';
 		position = null;
@@ -22,14 +20,14 @@ public class Floor extends MapElement implements InteractiveMapElement{
 		position = aPosition;
 		occupied = false;
 	}
-	
-	public Floor (Coord aPosition , Element aElement){
+
+	public Floor(Coord aPosition, Element aElement) {
 		element = aElement;
 		symbol = '.';
 		position = aPosition;
 		occupied = true;
 	}
-	
+
 	@Override
 	public boolean isCollidable() {
 		if (occupied) {
@@ -38,46 +36,40 @@ public class Floor extends MapElement implements InteractiveMapElement{
 		return false;
 	}
 
-	public Element contient() {
+	@Override
+	public Element getElement() {
+		return element;
+	}
+
+	public Element content() {
 		if (element != null)
 			return element;
 		else
 			return null;
 	}
 
-	public boolean putElement(Element aElement) {
+	public void putElement(Element aElement) {
 		if (!occupied) {
 			element = aElement;
 			occupied = true;
-			return true; // SUCCESS!!
 		}
-		return false; // FAIL D:
 	}
-	
-	public void removeElement(){
+
+	public void removeElement() {
 		element = null;
 		occupied = false;
 	}
-	
-	public boolean isMonster(){
-		if(element==null){
+
+	public boolean isMonster() {
+		if (element == null) {
 			return false;
 		} else {
 			return element.isMonster();
 
 		}
 	}
-	
-	public boolean isOpenable(){
-		if (!occupied) {
-			if(element.getSymbol() == ']'){
-				return ((Chest)element).isOpenable();
-			}
-		}
-		return false;
-	}
-	
-	public char getSymbol(){
+
+	public char getSymbol() {
 		if (element == null)
 			return '.';
 		return element.getSymbol();

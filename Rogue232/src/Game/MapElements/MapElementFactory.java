@@ -3,7 +3,8 @@ package Game.MapElements;
 public class MapElementFactory {
 	protected MapElementFactory() {
 	}
- //TODO faire abstraction pour eliminer switch case
+
+	// TODO faire abstraction pour eliminer switch case
 	public static MapElement createMapElement(char c) {
 		switch (c) {
 		case '-':

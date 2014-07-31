@@ -5,11 +5,8 @@ import Game.Items.Chest;
 import Game.Items.Item;
 import Game.Personnages.Hero;
 import Game.Personnages.Monster;
-import Game.Personnages.Personnage;
 
 public class TestGame extends TestCase {
-
-
 
 	public void testMove() {
 
@@ -24,8 +21,9 @@ public class TestGame extends TestCase {
 
 	public void testOpen() {
 		Game myGame = new Game("maps/smallWorld.txt");
-		myGame.getHero().open(myGame.getWorld(), new Coord(1, 0), myGame.getIm());
-		assertTrue((myGame.getWorld().get(new Coord(3, 2)).getSymbol()) ==  '/');
+		myGame.getHero().open(myGame.getWorld(), new Coord(1, 0),
+				myGame.getIm());
+		assertTrue((myGame.getWorld().get(new Coord(3, 2)).getSymbol()) == '/');
 	}
 
 	public void testHp() {
@@ -43,7 +41,7 @@ public class TestGame extends TestCase {
 		Monster monster1 = new Monster(new Coord(2, 3), 'a', 40, 40, 0);
 		Monster monster2 = new Monster(new Coord(3, 2), 'a', 40, 40, 0);
 		Monster monster3 = new Monster(new Coord(3, 4), 'a', 40, 20, 0);
-//		hero.attackCharacter(monster1);
+		// hero.attackCharacter(monster1);
 		hero.fight(monster1, myGame.getWorld());
 		hero.attackCharacter(monster1);
 		// Le monstre doit aussi attaquer le hero.
@@ -62,7 +60,7 @@ public class TestGame extends TestCase {
 		monster3.attackCharacter(hero);
 		monster3.attackCharacter(hero);
 		monster3.attackCharacter(hero);
-		
+
 		assertTrue(hero.isDead()); // isDead systemOut GameOver
 	}
 
@@ -77,25 +75,4 @@ public class TestGame extends TestCase {
 
 		}
 	}
-	// Ce test n'est plus necessairement necessaire.
-
-	// public void testWorldConstructor() {
-	// // TODO: transferer dans TestWorld quand il existera
-	// World world = new World("maps/smallWorld.txt");
-	// ArrayList<char[]> data = new ArrayList<char[]>();
-	// char[] array = { '|', '-', '-', '-', '|' };
-	// char[] array2 = { '|', '.', '.', '.', '|' };
-	// char[] array3 = { '|', '.', '.', '+', '|' };
-	// char[] array4 = { '|', '.', ']', '.', '|' };
-	// char[] array5 = { '|', '-', '-', '-', '|' };
-	// char[][] a = { array, array2, array3, array4, array5 };
-	// for (char[] c : a) {
-	// data.add(c);
-	// }
-	// ArrayList<ArrayList<MapElement>> data2 = world.getData();
-	//
-	// for (int i = 0; i < data.size(); ++i) {
-	// assertTrue(Arrays.equals(data.get(i), data2.get(i)));
-	// }
-	// }
 }

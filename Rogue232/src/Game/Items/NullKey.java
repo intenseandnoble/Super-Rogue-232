@@ -10,6 +10,5 @@ public class NullKey extends Key {
 	public boolean isNull() {
 		return true;
 	}
-	
 
 }

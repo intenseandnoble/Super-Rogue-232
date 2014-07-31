@@ -19,8 +19,8 @@ public class Monster extends Personnage {
 		if (randomInt == 0) {
 		}
 	}
-	
-	public boolean isMonster(){
+
+	public boolean isMonster() {
 		return true;
 	};
 }

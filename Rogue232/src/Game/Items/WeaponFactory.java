@@ -1,10 +1,9 @@
 package Game.Items;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class WeaponFactory {
-	
+
 	private static final int DUMMYWEAPON = 0;
 	private static final int NOOBYWEAPON = 1;
 

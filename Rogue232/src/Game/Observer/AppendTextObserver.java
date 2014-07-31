@@ -2,10 +2,8 @@ package Game.Observer;
 
 import Game.View;
 
-public class AppendTextObserver implements Observer{
-	
-	
-	
+public class AppendTextObserver implements Observer {
+
 	public AppendTextObserver() {
 	}
 

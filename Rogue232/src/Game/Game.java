@@ -19,7 +19,6 @@ public class Game {
 		running = true;
 		world = new World(file);
 		hero = new Hero(new Coord(2, 2));
-		// world.addPersonnage(hero.getPosition(), hero);
 		Coord monsterCoord = new Coord(2, 1);
 		// world.addPersonnage(monsterCoord,
 		// PersonnageFactory.createMonster(monsterCoord));
