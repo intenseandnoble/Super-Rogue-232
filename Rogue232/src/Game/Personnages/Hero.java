@@ -2,15 +2,12 @@ package Game.Personnages;
 
 import java.util.ArrayList;
 
-import Game.*;
-import Game.Items.Armor;
-import Game.Items.Chest;
+import Game.Coord;
+import Game.InputManager;
+import Game.World;
 import Game.Items.Item;
-import Game.Items.Key;
-import Game.Items.Shield;
-import Game.Items.Weapon;
-import Game.MapElements.Door;
 import Game.MapElements.Floor;
+import Game.MapElements.InteractiveMapElement;
 import Game.MapElements.MapElement;
 
 public class Hero extends Personnage {
@@ -25,20 +22,27 @@ public class Hero extends Personnage {
 
 	@Override
 	public void move(World world, Coord coord) {
+		
 		Coord newPosPersonnage = position.add(coord);
+		MapElement mapElementNextPos = world.get(newPosPersonnage);
 
-		if (world.get(newPosPersonnage).isMonster()) {
+		if (mapElementNextPos.isMonster()) {
 			fight(((Personnage)((Floor) world.get(newPosPersonnage)).contient()), world);
-		} else if (world.get(newPosPersonnage).isCollidable()) {
+		} else if (!mapElementNextPos.isCollidable()) {
 			//swap d'element
-			((Floor) world.get(newPosPersonnage)).putElement(((Floor) world
-					.get(coord)).contient());
-			((Floor) world.get(coord)).removeElement();
+			//System.out.println("Is Collidable");
+			if(mapElementNextPos!=null){
+				Element hero = ((InteractiveMapElement)world.get(position)).contient();
+				//System.out.println("Symbole :" + hero.getSymbol());
+				((InteractiveMapElement)mapElementNextPos).putElement(hero);
+				((InteractiveMapElement)world.get(position)).removeElement();
+				position = newPosPersonnage;
+			}
 		}
 	}
 
 	public void fight(Personnage monster, World world) {
-		// 0 : personne mort, juste d�g�ts;
+		// 0 : personne mort, juste degats;
 		// -1: hero mort, game over;
 		// 1 : monster mort;
 		Personnage.notifyChange("The hero and " + monster.getSymbol()
@@ -125,4 +129,7 @@ public class Hero extends Personnage {
 		this.gold = gold;
 	}
 
+	public boolean isMonster(){
+		return false;
+	}
 }

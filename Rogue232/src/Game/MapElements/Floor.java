@@ -4,7 +4,7 @@ import Game.Coord;
 import Game.Items.Chest;
 import Game.Personnages.Element;
 
-public class Floor extends MapElement {
+public class Floor extends MapElement implements InteractiveMapElement{
 	private Element element;
 	private boolean occupied;
 	
@@ -56,10 +56,16 @@ public class Floor extends MapElement {
 	
 	public void removeElement(){
 		element = null;
+		occupied = false;
 	}
 	
 	public boolean isMonster(){
-		return element.isMonster();
+		if(element==null){
+			return false;
+		} else {
+			return element.isMonster();
+
+		}
 	}
 	
 	public boolean isOpenable(){

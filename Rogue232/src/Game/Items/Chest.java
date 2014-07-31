@@ -47,6 +47,7 @@ public class Chest extends Element {
 	public Item Open(){
 		Item item = getRandomItem();
 		this.symbol = '[';
+		isOpen = true;
 		return item;
 	}
 	
@@ -68,5 +69,10 @@ public class Chest extends Element {
 	
 	public boolean isOpenable(){
 		return symbol == ']';
+	}
+
+	@Override
+	public boolean isMonster() {
+		return false;
 	}
 }

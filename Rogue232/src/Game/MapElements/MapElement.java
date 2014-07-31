@@ -1,8 +1,9 @@
 package Game.MapElements;
 
 import Game.Coord;
+import Game.Personnages.Element;
 
-public class MapElement {
+public abstract class MapElement {
 	
 	protected Coord position;
 	protected char symbol;
@@ -11,17 +12,13 @@ public class MapElement {
 		return symbol;
 	}
 	
-	public void setPostion(Coord aPosition){
+	public void setPosition(Coord aPosition){
 		position = aPosition;
 	}
 
-	public boolean isCollidable(){
-		return false;
-	}
+	public abstract boolean isCollidable();
 	
-	public boolean isMonster(){
-		return false;
-	}
+	public abstract boolean isMonster();
 	
 	public MapElement clone(){
 		if(this.getSymbol() == '.'){

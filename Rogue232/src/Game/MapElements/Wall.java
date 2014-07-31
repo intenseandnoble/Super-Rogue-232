@@ -30,6 +30,11 @@ public class Wall extends MapElement {
 	public boolean isCollidable() {
 		return true;
 	}
-	
+
+	@Override
+	public boolean isMonster() {
+		return false;
+	}
+
 	
 }

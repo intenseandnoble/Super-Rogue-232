@@ -7,9 +7,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import Game.Items.*;
-import Game.MapElements.*;
-import Game.Personnages.*;
+import Game.MapElements.Floor;
+import Game.MapElements.MapElement;
+import Game.MapElements.MapElementFactory;
+import Game.Personnages.Element;
+import Game.Personnages.ElementFactory;
 
 public class World implements Iterable<ArrayList<MapElement>> {
 	private ArrayList<ArrayList<MapElement>> data;

@@ -5,7 +5,7 @@ import Game.MapElements.Floor;
 import Game.MapElements.MapElement;
 import Game.MapElements.MapElementFactory;
 
-public class Element {
+public abstract class Element {
 	// Variables
 	protected Coord position;
 	protected char symbol;
@@ -21,9 +21,7 @@ public class Element {
 		return symbol;
 	}
 	
-	public boolean isMonster(){
-		return false;
-	}
+	public abstract boolean isMonster();
 	
 	public boolean isOpenable(){
 		return false;

@@ -11,7 +11,7 @@ import Game.Observer.AppendTextObserver;
 
 // Cette classe fait les Heros et les monstres
 
-public class Personnage extends Element {
+public abstract class Personnage extends Element {
 	/* Map variables */
 	// private Coord position;
 	// private char Symbol;
