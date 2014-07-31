@@ -6,13 +6,13 @@ import Game.Items.KeyFactory;
 import Game.Items.KeyGenerator;
 import Game.Personnages.Element;
 
-public class Door extends MapElement implements InteractiveMapElement{
+public class Door extends MapElement implements InteractiveMapElement {
 
 	private Key key;
 	private String doorState;
 	private Element element;
-	
-	public Door(boolean isOpen){
+
+	public Door(boolean isOpen) {
 		position = null;
 		key = KeyFactory.getKey("", 0);
 		if (isOpen) {
@@ -39,7 +39,7 @@ public class Door extends MapElement implements InteractiveMapElement{
 			key = KeyFactory.getKey("", 0);
 		}
 	}
-	
+
 	public Key getKey() {
 		return key;
 	}
@@ -57,18 +57,25 @@ public class Door extends MapElement implements InteractiveMapElement{
 		}
 	}
 
+	public void open() {
+		if (doorState.equals("close")) {
+			symbol = '/';
+			doorState = "open";
+		}
+	}
+
 	public void close() {
 		if (doorState.equals("open")) {
 			symbol = '+';
 			doorState = "close";
 		}
 	}
-	
-	public Door getDoor(Coord coord){
+
+	public Door getDoor(Coord coord) {
 		return this;
 	}
-	
-	public boolean isOpenable(){
+
+	public boolean isOpenable() {
 		return symbol == '+';
 	}
 
@@ -79,8 +86,10 @@ public class Door extends MapElement implements InteractiveMapElement{
 
 	@Override
 	public boolean isCollidable() {
-		if(symbol=='+') return true;
-		else return false;
+		if (symbol == '+')
+			return true;
+		else
+			return false;
 	}
 
 	@Override

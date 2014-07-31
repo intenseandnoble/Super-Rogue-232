@@ -44,14 +44,14 @@ public class Chest extends Element {
 		return isOpen;
 	}
 	
-	public Item Open(){
+	public Item open(){
 		Item item = getRandomItem();
 		this.symbol = '[';
 		isOpen = true;
 		return item;
 	}
 	
-	private Item getRandomItem() {
+	public Item getRandomItem() {
 		Random randomGenerator = new Random();
 		int randomInt = randomGenerator.nextInt(100);
 		if (randomInt < 20)

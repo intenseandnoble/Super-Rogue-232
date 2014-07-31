@@ -1,9 +1,6 @@
 package Game.Personnages;
 
 import Game.Coord;
-import Game.MapElements.Floor;
-import Game.MapElements.MapElement;
-import Game.MapElements.MapElementFactory;
 
 public abstract class Element {
 	// Variables

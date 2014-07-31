@@ -1,7 +1,6 @@
 package Game.MapElements;
 
 import Game.Coord;
-import Game.Personnages.Element;
 
 public abstract class MapElement {
 	
@@ -14,6 +13,10 @@ public abstract class MapElement {
 	
 	public void setPosition(Coord aPosition){
 		position = aPosition;
+	}
+	
+	public Coord getPosition(){
+		return position;
 	}
 
 	public abstract boolean isCollidable();

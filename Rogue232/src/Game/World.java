@@ -20,12 +20,13 @@ public class World implements Iterable<ArrayList<MapElement>> {
 		data = new ArrayList<ArrayList<MapElement>>();
 		// instanciation de la matrice de mapElement
 		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-			for (String line; (line = br.readLine()) != null && !line.contains("%");) {
+			for (String line; (line = br.readLine()) != null
+					&& !line.contains("%");) {
 				ArrayList<MapElement> arrayMapElement = new ArrayList<MapElement>();
 				for (char c : line.toCharArray()) {
 					arrayMapElement.add(MapElementFactory.createMapElement(c));
 				}
-				 data.add(arrayMapElement);
+				data.add(arrayMapElement);
 			}
 			// ajout des Elements
 			for (String line; (line = br.readLine()) != null;) {
@@ -34,20 +35,26 @@ public class World implements Iterable<ArrayList<MapElement>> {
 											// NullException
 				Coord pos = new Coord(Integer.parseInt(tokens[0]),
 						Integer.parseInt(tokens[1]));
-				
-				monElement = ElementFactory.create(tokens[2],pos);
-	
+
+				monElement = ElementFactory.create(tokens[2], pos);
+
 				monElement.setPosition(pos);
-				if(this.get(pos) instanceof Floor){
-					((Floor)this.get(pos)).putElement(monElement);
+				if (this.get(pos) instanceof Floor) {
+					((Floor) this.get(pos)).putElement(monElement);
 				}
-				
+
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static void swapMapElement(MapElement a, MapElement b) {
+		MapElement tempA = a.clone();
+		a = b;
+		b = tempA;
 	}
 
 	public MapElement get(Coord coord) {
@@ -71,14 +78,13 @@ public class World implements Iterable<ArrayList<MapElement>> {
 		return data.size();
 	}
 
+	public ArrayList<ArrayList<MapElement>> getData() {
+		return data;
+	}
+
 	@Override
 	public Iterator<ArrayList<MapElement>> iterator() {
 		return data.iterator();
 	}
 
-	public static void swapMapElement(MapElement a, MapElement b){
-		MapElement tempA = a.clone();
-		a=b;
-		b=tempA;
-	}
 }

@@ -1,9 +1,7 @@
 package Game;
 
-import Game.Items.Chest;
 import Game.Personnages.Hero;
 import Game.Personnages.Personnage;
-import Game.Personnages.PersonnageFactory;
 
 public class Game {
 
@@ -21,11 +19,11 @@ public class Game {
 		running = true;
 		world = new World(file);
 		hero = new Hero(new Coord(2, 2));
-//		world.addPersonnage(hero.getPosition(), hero);
+		// world.addPersonnage(hero.getPosition(), hero);
 		Coord monsterCoord = new Coord(2, 1);
-//		world.addPersonnage(monsterCoord,
-//				PersonnageFactory.createMonster(monsterCoord));
-//		world.addChest(new Chest(new Coord(2, 3)));
+		// world.addPersonnage(monsterCoord,
+		// PersonnageFactory.createMonster(monsterCoord));
+		// world.addChest(new Chest(new Coord(2, 3)));
 		view = new View(world.getWidth(), world.getHeight());
 		ge = new GraphicEngine(view);
 		im = new InputManager(view);
@@ -69,14 +67,14 @@ public class Game {
 		case "open up":
 			hero.open(world, new Coord(0, -1), im);
 			break;
-		case "open right":
-			hero.open(world, new Coord(1, 0), im);
+		case "open down":
+			hero.open(world, new Coord(0, 1), im);
 			break;
 		case "open left":
 			hero.open(world, new Coord(-1, 0), im);
 			break;
-		case "open down":
-			hero.open(world, new Coord(0, 1), im);
+		case "open right":
+			hero.open(world, new Coord(1, 0), im);
 			break;
 		case "exit":
 			System.exit(0);

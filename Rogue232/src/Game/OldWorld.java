@@ -13,6 +13,11 @@ import Game.MapElements.MapElement;
 import Game.Personnages.Element;
 import Game.Personnages.Personnage;
 
+
+
+/* Est-ce que ce code est encore utilisé, si non, on peut le détruire */
+
+
 public class OldWorld implements Iterable<char[]> {
 	ArrayList<char[]> data = new ArrayList<char[]>();
 	private char[] collidable = { '|', ' ', '-', '+', '[' , ']' };

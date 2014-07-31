@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import Game.Coord;
 import Game.InputManager;
 import Game.World;
+import Game.Items.Chest;
 import Game.Items.Item;
+import Game.MapElements.Door;
 import Game.MapElements.Floor;
 import Game.MapElements.InteractiveMapElement;
 import Game.MapElements.MapElement;
@@ -62,12 +64,15 @@ public class Hero extends Personnage {
 		// fonctionne seulement pour les portes
 		Coord newPosition = position.add(coord);
 		//TODO:Refactoriser et mettre dans MapElement/Element car c'est eux qui gèrent l'ouverture
+		System.out.println("test");
 		
 //		if (world.get(newPosition).isOpenable()) {
+			
 //			// Door
-//			if (world.getCharacter(newPosition) == '+') {
-//				Door door = (Door) (world.getoWorld()).get(newPosition);
-//				// TODO: getItem() pour rechercher un item dans l'inventaire;
+			if (world.get(newPosition).getSymbol() == '+') {
+				Door door = (Door) (world.get(newPosition));
+				// TODO: getItem() pour rechercher un item dans l'inventaire;
+				door.open();
 //				Key heroKey = null; // heroKey.getItem();
 //				if (heroKey != null) {
 //					door.Open(heroKey);
@@ -75,15 +80,15 @@ public class Hero extends Personnage {
 //				} else
 //					Personnage
 //							.notifyChange("You don't have the key for this door.");
-//			}
+			}
 //			// Chest
-//			else if (world.getCharacter(newPosition) == ']') {
-//				Chest chest = (Chest) world.getElement(newPosition);
+			else if (world.get(newPosition).getSymbol() == ']') {
+				
+				Chest chest = (Chest) (((Floor) (world.get(newPosition))).contient());
 //				world.removeElement(chest);
-//				Item item = chest.Open();
-//				Personnage.notifyChange("You find " + item.getName());
-//				Personnage
-//						.notifyChange("Do you want to equip this item ; yes or no");
+				Item item = chest.open();
+				Personnage.notifyChange("You find " + item.getName());
+//				Personnage.notifyChange("Do you want to equip this item ; yes or no");
 //				String answer = im.getInput();
 //				if (answer.toLowerCase().equals("yes")) {
 //					if (item instanceof Weapon) {
@@ -95,8 +100,9 @@ public class Hero extends Personnage {
 //					}
 //				}
 //				world.setElement(chest);
-//				Personnage.notifyChange("The chest is open");
-//			} else {
+				Personnage.notifyChange("The chest is open");
+			} else {
+
 //				// Door
 //				if (world.getCharacter(newPosition) == '/') {
 //					Personnage.notifyChange("The door is already open");
@@ -105,15 +111,19 @@ public class Hero extends Personnage {
 //				else if (world.getCharacter(newPosition) == '[') {
 //					Personnage.notifyChange("The chest is already open");
 //				}
-//			}
+			}
+			
+			//Chest avec item
 //			// if (world.getChar(newPos) == '[') {
 //			// Item anItem = world.coffres.get(newPos).getBonus();
 //			// String nameItem = anItem.getNom();
 //			// Personnage.notifyChange("You found " + nameItem);
 //			// hero.receivesShield(anItem);
-//			// }
+//				}
 //
+			
 //		}
+	
 	}
 
 	// TODO : implementer switch case selon le cas d'objet recu
