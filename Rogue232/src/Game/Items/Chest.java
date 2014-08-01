@@ -3,7 +3,7 @@ package Game.Items;
 import java.util.Random;
 
 import Game.Coord;
-import Game.Personnages.Element;
+import Game.Character.Element;
 
 public class Chest extends Element {
 	private Item bonus;
@@ -62,7 +62,6 @@ public class Chest extends Element {
 		else if (randomInt < 80)
 			return WeaponFactory.getRandomWeapon();
 		else
-			// TODO: changer cas si 'null';
 			return null;
 	}
 

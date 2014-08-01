@@ -1,7 +1,9 @@
 package Game;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.concurrent.Semaphore;
@@ -29,6 +31,13 @@ public class View extends JFrame {
 
 	public View(int width, int height) {
 		setVisible(true);
+		setTitle("SuperRogue232 - v0.1");
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		//TODO: set window centered;
+//		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+//		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+		setMinimumSize(new Dimension(500, height));
+		
 		textArea = new JTextArea(height, width);
 		textArea.setFont(new Font("monospaced", Font.PLAIN, 12));
 		textArea.setEditable(false);
@@ -36,8 +45,8 @@ public class View extends JFrame {
 		splitV = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
 
 		textField = new JTextField(width);
-		textDescription = new JTextArea(2, width);
-		textAction = new JTextArea(20, width);
+		textDescription = new JTextArea(2, width );
+		textAction = new JTextArea(20, 20);
 		textAction.setEditable(false);
 		JScrollPane jScrollPane = new JScrollPane(textAction);
 

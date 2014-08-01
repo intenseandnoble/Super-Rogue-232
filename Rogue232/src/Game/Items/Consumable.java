@@ -9,5 +9,10 @@ public class Consumable extends Item {
 		super(nom);
 		restorationPoints = restorationPts;
 	}
+	
+	@Override
+	public boolean isConsumable(){
+		return true;
+	}
 
 }

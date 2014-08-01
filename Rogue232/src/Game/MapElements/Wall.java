@@ -1,7 +1,7 @@
 package Game.MapElements;
 
 import Game.Coord;
-import Game.Personnages.Element;
+import Game.Character.Element;
 
 public class Wall extends MapElement {
 
@@ -38,8 +38,8 @@ public class Wall extends MapElement {
 	}
 
 	@Override
-	public Element content() {
-		return null;
+	public boolean content() {
+		return false;
 	}
 
 	@Override

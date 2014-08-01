@@ -1,8 +1,9 @@
 package Game.MapElements;
 
 import Game.Coord;
+import Game.Character.Element;
 import Game.Items.Key;
-import Game.Personnages.Element;
+import Game.Items.KeyFactory;
 
 public abstract class MapElement {
 
@@ -30,14 +31,14 @@ public abstract class MapElement {
 
 	public abstract void removeElement();
 
-	public abstract Element content();
+	public abstract boolean content();
 
 	public abstract boolean isMonster();
 
 	public MapElement clone() {
 		if (this.getSymbol() == '.') {
 			Floor tempF = new Floor();
-			tempF.putElement(((Floor) this).content());
+			tempF.putElement(getElement());
 			return tempF;
 		}
 		return MapElementFactory.createMapElement(this.getSymbol());
@@ -56,4 +57,12 @@ public abstract class MapElement {
 	}
 	
 	public void open(Key key){}
+	
+	public Key getKey() {
+		return KeyFactory.getKey(null, 0);
+	}
+	
+	public boolean hasKey(){
+		return false;
+	}
 }

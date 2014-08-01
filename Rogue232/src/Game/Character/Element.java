@@ -1,6 +1,7 @@
-package Game.Personnages;
+package Game.Character;
 
 import Game.Coord;
+import Game.Items.Item;
 
 public abstract class Element {
 	// Variables

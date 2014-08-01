@@ -1,11 +1,11 @@
-package Game.Personnages;
+package Game.Character;
 
 import java.util.Random;
 
 import Game.Coord;
 import Game.*;
 
-public class Monster extends Personnage {
+public class Monster extends GameCharacter {
 
 	public Monster(Coord pos, char symbol, int lifepts, int atk, int def) {
 		super(pos, symbol, lifepts, atk, def);

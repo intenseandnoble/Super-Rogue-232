@@ -1,7 +1,7 @@
 package Game;
 
-import Game.Personnages.Hero;
-import Game.Personnages.Personnage;
+import Game.Character.GameCharacter;
+import Game.Character.Hero;
 
 public class Game {
 
@@ -12,7 +12,7 @@ public class Game {
 	private World world;
 	private String command;
 	// private HashMap<Character,Character> openTo;
-	private Personnage hero;
+	private GameCharacter hero;
 
 	public Game(String file) {
 		// afficher l'information relative au jeu
@@ -23,7 +23,10 @@ public class Game {
 		// world.addPersonnage(monsterCoord,
 		// PersonnageFactory.createMonster(monsterCoord));
 		// world.addChest(new Chest(new Coord(2, 3)));
-		view = new View(world.getWidth(), world.getHeight());
+		if(world.getWidth() < 20)
+			view = new View(20, world.getHeight());
+		else
+			view = new View(world.getWidth(), world.getHeight());
 		ge = new GraphicEngine(view);
 		im = new InputManager(view);
 		// private Chest coffre = new Chest( new
@@ -75,6 +78,9 @@ public class Game {
 		case "open right":
 			hero.open(world, new Coord(1, 0), im);
 			break;
+		case "bag" :
+			((Hero)hero).getBag().printBag();
+			break;
 		case "exit":
 			System.exit(0);
 			break;
@@ -102,7 +108,7 @@ public class Game {
 		return im;
 	}
 
-	public Personnage getHero() {
+	public GameCharacter getHero() {
 		return hero;
 	}
 

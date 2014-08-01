@@ -1,7 +1,7 @@
-package Game.Personnages;
+package Game.Character;
 
 import Game.Coord;
-import Game.Equipement;
+import Game.Equipment;
 import Game.InputManager;
 import Game.World;
 import Game.Items.Armor;
@@ -10,7 +10,7 @@ import Game.Observer.AppendTextObserver;
 
 // Cette classe fait les Heros et les monstres
 
-public abstract class Personnage extends Element {
+public abstract class GameCharacter extends Element {
 	/* Map variables */
 	// private Coord position;
 	// private char Symbol;
@@ -23,29 +23,25 @@ public abstract class Personnage extends Element {
 	static AppendTextObserver observer = new AppendTextObserver();
 
 	/* Item */
-	protected Equipement equipement;
+	protected Equipment equipement;
 
-	public Personnage(Coord coord) {
+	public GameCharacter(Coord coord) {
 		position = coord;
 		symbol = '@';
 		hp = 100;
 		attack = 5;
 		defense = 0;
-		equipement = new Equipement();
-
-		// observers = new ArrayList<ConcreteObserver>();
+		equipement = new Equipment();
 	}
 
 	// TODO; polymorphisme nécessaire?
-	public Personnage(Coord pos, char symbol, int lifepts, int atk, int def) {
+	public GameCharacter(Coord pos, char symbol, int lifepts, int atk, int def) {
 		position = pos;
 		this.symbol = symbol;
 		hp = lifepts;
 		attack = atk;
 		defense = def;
-		equipement = new Equipement(1);
-
-		// observers = new ArrayList<ConcreteObserver>();
+		equipement = new Equipment(1);
 	}
 
 	public void move(World world, Coord coord) {
@@ -60,16 +56,13 @@ public abstract class Personnage extends Element {
 		return hp <= 0;
 	}
 
-	public void attackCharacter(Personnage monster) {
+	public void attackCharacter(GameCharacter monster) {
 		// notifyChange(monster.getSymbol() + " attacks " + this.getSymbol()) ;
-		int damage = attack + equipement.getArme().getAttaque();
+		int damage = attack + equipement.getWeapon().getAttaque();
 		monster.takeDamage(damage);
 	}
 
 	public void attackHero() {
-		// notifyChange(monster.getSymbol() + " attacks " + this.getSymbol()) ;
-
-		// Hero.takeDamage(afficheAtk());
 	}
 
 	public int getHp() {
@@ -79,13 +72,12 @@ public abstract class Personnage extends Element {
 	public void takeDamage(int enemyAtk) {
 		// TODO:Gerer hp bouclier, il faut pouvoir acceder au bag
 		int carryOver = equipement.getShield().takeDamage(enemyAtk);
-		int def = equipement.getArmure().getDefense();
+		int def = equipement.getArmor().getDefense();
 		if (carryOver > 0) {
 			hp -= (carryOver - def);
 		} else {
-			Personnage.notifyChange("Shield's broken");
+			GameCharacter.notify("Shield's broken");
 		}
-
 	}
 
 	public int getAtk() {
@@ -97,7 +89,7 @@ public abstract class Personnage extends Element {
 	}
 
 	public int afficheAtk() {
-		int a = attack + equipement.getArme().getAttaque();
+		int a = attack + equipement.getWeapon().getAttaque();
 		return a;
 	}
 
@@ -106,29 +98,29 @@ public abstract class Personnage extends Element {
 	}
 
 	public Armor getArmure() {
-		return equipement.getArmure();
+		return equipement.getArmor();
 	}
 
 	public int afficheDef() {
 		int d;
 		// defense différente si le bouclier n'a plus de points de vie
 		if (equipement.getShield().getHp() == 0) {
-			d = defense + equipement.getArmure().getDefense();
+			d = defense + equipement.getArmor().getDefense();
 		} else {
-			d = defense + equipement.getArmure().getDefense()
+			d = defense + equipement.getArmor().getDefense()
 					+ equipement.getShield().getDefense();
 		}
 		return d;
 	}
 
-	public static void notifyChange(String action) {
+	public static void notify(String action) {
 		observer.update(action);
 	}
 
 	@Override
-	public Personnage clone() {
+	public GameCharacter clone() {
 		try {
-			return (Personnage) super.clone();
+			return (GameCharacter) super.clone();
 		} catch (CloneNotSupportedException e) {
 			e.printStackTrace();
 			return null;

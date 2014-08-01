@@ -1,4 +1,4 @@
-package Game.Personnages;
+package Game.Character;
 
 import Game.Coord;
 import Game.Items.Chest;
@@ -11,9 +11,9 @@ public class ElementFactory {
 	public static Element create(String s, Coord postion) {
 		switch (s) {
 		case "@":
-			return PersonnageFactory.createHero(postion);
+			return GameCharacterFactory.createHero(postion);
 		case "a":
-			return PersonnageFactory.createMonster(postion);
+			return GameCharacterFactory.createMonster(postion);
 		case "]":
 			return new Chest(postion);
 		default:

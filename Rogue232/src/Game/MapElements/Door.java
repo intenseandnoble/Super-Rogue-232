@@ -1,10 +1,10 @@
 package Game.MapElements;
 
 import Game.Coord;
+import Game.Character.Element;
 import Game.Items.Key;
 import Game.Items.KeyFactory;
 import Game.Items.KeyGenerator;
-import Game.Personnages.Element;
 
 public class Door extends MapElement {
 
@@ -12,6 +12,8 @@ public class Door extends MapElement {
 	private String doorState;
 	private Element element;
 
+	// Constructor
+	
 	public Door(boolean isOpen) {
 		position = null;
 		key = KeyFactory.getKey("", 0);
@@ -40,18 +42,9 @@ public class Door extends MapElement {
 		}
 	}
 
+	@Override
 	public Key getKey() {
 		return key;
-	}
-
-	@Override
-	public void open(Key aKey) {
-		if (doorState.equals("close")) {
-			if (aKey.getNumber() == key.getNumber() || key.isNull()) {
-				symbol = '/';
-				doorState = "open";
-			}
-		}
 	}
 
 	public void close() {
@@ -68,6 +61,16 @@ public class Door extends MapElement {
 	public boolean isOpenable() {
 		return symbol == '+';
 	}
+	
+	@Override
+	public void open(Key aKey) {
+		if (doorState.equals("close")) {
+			if (aKey.getNumber() == key.getNumber() || key.isNull()) {
+				symbol = '/';
+				doorState = "open";
+			}
+		}
+	}
 
 	@Override
 	public boolean isMonster() {
@@ -80,8 +83,8 @@ public class Door extends MapElement {
 	}
 
 	@Override
-	public Element content() {
-		return element;
+	public boolean content() {
+		return (element!=null);
 	}
 
 	@Override
@@ -92,5 +95,10 @@ public class Door extends MapElement {
 	@Override
 	public void removeElement() {
 		element = null;
+	}
+	
+	@Override
+	public boolean hasKey(){
+		return !key.isNull();
 	}
 }

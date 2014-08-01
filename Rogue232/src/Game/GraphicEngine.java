@@ -2,9 +2,9 @@ package Game;
 
 import java.util.ArrayList;
 
+import Game.Character.GameCharacter;
 import Game.MapElements.MapElement;
 import Game.Observer.AppendTextObserver;
-import Game.Personnages.Personnage;
 
 public class GraphicEngine {
 
@@ -15,7 +15,7 @@ public class GraphicEngine {
 		this.view = view;
 	}
 
-	public void updateDisplay(World world, Personnage hero) {
+	public void updateDisplay(World world, GameCharacter hero) {
 		String s = toStringWorld(world);
 		int vie = hero.getHp();
 		int defense = hero.afficheDef();

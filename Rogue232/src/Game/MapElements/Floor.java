@@ -1,7 +1,7 @@
 package Game.MapElements;
 
 import Game.Coord;
-import Game.Personnages.Element;
+import Game.Character.Element;
 
 public class Floor extends MapElement {
 	private Element element;
@@ -30,10 +30,7 @@ public class Floor extends MapElement {
 
 	@Override
 	public boolean isCollidable() {
-		if (occupied) {
-			return true;
-		}
-		return false;
+		return occupied;
 	}
 
 	@Override
@@ -41,11 +38,9 @@ public class Floor extends MapElement {
 		return element;
 	}
 
-	public Element content() {
-		if (element != null)
-			return element;
-		else
-			return null;
+	@Override
+	public boolean content() {
+		return (element!=null);
 	}
 
 	public void putElement(Element aElement) {
@@ -61,12 +56,9 @@ public class Floor extends MapElement {
 	}
 
 	public boolean isMonster() {
-		if (element == null) {
-			return false;
-		} else {
-			return element.isMonster();
-
-		}
+		if (element != null)
+			element.isMonster();
+		return false;
 	}
 
 	public char getSymbol() {

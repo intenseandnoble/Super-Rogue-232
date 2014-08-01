@@ -1,10 +1,10 @@
 package Game;
 
 import junit.framework.TestCase;
+import Game.Character.Hero;
+import Game.Character.Monster;
 import Game.Items.Chest;
 import Game.Items.Item;
-import Game.Personnages.Hero;
-import Game.Personnages.Monster;
 
 public class TestGame extends TestCase {
 

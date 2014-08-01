@@ -20,4 +20,8 @@ public abstract class Item {
 		this.name = nom;
 	}
 
+	public boolean isConsumable() {
+		return false;
+	}
+
 }
