@@ -101,4 +101,14 @@ public class Door extends MapElement {
 	public boolean hasKey(){
 		return !key.isNull();
 	}
+	
+	public char getSymbol() {
+		if (element == null)
+			return symbol;
+		return element.getSymbol();
+	}
+	
+	public Element getElement() {
+		return element;
+	}
 }
