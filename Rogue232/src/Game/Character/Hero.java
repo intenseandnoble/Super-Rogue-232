@@ -26,9 +26,10 @@ public class Hero extends GameCharacter {
 
 		Coord newPosPersonnage = position.add(coord);
 		MapElement mapElementNextPos = world.get(newPosPersonnage);
-
+		System.out.println(mapElementNextPos.getElement());
 		if (mapElementNextPos.isMonster()) {
 			fight(world.get(newPosPersonnage).getElement(), world);
+
 		} else if (!mapElementNextPos.isCollidable()) {
 			if (mapElementNextPos != null) {
 				Element hero = world.get(position).getElement();
@@ -36,12 +37,15 @@ public class Hero extends GameCharacter {
 				world.get(position).removeElement();
 				position = newPosPersonnage;
 			}
-		}
+		} else if (mapElementNextPos.isOpenable() || mapElementNextPos.content())
+			notify("Try to open it instead.");
+		else
+			notify("You can't move there.");
+
 	}
 
 	public void fight(Element element, World world) {
-		GameCharacter.notify("The hero and " + element.getSymbol()
-				+ " fight!");
+		GameCharacter.notify("The hero and " + element.getSymbol() + " fight!");
 		if (element instanceof GameCharacter) {
 			GameCharacter monster = (GameCharacter) element;
 			this.attackCharacter(monster);
@@ -61,40 +65,39 @@ public class Hero extends GameCharacter {
 		// Door
 		if (world.get(newPosition).isOpenable()) {
 			MapElement door = world.get(newPosition);
-			if(door.hasKey()){
-				if(heroBag.isContent(door.getKey())){
+			if (door.hasKey()) {
+				if (heroBag.isContent(door.getKey())) {
 					door.open(door.getKey());
-				}
-				else{
+				} else {
 					notify("You dont have the key to open the door");
 				}
 			}
 		}
 		// Chest
-		else if (world.get(newPosition).content()){
-			if(world.get(newPosition).getElement().isOpenable()){
-				Chest chest = (Chest)world.get(newPosition).getElement();
+		else if (world.get(newPosition).content()) {
+			if (world.get(newPosition).getElement().isOpenable()) {
+				Chest chest = (Chest) world.get(newPosition).getElement();
 				Item item = chest.open();
-				if(item!=null){
+				if (item != null) {
 					notify("You found " + item.getName());
-					if(!item.isConsumable()){
+					if (!item.isConsumable()) {
 						notify("Do you want to equip this item ? \n  ( yes or no )");
 						String answer = im.getInput();
 						if (answer.toLowerCase().equals("yes")) {
 							equipement.setEquipment(item);
+						} else {
+							heroBag.addItemBag(item);
+							notify("This item has been added to your bag");
 						}
-					}
-					else{
+					} else {
 						heroBag.addItemBag(item);
 						notify("This item has been added to your bag");
 					}
-				}
-				else{
-					notify("nothing found!");
+				} else {
+					notify("Nothing found!");
 				}
 			}
-		} 
-		else {
+		} else {
 			notify("Is already open");
 		}
 	}
@@ -102,8 +105,8 @@ public class Hero extends GameCharacter {
 	public int getGold() {
 		return gold;
 	}
-	
-	public Inventory getBag(){
+
+	public Inventory getBag() {
 		return heroBag;
 	}
 
@@ -111,6 +114,7 @@ public class Hero extends GameCharacter {
 		this.gold = gold;
 	}
 
+	@Override
 	public boolean isMonster() {
 		return false;
 	}

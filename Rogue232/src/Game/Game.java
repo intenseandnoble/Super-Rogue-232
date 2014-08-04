@@ -11,7 +11,6 @@ public class Game {
 	private InputManager im;
 	private World world;
 	private String command;
-	// private HashMap<Character,Character> openTo;
 	private GameCharacter hero;
 
 	public Game(String file) {
@@ -20,17 +19,14 @@ public class Game {
 		world = new World(file);
 		hero = new Hero(new Coord(2, 2));
 		Coord monsterCoord = new Coord(2, 1);
-		// world.addPersonnage(monsterCoord,
-		// PersonnageFactory.createMonster(monsterCoord));
-		// world.addChest(new Chest(new Coord(2, 3)));
+
 		if(world.getWidth() < 20)
 			view = new View(20, world.getHeight());
 		else
 			view = new View(world.getWidth(), world.getHeight());
 		ge = new GraphicEngine(view);
 		im = new InputManager(view);
-		// private Chest coffre = new Chest( new
-		// Shield("Dacamole épique de l'Enfer", 40, 10));
+		GameCharacter.notify("- Welcome in the world of SuperRogue232 -");
 
 	}
 

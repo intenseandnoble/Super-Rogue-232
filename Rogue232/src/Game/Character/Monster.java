@@ -2,7 +2,6 @@ package Game.Character;
 
 import java.util.Random;
 
-import Game.Coord;
 import Game.*;
 
 public class Monster extends GameCharacter {
@@ -20,7 +19,8 @@ public class Monster extends GameCharacter {
 		}
 	}
 
+	@Override
 	public boolean isMonster() {
 		return true;
-	};
+	}
 }

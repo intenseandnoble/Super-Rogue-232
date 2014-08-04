@@ -31,8 +31,7 @@ public class World implements Iterable<ArrayList<MapElement>> {
 			// ajout des Elements
 			for (String line; (line = br.readLine()) != null;) {
 				String[] tokens = line.split(";");
-				Element monElement = null;// TODO: Faire de quoi pour �viter des
-											// NullException
+				Element monElement = null;
 				Coord pos = new Coord(Integer.parseInt(tokens[0]),
 						Integer.parseInt(tokens[1]));
 

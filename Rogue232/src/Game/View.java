@@ -46,7 +46,7 @@ public class View extends JFrame {
 
 		textField = new JTextField(width);
 		textDescription = new JTextArea(2, width );
-		textAction = new JTextArea(20, 20);
+		textAction = new JTextArea(20, 30);
 		textAction.setEditable(false);
 		JScrollPane jScrollPane = new JScrollPane(textAction);
 

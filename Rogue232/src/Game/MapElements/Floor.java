@@ -40,7 +40,7 @@ public class Floor extends MapElement {
 
 	@Override
 	public boolean content() {
-		return (element!=null);
+		return (element != null);
 	}
 
 	public void putElement(Element aElement) {
@@ -56,9 +56,10 @@ public class Floor extends MapElement {
 	}
 
 	public boolean isMonster() {
-		if (element != null)
-			element.isMonster();
-		return false;
+		if (element != null) 
+			return element.isMonster();
+		 else
+			return false;
 	}
 
 	public char getSymbol() {

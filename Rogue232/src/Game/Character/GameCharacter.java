@@ -70,13 +70,14 @@ public abstract class GameCharacter extends Element {
 	}
 
 	public void takeDamage(int enemyAtk) {
-		// TODO:Gerer hp bouclier, il faut pouvoir acceder au bag
 		int carryOver = equipement.getShield().takeDamage(enemyAtk);
 		int def = equipement.getArmor().getDefense();
-		if (carryOver > 0) {
-			hp -= (carryOver - def);
-		} else {
-			GameCharacter.notify("Shield's broken");
+		if (!isMonster()) {
+			if (carryOver > 0) {
+				hp -= (carryOver - def);
+			} else {
+				GameCharacter.notify("Shield's broken");
+			}
 		}
 	}
 
