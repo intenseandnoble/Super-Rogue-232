@@ -44,4 +44,10 @@ public class Inventory implements Iterable<Item> {
 		}
 		else GameCharacter.notify("no item");
 	}
+
+	public boolean isEmpty() {
+		if(bag.isEmpty())
+			return true;
+		return false;
+	}
 }

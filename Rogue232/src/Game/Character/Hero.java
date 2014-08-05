@@ -1,14 +1,11 @@
 package Game.Character;
 
-import java.util.ArrayList;
-
 import Game.Coord;
 import Game.InputManager;
 import Game.Inventory;
 import Game.World;
 import Game.Items.Chest;
 import Game.Items.Item;
-import Game.Items.KeyFactory;
 import Game.MapElements.MapElement;
 
 public class Hero extends GameCharacter {
@@ -26,7 +23,7 @@ public class Hero extends GameCharacter {
 
 		Coord newPosPersonnage = position.add(coord);
 		MapElement mapElementNextPos = world.get(newPosPersonnage);
-		System.out.println(mapElementNextPos.getElement());
+		
 		if (mapElementNextPos.isMonster()) {
 			fight(world.get(newPosPersonnage).getElement(), world);
 
@@ -41,20 +38,24 @@ public class Hero extends GameCharacter {
 			notify("Try to open it instead.");
 		else
 			notify("You can't move there.");
-
 	}
 
 	public void fight(Element element, World world) {
 		GameCharacter.notify("The hero and " + element.getSymbol() + " fight!");
+		
 		if (element instanceof GameCharacter) {
 			GameCharacter monster = (GameCharacter) element;
 			this.attackCharacter(monster);
 			monster.attackCharacter(this);
+			
 			if (this.isDead()) {
-				GameCharacter.notify("Hero dead - Game Over");
+				notify("Hero dead - Game Over");
+				notify("Please try again!");
+				
 			} else if (monster.isDead()) {
-				GameCharacter.notify("Monster dead");
+				notify("Monster dead");
 				world.get(monster.getPosition()).removeElement();
+				recoverHp((int)(getHpMax()*0.1));
 			}
 		}
 	}
@@ -62,6 +63,7 @@ public class Hero extends GameCharacter {
 	@Override
 	public void open(World world, Coord coord, InputManager im) {
 		Coord newPosition = position.add(coord);
+		
 		// Door
 		if (world.get(newPosition).isOpenable()) {
 			MapElement door = world.get(newPosition);
@@ -71,6 +73,9 @@ public class Hero extends GameCharacter {
 				} else {
 					notify("You dont have the key to open the door");
 				}
+			} else {
+				door.open(door.getKey());
+				notify("The door is open.");
 			}
 		}
 		// Chest
@@ -78,17 +83,24 @@ public class Hero extends GameCharacter {
 			if (world.get(newPosition).getElement().isOpenable()) {
 				Chest chest = (Chest) world.get(newPosition).getElement();
 				Item item = chest.open();
+				
 				if (item != null) {
 					notify("You found " + item.getName());
+					
 					if (!item.isConsumable()) {
 						notify("Do you want to equip this item ? \n  ( yes or no )");
-						String answer = im.getInput();
-						if (answer.toLowerCase().equals("yes")) {
-							equipement.setEquipment(item);
-						} else {
-							heroBag.addItemBag(item);
-							notify("This item has been added to your bag");
+						String answer = "";
+						while (!answer.toLowerCase().equals("yes") || !answer.toLowerCase().equals("no")){
+							answer = im.getInput();
+							
+							if (answer.toLowerCase().equals("yes")) {
+								equipement.setEquipment(item);
+							} else if (answer.toLowerCase().equals("no")) {
+								heroBag.addItemBag(item);
+								notify("This item has been added to your bag");
+							}
 						}
+						
 					} else {
 						heroBag.addItemBag(item);
 						notify("This item has been added to your bag");
@@ -97,9 +109,16 @@ public class Hero extends GameCharacter {
 					notify("Nothing found!");
 				}
 			}
-		} else {
-			notify("Is already open");
-		}
+			else {
+				notify("Is already open");
+			}
+			
+		} else
+			notify("You can't open this.");
+	}
+	
+	public void recoverHp(int points){
+		hp+=points;
 	}
 
 	public int getGold() {

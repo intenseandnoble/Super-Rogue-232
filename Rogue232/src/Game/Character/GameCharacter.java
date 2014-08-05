@@ -11,12 +11,9 @@ import Game.Observer.AppendTextObserver;
 // Cette classe fait les Heros et les monstres
 
 public abstract class GameCharacter extends Element {
-	/* Map variables */
-	// private Coord position;
-	// private char Symbol;
-
 	/* Stats variables */
-	private int hp;
+	protected int hp;
+	protected int hpmax;
 	private int attack;
 	private int defense;
 
@@ -29,16 +26,17 @@ public abstract class GameCharacter extends Element {
 		position = coord;
 		symbol = '@';
 		hp = 100;
+		hpmax = 100;
 		attack = 5;
 		defense = 0;
 		equipement = new Equipment();
 	}
 
-	// TODO; polymorphisme nécessaire?
 	public GameCharacter(Coord pos, char symbol, int lifepts, int atk, int def) {
 		position = pos;
 		this.symbol = symbol;
 		hp = lifepts;
+		hpmax = lifepts;
 		attack = atk;
 		defense = def;
 		equipement = new Equipment(1);
@@ -57,7 +55,6 @@ public abstract class GameCharacter extends Element {
 	}
 
 	public void attackCharacter(GameCharacter monster) {
-		// notifyChange(monster.getSymbol() + " attacks " + this.getSymbol()) ;
 		int damage = attack + equipement.getWeapon().getAttaque();
 		monster.takeDamage(damage);
 	}
@@ -67,6 +64,10 @@ public abstract class GameCharacter extends Element {
 
 	public int getHp() {
 		return hp;
+	}
+	
+	protected double getHpMax() {
+		return hpmax;
 	}
 
 	public void takeDamage(int enemyAtk) {
@@ -79,6 +80,7 @@ public abstract class GameCharacter extends Element {
 				GameCharacter.notify("Shield's broken");
 			}
 		}
+		hp -= (enemyAtk - def);
 	}
 
 	public int getAtk() {

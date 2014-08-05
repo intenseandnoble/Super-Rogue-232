@@ -1,6 +1,9 @@
 package Game;
 
 import junit.framework.TestCase;
+
+import org.junit.Test;
+
 import Game.Character.Hero;
 import Game.Character.Monster;
 import Game.Items.Chest;
@@ -8,32 +11,32 @@ import Game.Items.Item;
 
 public class TestGame extends TestCase {
 
+	@Test
 	public void testMove() {
-
 		Game myGame = new Game("maps/smallWorld.txt");
 
 		myGame.getHero().move(myGame.getWorld(), new Coord(-1, 0));
-
 		myGame.getHero().move(myGame.getWorld(), new Coord(-1, 0));
-
 		assertTrue(myGame.getHero().getPosition().equals(new Coord(1, 2)));
 	}
 
+	@Test
 	public void testOpen() {
 		Game myGame = new Game("maps/smallWorld.txt");
-		myGame.getHero().open(myGame.getWorld(), new Coord(1, 0),
-				myGame.getIm());
+		myGame.getHero().open(myGame.getWorld(), new Coord(1, 0), myGame.getIm());
 		assertTrue((myGame.getWorld().get(new Coord(3, 2)).getSymbol()) == '/');
 	}
 
+	@Test
 	public void testHp() {
 		Game myGame = new Game("maps/smallWorld.txt");
 		myGame.getHero().move(myGame.getWorld(), new Coord(0, -1));
-		assertEquals(100, myGame.getHero().getHp());
-		myGame.getHero().move(myGame.getWorld(), new Coord(0, -1));
 		assertEquals(90, myGame.getHero().getHp());
+		myGame.getHero().move(myGame.getWorld(), new Coord(0, -1));
+		assertEquals(80, myGame.getHero().getHp());
 	}
 
+	@Test
 	public void testFight() {
 		// v�rifier lorsque le personnage meurt si on sort du jeu = arr�t jeu
 		Game myGame = new Game("maps/smallWorld.txt");
@@ -64,6 +67,7 @@ public class TestGame extends TestCase {
 		assertTrue(hero.isDead()); // isDead systemOut GameOver
 	}
 
+	@Test
 	public void testRandomItem() {
 		Chest myChest = new Chest(new Coord(0, 0));
 		for (int i = 0; i < 100; i++) {
@@ -71,7 +75,7 @@ public class TestGame extends TestCase {
 			if (myItem != null)
 				System.out.println(myItem.getName());
 			else
-				System.out.println("YOLO");
+				System.out.println("Nothing found.");
 
 		}
 	}

@@ -12,7 +12,7 @@ public class GameCharacterFactory {
 		return new Hero(coord);
 	}
 
-	public static GameCharacter createMonster(Coord coord) {
-		return new Monster(coord, 'a', 40, 15, 0);
+	public static GameCharacter createMonster(Coord coord, char c) {
+		return new Monster(coord, c, 40, 15, 0);
 	}
 }

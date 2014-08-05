@@ -18,7 +18,6 @@ public class Game {
 		running = true;
 		world = new World(file);
 		hero = new Hero(new Coord(2, 2));
-		Coord monsterCoord = new Coord(2, 1);
 
 		if(world.getWidth() < 20)
 			view = new View(20, world.getHeight());
@@ -37,7 +36,7 @@ public class Game {
 			command = im.getInput();
 			executeCommand();
 		}
-		System.exit(0);// ferme fenêtre
+
 	}
 
 	private void executeCommand() {
@@ -75,7 +74,9 @@ public class Game {
 			hero.open(world, new Coord(1, 0), im);
 			break;
 		case "bag" :
-			((Hero)hero).getBag().printBag();
+			if(!((Hero)hero).getBag().isEmpty())
+				((Hero)hero).getBag().printBag();
+			else GameCharacter.notify("There's nothing in your bag.");
 			break;
 		case "exit":
 			System.exit(0);
