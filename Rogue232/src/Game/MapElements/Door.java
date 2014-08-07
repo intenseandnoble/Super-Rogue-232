@@ -13,7 +13,7 @@ public class Door extends MapElement {
 	private Element element;
 
 	// Constructor
-	
+
 	public Door(boolean isOpen) {
 		position = null;
 		key = KeyFactory.getKey("", 0);
@@ -54,6 +54,12 @@ public class Door extends MapElement {
 		}
 	}
 
+	public Key lock() {
+		symbol = '+';
+		doorState = "close";
+		return key = KeyFactory.getKey("key", KeyGenerator.getKeyNumber());
+	}
+
 	public Door getDoor(Coord coord) {
 		return this;
 	}
@@ -61,7 +67,7 @@ public class Door extends MapElement {
 	public boolean isOpenable() {
 		return symbol == '+';
 	}
-	
+
 	@Override
 	public void open(Key aKey) {
 		if (doorState.equals("close")) {
@@ -84,7 +90,7 @@ public class Door extends MapElement {
 
 	@Override
 	public boolean content() {
-		return (element!=null);
+		return (element != null);
 	}
 
 	@Override
@@ -96,18 +102,18 @@ public class Door extends MapElement {
 	public void removeElement() {
 		element = null;
 	}
-	
+
 	@Override
-	public boolean hasKey(){
+	public boolean hasKey() {
 		return !key.isNull();
 	}
-	
+
 	public char getSymbol() {
 		if (element == null)
 			return symbol;
 		return element.getSymbol();
 	}
-	
+
 	public Element getElement() {
 		return element;
 	}

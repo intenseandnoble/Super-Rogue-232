@@ -1,6 +1,7 @@
 package Game.Character;
 
 import Game.Coord;
+import Game.Equipment;
 import Game.InputManager;
 import Game.Inventory;
 import Game.World;
@@ -127,6 +128,10 @@ public class Hero extends GameCharacter {
 
 	public Inventory getBag() {
 		return heroBag;
+	}
+	
+	public Equipment getEquipment() {
+		return equipement;
 	}
 
 	public void setGold(int gold) {
