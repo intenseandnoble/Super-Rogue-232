@@ -27,6 +27,7 @@ public class InputManager {
 		commandList.put("help", new HelpCommand(game));
 		commandList.put("exit", new ExitCommand(game));
 		commandList.put("bag", new BagCommand(game));
+		commandList.put("", new DefaultCommand(game));
 	}
 
 	public Command getInput() {

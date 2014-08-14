@@ -68,8 +68,8 @@ public class View extends JFrame {
 
 		jPanel.add(splitV, BorderLayout.CENTER);
 
-		// Le premier chiffre du textArea défini la hauteur et peut être
-		// augmenté au besoin.
+		// Le premier chiffre du textArea dï¿½fini la hauteur et peut ï¿½tre
+		// augmentï¿½ au besoin.
 
 		// jPanelBas.setBorder(new TitledBorder ( new EtchedBorder (), "Actions"
 		// ));
@@ -86,8 +86,8 @@ public class View extends JFrame {
 		// jPanel.add(jPanelHaut, BorderLayout.NORTH);
 		//
 
-		// Lorsque ASWD sera implémenté, on pourra utiliser le SOUTH pour
-		// décrire les évènements (ex. le contenu d'un coffre ouvert)
+		// Lorsque ASWD sera implï¿½mentï¿½, on pourra utiliser le SOUTH pour
+		// dï¿½crire les ï¿½vï¿½nements (ex. le contenu d'un coffre ouvert)
 
 		setLayout(new BorderLayout());
 		add(jPanel, BorderLayout.CENTER);

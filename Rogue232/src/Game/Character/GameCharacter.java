@@ -106,7 +106,7 @@ public abstract class GameCharacter extends Element {
 
 	public int afficheDef() {
 		int d;
-		// defense différente si le bouclier n'a plus de points de vie
+		// defense diffï¿½rente si le bouclier n'a plus de points de vie
 		if (equipement.getShield().getHp() == 0) {
 			d = defense + equipement.getArmor().getDefense();
 		} else {
