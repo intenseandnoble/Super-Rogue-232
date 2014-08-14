@@ -92,7 +92,7 @@ public class Hero extends GameCharacter {
 						notify("Do you want to equip this item ? \n  ( yes or no )");
 						String answer = "";
 						while (!answer.toLowerCase().equals("yes") || !answer.toLowerCase().equals("no")){
-							answer = im.getInput();
+							answer = im.getRawInput();
 							
 							if (answer.toLowerCase().equals("yes")) {
 								equipement.setEquipment(item);

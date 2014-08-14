@@ -1,5 +1,6 @@
 package Game;
 
+import Command.Command;
 import Game.Character.GameCharacter;
 import Game.Character.Hero;
 
@@ -10,7 +11,7 @@ public class Game {
 	private GraphicEngine ge;
 	private InputManager im;
 	private World world;
-	private String command;
+	private Command command;
 	private GameCharacter hero;
 
 	public Game(String file) {
@@ -24,7 +25,7 @@ public class Game {
 		else
 			view = new View(world.getWidth(), world.getHeight());
 		ge = new GraphicEngine(view);
-		im = new InputManager(view);
+		im = new InputManager(view, this);
 		GameCharacter.notify("- Welcome in the world of SuperRogue232 -");
 
 	}
@@ -40,53 +41,11 @@ public class Game {
 	}
 
 	private void executeCommand() {
-		switch (command.toLowerCase()) {
-		case "up":
-			hero.move(world, new Coord(0, -1));
-			if (hero.isDead())
-				running = false;
-			break;
-		case "down":
-			hero.move(world, new Coord(0, 1));
-			if (hero.isDead())
-				running = false;
-			break;
-		case "left":
-			hero.move(world, new Coord(-1, 0));
-			if (hero.isDead())
-				running = false;
-			break;
-		case "right":
-			hero.move(world, new Coord(1, 0));
-			if (hero.isDead())
-				running = false;
-			break;
-		case "open up":
-			hero.open(world, new Coord(0, -1), im);
-			break;
-		case "open down":
-			hero.open(world, new Coord(0, 1), im);
-			break;
-		case "open left":
-			hero.open(world, new Coord(-1, 0), im);
-			break;
-		case "open right":
-			hero.open(world, new Coord(1, 0), im);
-			break;
-		case "bag" :
-			if(!((Hero)hero).getBag().isEmpty())
-				((Hero)hero).getBag().printBag();
-			else GameCharacter.notify("There's nothing in your bag.");
-			break;
-		case "exit":
-			System.exit(0);
-			break;
-		case "help":
-			break;// TODO: ecrire le help
-
-		default:
-			break;
-		}
+		command.execute();
+		
+		if (hero.isDead())
+			running = false;
+		
 	}
 
 	private void updateDisplay() {
