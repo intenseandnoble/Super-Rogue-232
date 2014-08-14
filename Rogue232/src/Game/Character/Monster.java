@@ -23,4 +23,9 @@ public class Monster extends GameCharacter {
 	public boolean isMonster() {
 		return true;
 	}
+
+	@Override
+	public void open(World world, Coord coord, InputManager im) {
+		
+	}
 }
