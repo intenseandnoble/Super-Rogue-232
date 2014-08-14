@@ -42,13 +42,9 @@ public abstract class GameCharacter extends Element {
 		equipement = new Equipment(1);
 	}
 
-	public void move(World world, Coord coord) {
+	public abstract void move(World world, Coord coord);
 
-	}
-
-	public void open(World world, Coord coord, InputManager im) {
-
-	}
+	public abstract void open(World world, Coord coord, InputManager im);
 
 	public boolean isDead() {
 		return hp <= 0;
